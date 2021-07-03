@@ -15,6 +15,8 @@
 #ifndef NAO_LOLA__MSGPACK_PARSER_HPP_
 #define NAO_LOLA__MSGPACK_PARSER_HPP_
 
+#include <map>
+#include "msgpack.hpp"
 #include "nao_interfaces/msg/joints.hpp"
 #include "nao_interfaces/msg/buttons.hpp"
 #include "nao_interfaces/msg/accelerometer.hpp"
@@ -28,7 +30,7 @@
 class MsgpackParser
 {
 public:
-  explicit MsgpackParser(const char * msg);
+  explicit MsgpackParser(std::string packed);
 
   nao_interfaces::msg::Joints getJoints();
   nao_interfaces::msg::Buttons getButtons();
@@ -39,6 +41,10 @@ public:
   nao_interfaces::msg::FSR getFSR();
   nao_interfaces::msg::Touch getTouch();
   nao_interfaces::msg::EyeLeds getEyeLeds();
+  std::vector<std::string> getRobotConfig();
+
+private:
+  std::map<std::string, msgpack::object> unpacked;
 };
 
 
