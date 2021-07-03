@@ -40,7 +40,8 @@ enum class Joint {
   RElbowRoll,
   RWristYaw,
   LHand,
-  RHand};
+  RHand,
+  NUM_JOINTS};
 
 enum class Battery {Charge, Current, Status, Temperature};
 

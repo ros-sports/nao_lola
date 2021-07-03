@@ -16,11 +16,39 @@
 #include <iostream>
 #include "nao_lola/lola_enums.hpp"
 
+static const std::map<Joint, int> index_lola_to_msg = {
+  {Joint::HeadYaw, nao_interfaces::msg::Joints::HEADYAW},
+  {Joint::HeadPitch, nao_interfaces::msg::Joints::HEADPITCH},
+  {Joint::LShoulderPitch, nao_interfaces::msg::Joints::LSHOULDERPITCH},
+  {Joint::LShoulderRoll, nao_interfaces::msg::Joints::LSHOULDERROLL},
+  {Joint::LElbowYaw, nao_interfaces::msg::Joints::LELBOWYAW},
+  {Joint::LElbowRoll, nao_interfaces::msg::Joints::LELBOWROLL},
+  {Joint::LWristYaw, nao_interfaces::msg::Joints::LWRISTYAW},
+  {Joint::LHipYawPitch, nao_interfaces::msg::Joints::LHIPYAWPITCH},
+  {Joint::LHipRoll, nao_interfaces::msg::Joints::LHIPROLL},
+  {Joint::LHipPitch, nao_interfaces::msg::Joints::LHIPPITCH},
+  {Joint::LKneePitch, nao_interfaces::msg::Joints::LKNEEPITCH},
+  {Joint::LAnklePitch, nao_interfaces::msg::Joints::LANKLEPITCH},
+  {Joint::LAnkleRoll, nao_interfaces::msg::Joints::LANKLEROLL},
+  {Joint::RHipRoll, nao_interfaces::msg::Joints::RHIPROLL},
+  {Joint::RHipPitch, nao_interfaces::msg::Joints::RHIPPITCH},
+  {Joint::RKneePitch, nao_interfaces::msg::Joints::RKNEEPITCH},
+  {Joint::RAnklePitch, nao_interfaces::msg::Joints::RANKLEPITCH},
+  {Joint::RAnkleRoll, nao_interfaces::msg::Joints::RANKLEROLL},
+  {Joint::RShoulderPitch, nao_interfaces::msg::Joints::RSHOULDERPITCH},
+  {Joint::RShoulderRoll, nao_interfaces::msg::Joints::RSHOULDERROLL},
+  {Joint::RElbowYaw, nao_interfaces::msg::Joints::RELBOWYAW},
+  {Joint::RElbowRoll, nao_interfaces::msg::Joints::RELBOWROLL},
+  {Joint::RWristYaw, nao_interfaces::msg::Joints::RWRISTYAW},
+  {Joint::LHand, nao_interfaces::msg::Joints::LHAND},
+  {Joint::RHand, nao_interfaces::msg::Joints::RHAND},
+};
+
 
 MsgpackParser::MsgpackParser(std::string packed)
 {
   msgpack::object_handle oh =
-      msgpack::unpack(packed.data(), packed.size());
+    msgpack::unpack(packed.data(), packed.size());
 
   unpacked = oh.get().as<std::map<std::string, msgpack::object>>();
 }
@@ -56,11 +84,6 @@ nao_interfaces::msg::Buttons MsgpackParser::getButtons()
   return but;
 }
 
-std::vector<std::string> MsgpackParser::getRobotConfig()
-{
-  return unpacked.at("RobotConfig").as<std::vector<std::string>>();
-}
-
 nao_interfaces::msg::FSR MsgpackParser::getFSR()
 {
   nao_interfaces::msg::FSR fsr;
@@ -74,4 +97,59 @@ nao_interfaces::msg::FSR MsgpackParser::getFSR()
   fsr.r_foot_back_left = vec.at(static_cast<int>(FSR::RFoot_RearLeft));
   fsr.r_foot_back_right = vec.at(static_cast<int>(FSR::RFoot_RearRight));
   return fsr;
+}
+
+nao_interfaces::msg::Gyroscope MsgpackParser::getGyroscope()
+{
+  nao_interfaces::msg::Gyroscope gyr;
+  std::vector<float> vec = unpacked.at("Gyroscope").as<std::vector<float>>();
+  gyr.x = vec.at(static_cast<int>(Gyroscope::X));
+  gyr.y = vec.at(static_cast<int>(Gyroscope::Y));
+  gyr.z = vec.at(static_cast<int>(Gyroscope::Z));
+  return gyr;
+}
+
+nao_interfaces::msg::Joints MsgpackParser::getJoints()
+{
+  nao_interfaces::msg::Joints jts;
+
+  std::vector<float> positions = unpacked.at("Position").as<std::vector<float>>();
+  std::vector<float> stiffnesses = unpacked.at("Stiffness").as<std::vector<float>>();
+  std::vector<float> temperatures = unpacked.at("Temperature").as<std::vector<float>>();
+  std::vector<float> currents = unpacked.at("Current").as<std::vector<float>>();
+  
+  for (int i = 0; i < static_cast<int>(Joint::NUM_JOINTS); ++i)
+  {
+    int msg_index = index_lola_to_msg.at(static_cast<Joint>(i));
+    jts.angles.at(msg_index) = positions.at(i);
+    jts.stiffnesses.at(msg_index) = stiffnesses.at(i);
+    jts.temperatures.at(msg_index) = temperatures.at(i);
+    jts.currents.at(msg_index) = currents.at(i);
+  }
+  return jts;
+}
+
+nao_interfaces::msg::Sonar MsgpackParser::getSonar()
+{
+  nao_interfaces::msg::Sonar snr;
+  std::vector<float> vec = unpacked.at("Sonar").as<std::vector<float>>();
+  snr.left = vec.at(static_cast<int>(Sonar::Left));
+  snr.right = vec.at(static_cast<int>(Sonar::Right));
+  return snr;
+}
+
+
+nao_interfaces::msg::Touch MsgpackParser::getTouch()
+{
+  nao_interfaces::msg::Touch tch;
+  std::vector<float> vec = unpacked.at("Touch").as<std::vector<float>>();
+  tch.head_front = vec.at(static_cast<int>(Touch::Head_Touch_Front));
+  tch.head_middle = vec.at(static_cast<int>(Touch::Head_Touch_Middle));
+  tch.head_rear = vec.at(static_cast<int>(Touch::Head_Touch_Rear));
+  return tch;
+}
+
+std::vector<std::string> MsgpackParser::getRobotConfig()
+{
+  return unpacked.at("RobotConfig").as<std::vector<std::string>>();
 }
