@@ -35,7 +35,6 @@ public:
   nao_interfaces::msg::Accelerometer getAccelerometer();
   nao_interfaces::msg::Angle getAngle();
   nao_interfaces::msg::Buttons getButtons();
-  nao_interfaces::msg::EyeLeds getEyeLeds();
   nao_interfaces::msg::FSR getFSR();
   nao_interfaces::msg::Gyroscope getGyroscope();
   nao_interfaces::msg::Joints getJoints();

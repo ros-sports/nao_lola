@@ -15,8 +15,6 @@
 #include <gtest/gtest.h>
 #include "nao_lola/msgpack_parser.hpp"
 
-
-
 std::vector<float> status = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 std::vector<float> stiffness = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -24,7 +22,7 @@ std::vector<float> accelerometer = {-3.0656251907348633, -0.39278322458267212, -
 std::vector<float> battery = {1.0, 0.0, 0.0, 0.0};
 std::vector<float> current = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-std::vector<float> touch = {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+std::vector<float> touch = {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0};
 std::vector<float> fsr = {0.014380865730345249, 0.29265055060386658, 0.47892898321151733, 0.62120223045349121,
       0.28502300381660461, 0.70163685083389282, 0.40598109364509583, 0.086648054420948029};
 std::vector<float> angles = {0.037582572549581528, -0.35991066694259644};
@@ -44,7 +42,7 @@ std::vector<std::string> robotConfig = {"P0000073A07S94700012", "6.0.0", "P00000
 class TestMsgpackParser : public ::testing::Test
 {
 public:
-  std::string packed;
+  std::shared_ptr<MsgpackParser> parser;
 
 protected:
   virtual void SetUp()
@@ -77,14 +75,15 @@ protected:
     buffer.seekg(0);
 
     // deserialize the buffer into msgpack::object instance.
-    packed = buffer.str();
+    std::string packed = buffer.str();
+
+    parser = std::make_shared<MsgpackParser>(packed);
   }
 };
 
 TEST_F(TestMsgpackParser, TestAccelerometer)
 {
-  MsgpackParser parser(packed);
-  nao_interfaces::msg::Accelerometer acc = parser.getAccelerometer();
+  nao_interfaces::msg::Accelerometer acc = parser->getAccelerometer();
   EXPECT_NEAR(acc.x, -3.0656251907348633, 0.01);
   EXPECT_NEAR(acc.y, -0.39278322458267212, 0.01);
   EXPECT_NEAR(acc.z, -9.3214168548583984, 0.01);
@@ -92,16 +91,14 @@ TEST_F(TestMsgpackParser, TestAccelerometer)
 
 TEST_F(TestMsgpackParser, TestAngle)
 {
-  MsgpackParser parser(packed);
-  nao_interfaces::msg::Angle ang = parser.getAngle();
+  nao_interfaces::msg::Angle ang = parser->getAngle();
   EXPECT_NEAR(ang.x, 0.037582572549581528, 0.01);
   EXPECT_NEAR(ang.y, -0.35991066694259644, 0.01);
 }
 
 TEST_F(TestMsgpackParser, TestButtons)
 {
-  MsgpackParser parser(packed);
-  nao_interfaces::msg::Buttons but = parser.getButtons();
+  nao_interfaces::msg::Buttons but = parser->getButtons();
   EXPECT_TRUE(but.chest);
   EXPECT_FALSE(but.l_foot_bumper_left);
   EXPECT_TRUE(but.l_foot_bumper_right);
@@ -109,10 +106,22 @@ TEST_F(TestMsgpackParser, TestButtons)
   EXPECT_TRUE(but.r_foot_bumper_right);
 }
 
+TEST_F(TestMsgpackParser, TestFSR)
+{
+  nao_interfaces::msg::FSR fsr = parser->getFSR();
+  EXPECT_NEAR(fsr.l_foot_front_left, 0.014380865730345249, 0.01);
+  EXPECT_NEAR(fsr.l_foot_front_right, 0.29265055060386658, 0.01);
+  EXPECT_NEAR(fsr.l_foot_back_left, 0.47892898321151733, 0.01);
+  EXPECT_NEAR(fsr.l_foot_back_right, 0.62120223045349121, 0.01);
+  EXPECT_NEAR(fsr.r_foot_front_left, 0.28502300381660461, 0.01);
+  EXPECT_NEAR(fsr.r_foot_front_right, 0.70163685083389282, 0.01);
+  EXPECT_NEAR(fsr.r_foot_back_left, 0.40598109364509583, 0.01);
+  EXPECT_NEAR(fsr.r_foot_back_right, 0.086648054420948029, 0.01);
+}
+
 TEST_F(TestMsgpackParser, TestRobotConfig)
 {
-  MsgpackParser parser(packed);
-  std::vector<std::string> robotConfig = parser.getRobotConfig();
+  std::vector<std::string> robotConfig = parser->getRobotConfig();
   EXPECT_EQ(robotConfig.at(0), "P0000073A07S94700012");
   EXPECT_EQ(robotConfig.at(1), "6.0.0");
   EXPECT_EQ(robotConfig.at(2), "P0000074A05S93M00061");
