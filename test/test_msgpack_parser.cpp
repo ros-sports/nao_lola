@@ -24,7 +24,7 @@ std::vector<float> accelerometer = {-3.0656251907348633, -0.39278322458267212, -
 std::vector<float> battery = {1.0, 0.0, 0.0, 0.0};
 std::vector<float> current = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-std::vector<float> touch = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+std::vector<float> touch = {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 std::vector<float> fsr = {0.014380865730345249, 0.29265055060386658, 0.47892898321151733, 0.62120223045349121,
       0.28502300381660461, 0.70163685083389282, 0.40598109364509583, 0.086648054420948029};
 std::vector<float> angles = {0.037582572549581528, -0.35991066694259644};
@@ -88,6 +88,25 @@ TEST_F(TestMsgpackParser, TestAccelerometer)
   EXPECT_NEAR(acc.x, -3.0656251907348633, 0.01);
   EXPECT_NEAR(acc.y, -0.39278322458267212, 0.01);
   EXPECT_NEAR(acc.z, -9.3214168548583984, 0.01);
+}
+
+TEST_F(TestMsgpackParser, TestAngle)
+{
+  MsgpackParser parser(packed);
+  nao_interfaces::msg::Angle ang = parser.getAngle();
+  EXPECT_NEAR(ang.x, 0.037582572549581528, 0.01);
+  EXPECT_NEAR(ang.y, -0.35991066694259644, 0.01);
+}
+
+TEST_F(TestMsgpackParser, TestButtons)
+{
+  MsgpackParser parser(packed);
+  nao_interfaces::msg::Buttons but = parser.getButtons();
+  EXPECT_TRUE(but.chest);
+  EXPECT_FALSE(but.l_foot_bumper_left);
+  EXPECT_TRUE(but.l_foot_bumper_right);
+  EXPECT_FALSE(but.r_foot_bumper_left);
+  EXPECT_TRUE(but.r_foot_bumper_right);
 }
 
 TEST_F(TestMsgpackParser, TestRobotConfig)

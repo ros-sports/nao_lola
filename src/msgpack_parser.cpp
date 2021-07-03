@@ -15,6 +15,19 @@
 #include "nao_lola/msgpack_parser.hpp"
 #include <iostream>
 
+enum class Accelerometer {x, y, z};
+enum class Angles {x, y};
+enum class Touch {
+  chest,
+  head_front,
+  head_middle,
+  head_rear,
+  l_foot_bumper_left,
+  l_foot_bumper_right,
+  r_foot_bumper_left,
+  r_foot_bumper_right
+};
+
 MsgpackParser::MsgpackParser(std::string packed)
 {
   msgpack::object_handle oh =
@@ -26,11 +39,32 @@ MsgpackParser::MsgpackParser(std::string packed)
 nao_interfaces::msg::Accelerometer MsgpackParser::getAccelerometer()
 {
   nao_interfaces::msg::Accelerometer acc;
-  std::vector<float> accs = unpacked.at("Accelerometer").as<std::vector<float>>();
-  acc.x = accs.at(0);
-  acc.y = accs.at(1);
-  acc.z = accs.at(2);
+  std::vector<float> vec = unpacked.at("Accelerometer").as<std::vector<float>>();
+  acc.x = vec.at(static_cast<int>(Accelerometer::x));
+  acc.y = vec.at(static_cast<int>(Accelerometer::y));
+  acc.z = vec.at(static_cast<int>(Accelerometer::z));
   return acc;
+}
+
+nao_interfaces::msg::Angle MsgpackParser::getAngle()
+{
+  nao_interfaces::msg::Angle ang;
+  std::vector<float> vec = unpacked.at("Angles").as<std::vector<float>>();
+  ang.x = vec.at(static_cast<int>(Angles::x));
+  ang.y = vec.at(static_cast<int>(Angles::y));
+  return ang;
+}
+
+nao_interfaces::msg::Buttons MsgpackParser::getButtons()
+{
+  nao_interfaces::msg::Buttons but;
+  std::vector<float> vec = unpacked.at("Touch").as<std::vector<float>>();
+  but.chest = vec.at(static_cast<int>(Touch::chest));
+  but.l_foot_bumper_left = vec.at(static_cast<int>(Touch::l_foot_bumper_left));
+  but.l_foot_bumper_right = vec.at(static_cast<int>(Touch::l_foot_bumper_right));
+  but.r_foot_bumper_left = vec.at(static_cast<int>(Touch::r_foot_bumper_left));
+  but.r_foot_bumper_right = vec.at(static_cast<int>(Touch::r_foot_bumper_right));
+  return but;
 }
 
 std::vector<std::string> MsgpackParser::getRobotConfig()

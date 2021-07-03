@@ -32,17 +32,17 @@ class MsgpackParser
 public:
   explicit MsgpackParser(std::string packed);
 
-  nao_interfaces::msg::Joints getJoints();
-  nao_interfaces::msg::Buttons getButtons();
   nao_interfaces::msg::Accelerometer getAccelerometer();
-  nao_interfaces::msg::Gyroscope getGyroscope();
   nao_interfaces::msg::Angle getAngle();
-  nao_interfaces::msg::Sonar getSonar();
-  nao_interfaces::msg::FSR getFSR();
-  nao_interfaces::msg::Touch getTouch();
+  nao_interfaces::msg::Buttons getButtons();
   nao_interfaces::msg::EyeLeds getEyeLeds();
-  std::vector<std::string> getRobotConfig();
+  nao_interfaces::msg::FSR getFSR();
+  nao_interfaces::msg::Gyroscope getGyroscope();
+  nao_interfaces::msg::Joints getJoints();
+  nao_interfaces::msg::Sonar getSonar();
+  nao_interfaces::msg::Touch getTouch();
 
+  std::vector<std::string> getRobotConfig();
 private:
   std::map<std::string, msgpack::object> unpacked;
 };
