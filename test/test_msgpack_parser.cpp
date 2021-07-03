@@ -13,6 +13,10 @@
 // limitations under the License.
 
 #include <gtest/gtest.h>
+#include <vector>
+#include <map>
+#include <string>
+#include <memory>
 #include "nao_lola/msgpack_parser.hpp"
 
 std::vector<float> status =

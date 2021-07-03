@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <vector>
+#include <map>
+#include <string>
 #include "nao_lola/msgpack_parser.hpp"
-#include <iostream>
 #include "nao_lola/lola_enums.hpp"
 
 static const std::map<Joint, int> index_lola_to_msg = {
@@ -117,9 +119,8 @@ nao_interfaces::msg::Joints MsgpackParser::getJoints()
   std::vector<float> stiffnesses = unpacked.at("Stiffness").as<std::vector<float>>();
   std::vector<float> temperatures = unpacked.at("Temperature").as<std::vector<float>>();
   std::vector<float> currents = unpacked.at("Current").as<std::vector<float>>();
-  
-  for (int i = 0; i < static_cast<int>(Joint::NUM_JOINTS); ++i)
-  {
+
+  for (int i = 0; i < static_cast<int>(Joint::NUM_JOINTS); ++i) {
     int msg_index = index_lola_to_msg.at(static_cast<Joint>(i));
     jts.angles.at(msg_index) = positions.at(i);
     jts.stiffnesses.at(msg_index) = stiffnesses.at(i);

@@ -16,6 +16,8 @@
 #define NAO_LOLA__MSGPACK_PARSER_HPP_
 
 #include <map>
+#include <string>
+#include <vector>
 #include "msgpack.hpp"
 #include "nao_interfaces/msg/joints.hpp"
 #include "nao_interfaces/msg/buttons.hpp"
@@ -42,6 +44,7 @@ public:
   nao_interfaces::msg::Touch getTouch();
 
   std::vector<std::string> getRobotConfig();
+
 private:
   std::map<std::string, msgpack::object> unpacked;
 };

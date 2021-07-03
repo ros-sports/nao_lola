@@ -15,7 +15,8 @@
 #ifndef NAO_LOLA__LOLA_ENUMS_HPP_
 #define NAO_LOLA__LOLA_ENUMS_HPP_
 
-enum class Joint {
+enum class Joint
+{
   HeadYaw,
   HeadPitch,
   LShoulderPitch,
@@ -41,7 +42,8 @@ enum class Joint {
   RWristYaw,
   LHand,
   RHand,
-  NUM_JOINTS};
+  NUM_JOINTS
+};
 
 enum class Battery {Charge, Current, Status, Temperature};
 
@@ -53,7 +55,8 @@ enum class Angles {X, Y};
 
 enum class Sonar {Left, Right};
 
-enum class FSR {
+enum class FSR
+{
   LFoot_FrontLeft,
   LFoot_FrontRight,
   LFoot_RearLeft,
@@ -61,9 +64,11 @@ enum class FSR {
   RFoot_FrontLeft,
   RFoot_FrontRight,
   RFoot_RearLeft,
-  RFoot_RearRight};
+  RFoot_RearRight
+};
 
-enum class Touch {
+enum class Touch
+{
   ChestBoard_Button,
   Head_Touch_Front,
   Head_Touch_Middle,
@@ -77,12 +82,15 @@ enum class Touch {
   RFoot_Bumper_Right,
   RHand_Touch_Back,
   RHand_Touch_Left,
-  RHand_Touch_Right};
+  RHand_Touch_Right
+};
 
-enum class RobotConfig {
+enum class RobotConfig
+{
   Body_BodyId,
   Body_Version,
   Head_FullHeadId,
-  Head_Version};
+  Head_Version
+};
 
 #endif  // NAO_LOLA__LOLA_ENUMS_HPP_
