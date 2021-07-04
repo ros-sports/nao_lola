@@ -20,6 +20,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(nao_interfaces REQUIRED)
 
+# build msgpack_parser_lib
 add_library(msgpack_parser_lib SHARED
   src/msgpack_parser.cpp)
 
@@ -27,7 +28,20 @@ ament_target_dependencies(msgpack_parser_lib
   rclcpp
   nao_interfaces)
 
+# build nao_lola
+add_executable(nao_lola
+  src/nao_lola_node.cpp
+  src/nao_lola.cpp
+  src/connection.cpp)
+
+target_link_libraries(nao_lola
+  msgpack_parser_lib)
+
 # Install
+install(TARGETS
+  nao_lola
+  DESTINATION lib/${PROJECT_NAME})
+
 install(DIRECTORY include/
   DESTINATION include/
 )
