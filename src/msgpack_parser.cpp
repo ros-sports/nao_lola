@@ -119,6 +119,9 @@ nao_interfaces::msg::Joints MsgpackParser::getJoints()
   std::vector<float> stiffnesses = unpacked.at("Stiffness").as<std::vector<float>>();
   std::vector<float> temperatures = unpacked.at("Temperature").as<std::vector<float>>();
   std::vector<float> currents = unpacked.at("Current").as<std::vector<float>>();
+  
+  // The LoLA RoboCupper docs say "status" is an integer data type, that's wrong.
+  std::vector<float> statuses = unpacked.at("Status").as<std::vector<float>>();
 
   for (int i = 0; i < static_cast<int>(Joint::NUM_JOINTS); ++i) {
     int msg_index = index_lola_to_msg.at(static_cast<Joint>(i));
@@ -126,6 +129,7 @@ nao_interfaces::msg::Joints MsgpackParser::getJoints()
     jts.stiffnesses.at(msg_index) = stiffnesses.at(i);
     jts.temperatures.at(msg_index) = temperatures.at(i);
     jts.currents.at(msg_index) = currents.at(i);
+    jts.statuses.at(msg_index) = statuses.at(i);
   }
   return jts;
 }
@@ -150,7 +154,30 @@ nao_interfaces::msg::Touch MsgpackParser::getTouch()
   return tch;
 }
 
-std::vector<std::string> MsgpackParser::getRobotConfig()
+nao_interfaces::msg::Battery MsgpackParser::getBattery()
 {
-  return unpacked.at("RobotConfig").as<std::vector<std::string>>();
+  nao_interfaces::msg::Battery btr;
+  std::vector<float> vec = unpacked.at("Battery").as<std::vector<float>>();
+  btr.charge = vec.at(static_cast<int>(Battery::Charge)) * 100.0;  // Convert to [0% - 100%]
+  btr.current = vec.at(static_cast<int>(Battery::Current));
+  btr.temperature = vec.at(static_cast<int>(Battery::Temperature));
+
+
+  // Check whether robot is charging, with BHuman's equation used as reference: 
+  // https://github.com/bhuman/BHumanCodeRelease/blob/d7deadc6f1a4c445c4bbd2e9f256bf058b80a24c/Src/Modules/Infrastructure/NaoProvider/NaoProvider.cpp#L320
+  float status = vec.at(static_cast<int>(Battery::Status));
+  btr.charging = ((static_cast<short>(status) & 0x80) != 0);
+
+  return btr;
+}
+
+nao_interfaces::msg::RobotConfig MsgpackParser::getRobotConfig()
+{
+  nao_interfaces::msg::RobotConfig cfg;
+  std::vector<std::string> vec = unpacked.at("RobotConfig").as<std::vector<std::string>>();
+  cfg.body_id = vec.at(static_cast<int>(RobotConfig::Body_BodyId));
+  cfg.body_version = vec.at(static_cast<int>(RobotConfig::Body_Version));
+  cfg.head_id = vec.at(static_cast<int>(RobotConfig::Head_FullHeadId));
+  cfg.head_version = vec.at(static_cast<int>(RobotConfig::Head_Version));
+  return cfg;
 }

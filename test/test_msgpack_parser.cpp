@@ -20,12 +20,12 @@
 #include "nao_lola/msgpack_parser.hpp"
 
 std::vector<float> status =
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
 std::vector<float> stiffness =
 {0.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
   0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.8};
 std::vector<float> accelerometer = {-3.0656251907348633, -0.39278322458267212, -9.3214168548583984};
-std::vector<float> battery = {1.0, 0.0, 0.0, 0.0};
+std::vector<float> battery = {0.9, 0.5, 0.0, 37.0};
 std::vector<float> current =
 {0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
   0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2};
@@ -80,15 +80,12 @@ protected:
       {"RobotConfig", msgpack::object(robotConfig, z)}
     };
 
+    // serialize the buffer
     std::stringstream buffer;
     msgpack::pack(buffer, map);
 
-    // send the buffer ...
-    buffer.seekg(0);
-
-    // deserialize the buffer into msgpack::object instance.
+    // deserialize the buffer
     std::string packed = buffer.str();
-
     parser = std::make_shared<MsgpackParser>(packed);
   }
 };
@@ -148,11 +145,13 @@ TEST_F(TestMsgpackParser, TestJoints)
   EXPECT_NEAR(jts.stiffnesses.at(nao_interfaces::msg::Joints::HEADYAW), 0.3, 0.000001);
   EXPECT_NEAR(jts.temperatures.at(nao_interfaces::msg::Joints::HEADYAW), 38.0, 0.000001);
   EXPECT_NEAR(jts.currents.at(nao_interfaces::msg::Joints::HEADYAW), 0.1, 0.000001);
+  EXPECT_EQ(jts.statuses.at(nao_interfaces::msg::Joints::HEADYAW), 1);
 
   EXPECT_NEAR(jts.angles.at(nao_interfaces::msg::Joints::RHAND), 0.011199951171875, 0.00001);
   EXPECT_NEAR(jts.stiffnesses.at(nao_interfaces::msg::Joints::RHAND), 0.8, 0.00001);
   EXPECT_NEAR(jts.temperatures.at(nao_interfaces::msg::Joints::RHAND), 39.0, 0.00001);
   EXPECT_NEAR(jts.currents.at(nao_interfaces::msg::Joints::RHAND), 0.2, 0.00001);
+  EXPECT_EQ(jts.statuses.at(nao_interfaces::msg::Joints::RHAND), 3);
 }
 
 TEST_F(TestMsgpackParser, TestSonar)
@@ -170,12 +169,23 @@ TEST_F(TestMsgpackParser, TestTouch)
   EXPECT_FALSE(tch.head_rear);
 }
 
+TEST_F(TestMsgpackParser, TestBattery)
+{
+  nao_interfaces::msg::Battery btr = parser->getBattery();
+  // From Lola, charge has range 0.0 - 1.0, but in Battery msg, we have 0.0% - 100.0%.
+  // So, we multiply by 100 below.
+  EXPECT_NEAR(btr.charge, 0.9 * 100, 0.000001);
+  EXPECT_NEAR(btr.current, 0.5, 0.000001);
+  EXPECT_FALSE(btr.charging);
+  EXPECT_NEAR(btr.temperature, 37.0, 0.000001);
+}
+
 
 TEST_F(TestMsgpackParser, TestRobotConfig)
 {
-  std::vector<std::string> robotConfig = parser->getRobotConfig();
-  EXPECT_EQ(robotConfig.at(0), "P0000073A07S94700012");
-  EXPECT_EQ(robotConfig.at(1), "6.0.0");
-  EXPECT_EQ(robotConfig.at(2), "P0000074A05S93M00061");
-  EXPECT_EQ(robotConfig.at(3), "6.0.0");
+  nao_interfaces::msg::RobotConfig robotConfig = parser->getRobotConfig();
+  EXPECT_EQ(robotConfig.body_id, "P0000073A07S94700012");
+  EXPECT_EQ(robotConfig.body_version, "6.0.0");
+  EXPECT_EQ(robotConfig.head_id, "P0000074A05S93M00061");
+  EXPECT_EQ(robotConfig.head_version, "6.0.0");
 }

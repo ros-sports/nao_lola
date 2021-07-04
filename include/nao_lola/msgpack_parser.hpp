@@ -28,6 +28,8 @@
 #include "nao_interfaces/msg/fsr.hpp"
 #include "nao_interfaces/msg/touch.hpp"
 #include "nao_interfaces/msg/eye_leds.hpp"
+#include "nao_interfaces/msg/battery.hpp"
+#include "nao_interfaces/msg/robot_config.hpp"
 
 class MsgpackParser
 {
@@ -42,8 +44,8 @@ public:
   nao_interfaces::msg::Joints getJoints();
   nao_interfaces::msg::Sonar getSonar();
   nao_interfaces::msg::Touch getTouch();
-
-  std::vector<std::string> getRobotConfig();
+  nao_interfaces::msg::Battery getBattery();
+  nao_interfaces::msg::RobotConfig getRobotConfig();
 
 private:
   std::map<std::string, msgpack::object> unpacked;
