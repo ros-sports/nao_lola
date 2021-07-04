@@ -34,7 +34,7 @@ class NaoLola : public rclcpp::Node
 {
 public:
   NaoLola();
-  virtual ~NaoLola(){};
+  virtual ~NaoLola() {}
 
 private:
   rclcpp::Publisher<nao_interfaces::msg::Accelerometer>::SharedPtr accelerometer_pub;

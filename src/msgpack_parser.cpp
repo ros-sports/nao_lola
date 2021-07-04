@@ -119,7 +119,7 @@ nao_interfaces::msg::Joints MsgpackParser::getJoints()
   std::vector<float> stiffnesses = unpacked.at("Stiffness").as<std::vector<float>>();
   std::vector<float> temperatures = unpacked.at("Temperature").as<std::vector<float>>();
   std::vector<float> currents = unpacked.at("Current").as<std::vector<float>>();
-  
+
   // The LoLA RoboCupper docs say "status" is an integer data type, that's wrong.
   std::vector<float> statuses = unpacked.at("Status").as<std::vector<float>>();
 
@@ -163,10 +163,10 @@ nao_interfaces::msg::Battery MsgpackParser::getBattery()
   btr.temperature = vec.at(static_cast<int>(Battery::Temperature));
 
 
-  // Check whether robot is charging, with BHuman's equation used as reference: 
+  // Check whether robot is charging, with BHuman's equation used as reference:
   // https://github.com/bhuman/BHumanCodeRelease/blob/d7deadc6f1a4c445c4bbd2e9f256bf058b80a24c/Src/Modules/Infrastructure/NaoProvider/NaoProvider.cpp#L320
   float status = vec.at(static_cast<int>(Battery::Status));
-  btr.charging = ((static_cast<short>(status) & 0x80) != 0);
+  btr.charging = ((static_cast<int16_t>(status) & 0x80) != 0);
 
   return btr;
 }

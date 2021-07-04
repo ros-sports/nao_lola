@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <boost/asio.hpp>
-#include "rclcpp/logger.hpp"
-#include "rclcpp/rclcpp.hpp"
-
 #ifndef NAO_LOLA__CONNECTION_HPP_
 #define NAO_LOLA__CONNECTION_HPP_
 
+#include <boost/asio.hpp>
+#include <string>
+#include "rclcpp/logger.hpp"
+#include "rclcpp/rclcpp.hpp"
+
 class Connection
 {
-
 public:
   Connection();
   std::string receive();

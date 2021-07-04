@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include "nao_lola/connection.hpp"
+#include <string>
 
 #define ENDPOINT "/tmp/robocup"
 #define MSGPACK_READ_LENGTH 896
