@@ -28,6 +28,14 @@ ament_target_dependencies(msgpack_parser_lib
   rclcpp
   nao_interfaces)
 
+# build msgpack_packer_lib
+add_library(msgpack_packer_lib SHARED
+  src/msgpack_packer.cpp)
+
+ament_target_dependencies(msgpack_packer_lib
+  rclcpp
+  nao_interfaces)
+
 # build nao_lola
 add_executable(nao_lola
   src/nao_lola_node.cpp
@@ -35,7 +43,8 @@ add_executable(nao_lola
   src/connection.cpp)
 
 target_link_libraries(nao_lola
-  msgpack_parser_lib)
+  msgpack_parser_lib
+  msgpack_packer_lib)
 
 # Install
 install(TARGETS
@@ -47,7 +56,7 @@ install(DIRECTORY include/
 )
 
 install(
-  TARGETS msgpack_parser_lib
+  TARGETS msgpack_parser_lib msgpack_packer_lib
   EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
