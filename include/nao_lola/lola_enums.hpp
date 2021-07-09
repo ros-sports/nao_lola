@@ -96,6 +96,30 @@ enum class RobotConfig
   Head_Version
 };
 
+enum class LeftEyeLeds
+{
+  DEG_45,
+  DEG_0,
+  DEG_315,
+  DEG_270,
+  DEG_225,
+  DEG_180,
+  DEG_135,
+  DEG_90
+};
+
+enum class RightEyeLeds
+{
+  DEG_0,
+  DEG_45,
+  DEG_90,
+  DEG_135,
+  DEG_180,
+  DEG_225,
+  DEG_270,
+  DEG_315
+};
+
 }  // namespace LolaEnums
 
 #endif  // NAO_LOLA__LOLA_ENUMS_HPP_

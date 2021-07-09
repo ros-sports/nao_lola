@@ -12,17 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__JOINT_INDEX_CONVERSION_HPP_
-#define NAO_LOLA__JOINT_INDEX_CONVERSION_HPP_
+#ifndef NAO_LOLA__INDEX_CONVERSION_HPP_
+#define NAO_LOLA__INDEX_CONVERSION_HPP_
 
 #include <map>
 #include "nao_lola/lola_enums.hpp"
+#include "nao_interfaces/msg/joints.hpp"
+#include "nao_interfaces/msg/left_eye_leds.hpp"
+#include "nao_interfaces/msg/right_eye_leds.hpp"
 
-namespace JointIndexConversion
+namespace IndexConversion
 {
 std::map<int, LolaEnums::Joint> flip(std::map<LolaEnums::Joint, int> in);
 
-static const std::map<LolaEnums::Joint, int> index_lola_to_msg = {
+static const std::map<LolaEnums::Joint, int> joint_lola_to_msg = {
   {LolaEnums::Joint::HeadYaw, nao_interfaces::msg::Joints::HEADYAW},
   {LolaEnums::Joint::HeadPitch, nao_interfaces::msg::Joints::HEADPITCH},
   {LolaEnums::Joint::LShoulderPitch, nao_interfaces::msg::Joints::LSHOULDERPITCH},
@@ -50,7 +53,7 @@ static const std::map<LolaEnums::Joint, int> index_lola_to_msg = {
   {LolaEnums::Joint::RHand, nao_interfaces::msg::Joints::RHAND},
 };
 
-static const std::map<int, LolaEnums::Joint> index_msg_to_lola = flip(index_lola_to_msg);
+static const std::map<int, LolaEnums::Joint> joint_msg_to_lola = flip(joint_lola_to_msg);
 
 std::map<int, LolaEnums::Joint> flip(std::map<LolaEnums::Joint, int> in)
 {
@@ -62,6 +65,32 @@ std::map<int, LolaEnums::Joint> flip(std::map<LolaEnums::Joint, int> in)
   return flipped;
 }
 
-}  // namespace JointIndexConversion
+// See http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
+static const std::map<int, LolaEnums::LeftEyeLeds> left_eye_leds_msg_to_lola
+{
+  {nao_interfaces::msg::LeftEyeLeds::L0, LolaEnums::LeftEyeLeds::DEG_45},
+  {nao_interfaces::msg::LeftEyeLeds::L1, LolaEnums::LeftEyeLeds::DEG_0},
+  {nao_interfaces::msg::LeftEyeLeds::L2, LolaEnums::LeftEyeLeds::DEG_315},
+  {nao_interfaces::msg::LeftEyeLeds::L3, LolaEnums::LeftEyeLeds::DEG_270},
+  {nao_interfaces::msg::LeftEyeLeds::L4, LolaEnums::LeftEyeLeds::DEG_225},
+  {nao_interfaces::msg::LeftEyeLeds::L5, LolaEnums::LeftEyeLeds::DEG_180},
+  {nao_interfaces::msg::LeftEyeLeds::L6, LolaEnums::LeftEyeLeds::DEG_135},
+  {nao_interfaces::msg::LeftEyeLeds::L7, LolaEnums::LeftEyeLeds::DEG_90},
+};
 
-#endif  // NAO_LOLA__JOINT_INDEX_CONVERSION_HPP_
+// See http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
+static const std::map<int, LolaEnums::RightEyeLeds> right_eye_leds_msg_to_lola
+{
+  {nao_interfaces::msg::RightEyeLeds::R0, LolaEnums::RightEyeLeds::DEG_315},
+  {nao_interfaces::msg::RightEyeLeds::R1, LolaEnums::RightEyeLeds::DEG_270},
+  {nao_interfaces::msg::RightEyeLeds::R2, LolaEnums::RightEyeLeds::DEG_225},
+  {nao_interfaces::msg::RightEyeLeds::R3, LolaEnums::RightEyeLeds::DEG_180},
+  {nao_interfaces::msg::RightEyeLeds::R4, LolaEnums::RightEyeLeds::DEG_135},
+  {nao_interfaces::msg::RightEyeLeds::R5, LolaEnums::RightEyeLeds::DEG_90},
+  {nao_interfaces::msg::RightEyeLeds::R6, LolaEnums::RightEyeLeds::DEG_45},
+  {nao_interfaces::msg::RightEyeLeds::R7, LolaEnums::RightEyeLeds::DEG_0},
+};
+
+}  // namespace IndexConversion
+
+#endif  // NAO_LOLA__INDEX_CONVERSION_HPP_

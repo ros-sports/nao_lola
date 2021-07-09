@@ -19,6 +19,16 @@
 #include <vector>
 #include <memory>
 #include "nao_interfaces/msg/joints.hpp"
+#include "nao_interfaces/msg/chest_led.hpp"
+#include "nao_interfaces/msg/left_ear_leds.hpp"
+#include "nao_interfaces/msg/right_ear_leds.hpp"
+#include "nao_interfaces/msg/left_eye_leds.hpp"
+#include "nao_interfaces/msg/right_eye_leds.hpp"
+#include "nao_interfaces/msg/left_foot_led.hpp"
+#include "nao_interfaces/msg/right_foot_led.hpp"
+#include "nao_interfaces/msg/skull_leds.hpp"
+#include "nao_interfaces/msg/sonar_usage.hpp"
+
 
 class MsgpackPacker
 {
@@ -26,15 +36,15 @@ public:
   std::string getPacked();
 
   void setJoints(std::shared_ptr<nao_interfaces::msg::Joints> joints);
-  // void setChest(std::shared_ptr<std::vector<float>> chest);
-  // void setLEar(std::shared_ptr<std::vector<float>> l_ear);
-  // void setREar(std::shared_ptr<std::vector<float>> r_ear);
-  // void setLEye(std::shared_ptr<std::vector<float>> l_eye);
-  // void setREye(std::shared_ptr<std::vector<float>> r_eye);
-  // void setLFoot(std::shared_ptr<std::vector<float>> l_foot);
-  // void setRFoot(std::shared_ptr<std::vector<float>> r_foot);
-  // void setSkull(std::shared_ptr<std::vector<float>> skull);
-  // void setSonar(std::shared_ptr<std::vector<bool>> sonar);
+  void setChestLed(std::shared_ptr<nao_interfaces::msg::ChestLed> chestLed);
+  void setLeftEarLeds(std::shared_ptr<nao_interfaces::msg::LeftEarLeds> leftEarLeds);
+  void setRightEarLeds(std::shared_ptr<nao_interfaces::msg::RightEarLeds> rightEarLeds);
+  void setLeftEyeLeds(std::shared_ptr<nao_interfaces::msg::LeftEyeLeds> leftEyeLeds);
+  void setRightEyeLeds(std::shared_ptr<nao_interfaces::msg::RightEyeLeds> rightEyeLeds);
+  void setLeftFootLeds(std::shared_ptr<nao_interfaces::msg::LeftFootLed> leftFootLed);
+  void setRightFootLeds(std::shared_ptr<nao_interfaces::msg::RightFootLed> rightFootLed);
+  void setSkullLeds(std::shared_ptr<nao_interfaces::msg::SkullLeds> skullLeds);
+  void setSonarUsage(std::shared_ptr<nao_interfaces::msg::SonarUsage> sonarUsage);
 
 private:
   std::shared_ptr<std::vector<float>> position;

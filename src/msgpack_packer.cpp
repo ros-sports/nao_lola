@@ -20,7 +20,7 @@
 #include "nao_lola/msgpack_packer.hpp"
 #include "msgpack.hpp"
 #include "nao_lola/lola_enums.hpp"
-#include "nao_lola/joint_index_conversion.hpp"
+#include "nao_lola/index_conversion.hpp"
 
 std::string MsgpackPacker::getPacked()
 {
@@ -82,17 +82,58 @@ void MsgpackPacker::setJoints(std::shared_ptr<nao_interfaces::msg::Joints> joint
 {
   position = std::make_shared<std::vector<float>>(static_cast<int>(LolaEnums::Joint::NUM_JOINTS));
   stiffness = std::make_shared<std::vector<float>>(static_cast<int>(LolaEnums::Joint::NUM_JOINTS));
-  for (unsigned i = 0; i < static_cast<int>(joints->NUMJOINTS); ++i) {
-    LolaEnums::Joint lola_joint_index = JointIndexConversion::index_msg_to_lola.at(i);
+  for (unsigned i = 0; i < joints->NUMJOINTS; ++i) {
+    LolaEnums::Joint lola_joint_index = IndexConversion::joint_msg_to_lola.at(i);
     position->at(static_cast<int>(lola_joint_index)) = joints->angles.at(i);
     stiffness->at(static_cast<int>(lola_joint_index)) = joints->stiffnesses.at(i);
   }
 }
 
-// void MsgpackPacker::setPosition(std::shared_ptr<std::array<float>> position)
-// {
-//   this->position = position;
-// }
+void MsgpackPacker::setChestLed(std::shared_ptr<nao_interfaces::msg::ChestLed> chestLed)
+{
+  chest = std::make_shared<std::vector<float>>(3);
+  chest->at(0) = chestLed->color.r;
+  chest->at(1) = chestLed->color.g;
+  chest->at(2) = chestLed->color.b;
+}
+
+void MsgpackPacker::setLeftEarLeds(std::shared_ptr<nao_interfaces::msg::LeftEarLeds> leftEarLeds)
+{
+  l_ear = std::make_shared<std::vector<float>>(10);
+  for (unsigned i = 0; i < leftEarLeds->NUM_LEDS; ++i) {
+    l_ear->at(i) = leftEarLeds->intensities[i];
+  }
+}
+
+void MsgpackPacker::setRightEarLeds(std::shared_ptr<nao_interfaces::msg::RightEarLeds> rightEarLeds)
+{
+  r_ear = std::make_shared<std::vector<float>>(10);
+  for (unsigned i = 0; i < rightEarLeds->NUM_LEDS; ++i) {
+    r_ear->at(i) = rightEarLeds->intensities[i];
+  }
+}
+
+void MsgpackPacker::setLeftEyeLeds(std::shared_ptr<nao_interfaces::msg::LeftEyeLeds> leftEyeLeds)
+{
+  l_eye = std::make_shared<std::vector<float>>(24);
+  for (unsigned i = 0; i < leftEyeLeds->NUM_LEDS; ++i) {
+    LolaEnums::LeftEyeLeds lola_index = IndexConversion::left_eye_leds_msg_to_lola.at(i);
+    l_eye->at(static_cast<int>(lola_index)) = leftEyeLeds->colors[i].r;
+    l_eye->at(static_cast<int>(lola_index) + 8) = leftEyeLeds->colors[i].g;
+    l_eye->at(static_cast<int>(lola_index) + 16) = leftEyeLeds->colors[i].b;
+  }
+}
+
+void MsgpackPacker::setRightEyeLeds(std::shared_ptr<nao_interfaces::msg::RightEyeLeds> rightEyeLeds)
+{
+  r_eye = std::make_shared<std::vector<float>>(24);
+  for (unsigned i = 0; i < rightEyeLeds->NUM_LEDS; ++i) {
+    LolaEnums::RightEyeLeds lola_index = IndexConversion::right_eye_leds_msg_to_lola.at(i);
+    r_eye->at(static_cast<int>(lola_index)) = rightEyeLeds->colors[i].r;
+    r_eye->at(static_cast<int>(lola_index) + 8) = rightEyeLeds->colors[i].g;
+    r_eye->at(static_cast<int>(lola_index) + 16) = rightEyeLeds->colors[i].b;
+  }
+}
 
 // void MsgpackPacker::setStiffness(std::shared_ptr<std::array<float>> stiffness)
 // {

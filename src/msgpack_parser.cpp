@@ -17,7 +17,7 @@
 #include <string>
 #include "nao_lola/msgpack_parser.hpp"
 #include "nao_lola/lola_enums.hpp"
-#include "nao_lola/joint_index_conversion.hpp"
+#include "nao_lola/index_conversion.hpp"
 
 
 MsgpackParser::MsgpackParser(std::string packed)
@@ -97,7 +97,7 @@ nao_interfaces::msg::Joints MsgpackParser::getJoints()
   std::vector<float> statuses = unpacked.at("Status").as<std::vector<float>>();
 
   for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
-    int msg_index = JointIndexConversion::index_lola_to_msg.at(static_cast<LolaEnums::Joint>(i));
+    int msg_index = IndexConversion::joint_lola_to_msg.at(static_cast<LolaEnums::Joint>(i));
     jts.angles.at(msg_index) = positions.at(i);
     jts.stiffnesses.at(msg_index) = stiffnesses.at(i);
     jts.temperatures.at(msg_index) = temperatures.at(i);

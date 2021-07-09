@@ -24,7 +24,7 @@
 
 
 static std::vector<float> getFloatVector(std::string packed, std::string mapKey);
-static std::vector<bool> getBoolVector(std::string packed, std::string mapKey);
+// static std::vector<bool> getBoolVector(std::string packed, std::string mapKey);
 static std::map<std::string, msgpack::object> unpack(std::string packed);
 
 class TestMsgpackPacker : public ::testing::Test
@@ -33,7 +33,7 @@ public:
   MsgpackPacker packer;
 };
 
-TEST_F(TestMsgpackPacker, TestPackJoints)
+TEST_F(TestMsgpackPacker, TestJoints)
 {
   nao_interfaces::msg::Joints::SharedPtr joints = std::make_shared<nao_interfaces::msg::Joints>();
   joints->angles[joints->HEADYAW] = 1.0;
@@ -53,6 +53,130 @@ TEST_F(TestMsgpackPacker, TestPackJoints)
   stiffness.at(static_cast<int>(LolaEnums::Joint::HeadPitch)) = 0.3;
   stiffness.at(static_cast<int>(LolaEnums::Joint::LHand)) = 0.7;
   EXPECT_EQ(getFloatVector(packed, "Stiffness"), stiffness);
+}
+
+TEST_F(TestMsgpackPacker, TestChestLed)
+{
+  nao_interfaces::msg::ChestLed::SharedPtr chestLed =
+    std::make_shared<nao_interfaces::msg::ChestLed>();
+  chestLed->color.r = 0.1;
+  chestLed->color.g = 0.5;
+  chestLed->color.b = 1.0;
+
+  packer.setChestLed(chestLed);
+  std::string packed = packer.getPacked();
+
+  std::vector<float> expected{0.1, 0.5, 1.0};
+  EXPECT_EQ(getFloatVector(packed, "Chest"), expected);
+}
+
+TEST_F(TestMsgpackPacker, TestLeftEarLeds)
+{
+  nao_interfaces::msg::LeftEarLeds::SharedPtr leftEarLeds =
+    std::make_shared<nao_interfaces::msg::LeftEarLeds>();
+  leftEarLeds->intensities[leftEarLeds->L0] = 0.1;
+  leftEarLeds->intensities[leftEarLeds->L9] = 1.0;
+
+  packer.setLeftEarLeds(leftEarLeds);
+  std::string packed = packer.getPacked();
+
+  std::vector<float> expected{0.1, 0, 0, 0, 0, 0, 0, 0, 0, 1.0};
+  EXPECT_EQ(getFloatVector(packed, "LEar"), expected);
+}
+
+
+TEST_F(TestMsgpackPacker, TestRightEarLeds)
+{
+  nao_interfaces::msg::RightEarLeds::SharedPtr rightEarLeds =
+    std::make_shared<nao_interfaces::msg::RightEarLeds>();
+  rightEarLeds->intensities[rightEarLeds->R0] = 0.2;
+  rightEarLeds->intensities[rightEarLeds->R9] = 0.8;
+
+  packer.setRightEarLeds(rightEarLeds);
+  std::string packed = packer.getPacked();
+
+  std::vector<float> expected{0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0.8};
+  EXPECT_EQ(getFloatVector(packed, "REar"), expected);
+}
+
+TEST_F(TestMsgpackPacker, TestLeftEyeLeds)
+{
+  // Explanation of eye correspondence: http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
+  nao_interfaces::msg::LeftEyeLeds::SharedPtr leftEyeLeds =
+    std::make_shared<nao_interfaces::msg::LeftEyeLeds>();
+  leftEyeLeds->colors[leftEyeLeds->L0].r = 0.01;
+  leftEyeLeds->colors[leftEyeLeds->L0].g = 0.02;
+  leftEyeLeds->colors[leftEyeLeds->L0].b = 0.03;
+  leftEyeLeds->colors[leftEyeLeds->L1].r = 0.04;
+  leftEyeLeds->colors[leftEyeLeds->L1].g = 0.05;
+  leftEyeLeds->colors[leftEyeLeds->L1].b = 0.06;
+  leftEyeLeds->colors[leftEyeLeds->L2].r = 0.07;
+  leftEyeLeds->colors[leftEyeLeds->L2].g = 0.08;
+  leftEyeLeds->colors[leftEyeLeds->L2].b = 0.09;
+  leftEyeLeds->colors[leftEyeLeds->L3].r = 0.10;
+  leftEyeLeds->colors[leftEyeLeds->L3].g = 0.11;
+  leftEyeLeds->colors[leftEyeLeds->L3].b = 0.12;
+  leftEyeLeds->colors[leftEyeLeds->L4].r = 0.13;
+  leftEyeLeds->colors[leftEyeLeds->L4].g = 0.14;
+  leftEyeLeds->colors[leftEyeLeds->L4].b = 0.15;
+  leftEyeLeds->colors[leftEyeLeds->L5].r = 0.16;
+  leftEyeLeds->colors[leftEyeLeds->L5].g = 0.17;
+  leftEyeLeds->colors[leftEyeLeds->L5].b = 0.18;
+  leftEyeLeds->colors[leftEyeLeds->L6].r = 0.19;
+  leftEyeLeds->colors[leftEyeLeds->L6].g = 0.20;
+  leftEyeLeds->colors[leftEyeLeds->L6].b = 0.21;
+  leftEyeLeds->colors[leftEyeLeds->L7].r = 0.22;
+  leftEyeLeds->colors[leftEyeLeds->L7].g = 0.23;
+  leftEyeLeds->colors[leftEyeLeds->L7].b = 0.24;
+
+  packer.setLeftEyeLeds(leftEyeLeds);
+  std::string packed = packer.getPacked();
+
+  std::vector<float> expected{
+    0.01, 0.04, 0.07, 0.10, 0.13, 0.16, 0.19, 0.22,
+    0.02, 0.05, 0.08, 0.11, 0.14, 0.17, 0.20, 0.23,
+    0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24};
+  EXPECT_EQ(getFloatVector(packed, "LEye"), expected);
+}
+
+TEST_F(TestMsgpackPacker, TestRightEyeLeds)
+{
+  // Explanation of eye correspondence: http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
+  nao_interfaces::msg::RightEyeLeds::SharedPtr rightEyeLeds =
+    std::make_shared<nao_interfaces::msg::RightEyeLeds>();
+  rightEyeLeds->colors[rightEyeLeds->R0].r = 0.01;
+  rightEyeLeds->colors[rightEyeLeds->R0].g = 0.02;
+  rightEyeLeds->colors[rightEyeLeds->R0].b = 0.03;
+  rightEyeLeds->colors[rightEyeLeds->R1].r = 0.04;
+  rightEyeLeds->colors[rightEyeLeds->R1].g = 0.05;
+  rightEyeLeds->colors[rightEyeLeds->R1].b = 0.06;
+  rightEyeLeds->colors[rightEyeLeds->R2].r = 0.07;
+  rightEyeLeds->colors[rightEyeLeds->R2].g = 0.08;
+  rightEyeLeds->colors[rightEyeLeds->R2].b = 0.09;
+  rightEyeLeds->colors[rightEyeLeds->R3].r = 0.10;
+  rightEyeLeds->colors[rightEyeLeds->R3].g = 0.11;
+  rightEyeLeds->colors[rightEyeLeds->R3].b = 0.12;
+  rightEyeLeds->colors[rightEyeLeds->R4].r = 0.13;
+  rightEyeLeds->colors[rightEyeLeds->R4].g = 0.14;
+  rightEyeLeds->colors[rightEyeLeds->R4].b = 0.15;
+  rightEyeLeds->colors[rightEyeLeds->R5].r = 0.16;
+  rightEyeLeds->colors[rightEyeLeds->R5].g = 0.17;
+  rightEyeLeds->colors[rightEyeLeds->R5].b = 0.18;
+  rightEyeLeds->colors[rightEyeLeds->R6].r = 0.19;
+  rightEyeLeds->colors[rightEyeLeds->R6].g = 0.20;
+  rightEyeLeds->colors[rightEyeLeds->R6].b = 0.21;
+  rightEyeLeds->colors[rightEyeLeds->R7].r = 0.22;
+  rightEyeLeds->colors[rightEyeLeds->R7].g = 0.23;
+  rightEyeLeds->colors[rightEyeLeds->R7].b = 0.24;
+
+  packer.setRightEyeLeds(rightEyeLeds);
+  std::string packed = packer.getPacked();
+
+  std::vector<float> expected{
+    0.22, 0.19, 0.16, 0.13, 0.10, 0.07, 0.04, 0.01,
+    0.23, 0.20, 0.17, 0.14, 0.11, 0.08, 0.05, 0.02,
+    0.24, 0.21, 0.18, 0.15, 0.12, 0.09, 0.06, 0.03};
+  EXPECT_EQ(getFloatVector(packed, "REye"), expected);
 }
 
 // TEST_F(TestMsgpackPacker, TestStiffness)
@@ -88,11 +212,11 @@ static std::vector<float> getFloatVector(std::string packed, std::string mapKey)
   return unpacked.at(mapKey).as<std::vector<float>>();
 }
 
-static std::vector<bool> getBoolVector(std::string packed, std::string mapKey)
-{
-  std::map<std::string, msgpack::object> unpacked = unpack(packed);
-  return unpacked.at(mapKey).as<std::vector<bool>>();
-}
+// static std::vector<bool> getBoolVector(std::string packed, std::string mapKey)
+// {
+//   std::map<std::string, msgpack::object> unpacked = unpack(packed);
+//   return unpacked.at(mapKey).as<std::vector<bool>>();
+// }
 
 static std::map<std::string, msgpack::object> unpack(std::string packed)
 {
