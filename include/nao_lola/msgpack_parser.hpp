@@ -27,7 +27,6 @@
 #include "nao_interfaces/msg/sonar.hpp"
 #include "nao_interfaces/msg/fsr.hpp"
 #include "nao_interfaces/msg/touch.hpp"
-#include "nao_interfaces/msg/eye_leds.hpp"
 #include "nao_interfaces/msg/battery.hpp"
 #include "nao_interfaces/msg/robot_config.hpp"
 
