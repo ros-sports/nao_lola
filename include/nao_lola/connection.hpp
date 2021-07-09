@@ -25,6 +25,7 @@ class Connection
 public:
   Connection();
   std::string receive();
+  // void send(std::string data);
 
 private:
   boost::asio::io_service io_service;

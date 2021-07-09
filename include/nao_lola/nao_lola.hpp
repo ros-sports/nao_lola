@@ -16,6 +16,7 @@
 #define NAO_LOLA__NAO_LOLA_HPP_
 
 #include <thread>
+#include <memory>
 #include "rclcpp/rclcpp.hpp"
 #include "nao_interfaces/msg/joints.hpp"
 #include "nao_interfaces/msg/buttons.hpp"
@@ -27,7 +28,17 @@
 #include "nao_interfaces/msg/touch.hpp"
 #include "nao_interfaces/msg/battery.hpp"
 #include "nao_interfaces/msg/robot_config.hpp"
+#include "nao_interfaces/msg/chest_led.hpp"
+#include "nao_interfaces/msg/left_ear_leds.hpp"
+#include "nao_interfaces/msg/right_ear_leds.hpp"
+#include "nao_interfaces/msg/left_eye_leds.hpp"
+#include "nao_interfaces/msg/right_eye_leds.hpp"
+#include "nao_interfaces/msg/left_foot_led.hpp"
+#include "nao_interfaces/msg/right_foot_led.hpp"
+#include "nao_interfaces/msg/head_leds.hpp"
+#include "nao_interfaces/msg/sonar_usage.hpp"
 #include "nao_lola/connection.hpp"
+#include "nao_lola/msgpack_packer.hpp"
 
 class NaoLola : public rclcpp::Node
 {
@@ -36,6 +47,9 @@ public:
   virtual ~NaoLola() {}
 
 private:
+  void createPublishers();
+  void createSubscriptions();
+
   rclcpp::Publisher<nao_interfaces::msg::Accelerometer>::SharedPtr accelerometer_pub;
   rclcpp::Publisher<nao_interfaces::msg::Angle>::SharedPtr angle_pub;
   rclcpp::Publisher<nao_interfaces::msg::Buttons>::SharedPtr buttons_pub;
@@ -47,8 +61,21 @@ private:
   rclcpp::Publisher<nao_interfaces::msg::Battery>::SharedPtr battery_pub;
   rclcpp::Publisher<nao_interfaces::msg::RobotConfig>::SharedPtr robot_config_pub;
 
+  rclcpp::Subscription<nao_interfaces::msg::Joints>::SharedPtr joints_sub;
+  rclcpp::Subscription<nao_interfaces::msg::ChestLed>::SharedPtr chest_led_sub;
+  rclcpp::Subscription<nao_interfaces::msg::LeftEarLeds>::SharedPtr left_ear_leds_sub;
+  rclcpp::Subscription<nao_interfaces::msg::RightEarLeds>::SharedPtr right_ear_leds_sub;
+  rclcpp::Subscription<nao_interfaces::msg::LeftEyeLeds>::SharedPtr left_eye_leds_sub;
+  rclcpp::Subscription<nao_interfaces::msg::RightEyeLeds>::SharedPtr right_eye_leds_sub;
+  rclcpp::Subscription<nao_interfaces::msg::LeftFootLed>::SharedPtr left_foot_led_sub;
+  rclcpp::Subscription<nao_interfaces::msg::RightFootLed>::SharedPtr right_foot_led_sub;
+  rclcpp::Subscription<nao_interfaces::msg::HeadLeds>::SharedPtr head_leds_sub;
+  rclcpp::Subscription<nao_interfaces::msg::SonarUsage>::SharedPtr sonar_usage_sub;
+
   std::thread receive_thread_;
   Connection connection;
+
+  std::shared_ptr<MsgpackPacker> packer = std::make_shared<MsgpackPacker>();
 };
 
 #endif  // NAO_LOLA__NAO_LOLA_HPP_
