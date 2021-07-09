@@ -55,13 +55,13 @@ static const std::map<int, LolaEnums::Joint> index_msg_to_lola = flip(index_lola
 std::map<int, LolaEnums::Joint> flip(std::map<LolaEnums::Joint, int> in)
 {
   std::map<int, LolaEnums::Joint> flipped;
-  for (std::map<LolaEnums::Joint, int>::iterator i = in.begin(); i != in.end(); ++i)
+  for (std::map<LolaEnums::Joint, int>::iterator i = in.begin(); i != in.end(); ++i) {
     flipped[i->second] = i->first;
+  }
 
   return flipped;
 }
 
-}
-
+}  // namespace JointIndexConversion
 
 #endif  // NAO_LOLA__JOINT_INDEX_CONVERSION_HPP_

@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 #include "msgpack.hpp"
 #include "nao_lola/msgpack_packer.hpp"
 #include "nao_interfaces/msg/joints.hpp"
@@ -78,7 +79,6 @@ TEST_F(TestMsgpackPacker, TestPackJoints)
 
 //   EXPECT_EQ(getFloatVector(packed, "Chest"), chest);
 // }
-
 
 
 // Helper functions

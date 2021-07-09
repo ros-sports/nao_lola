@@ -131,13 +131,14 @@ nao_interfaces::msg::Battery MsgpackParser::getBattery()
 {
   nao_interfaces::msg::Battery btr;
   std::vector<float> vec = unpacked.at("Battery").as<std::vector<float>>();
-  btr.charge = vec.at(static_cast<int>(LolaEnums::Battery::Charge)) * 100.0;  // Convert to [0% - 100%]
+  // Convert charge to [0% - 100%]
+  btr.charge = vec.at(static_cast<int>(LolaEnums::Battery::Charge)) * 100.0;
   btr.current = vec.at(static_cast<int>(LolaEnums::Battery::Current));
   btr.temperature = vec.at(static_cast<int>(LolaEnums::Battery::Temperature));
 
 
   // Check whether robot is charging, with BHuman's equation used as reference:
-  // https://github.com/bhuman/BHumanCodeRelease/blob/d7deadc6f1a4c445c4bbd2e9f256bf058b80a24c/Src/Modules/Infrastructure/NaoProvider/NaoProvider.cpp#L320
+  // https://github.com/bhuman/BHumanCodeRelease/tree/coderelease2019/Src/Modules/Infrastructure/NaoProvider/NaoProvider.cpp#L320
   float status = vec.at(static_cast<int>(LolaEnums::Battery::Status));
   btr.charging = ((static_cast<int16_t>(status) & 0x80) != 0);
 

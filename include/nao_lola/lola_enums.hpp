@@ -96,6 +96,6 @@ enum class RobotConfig
   Head_Version
 };
 
-}
+}  // namespace LolaEnums
 
 #endif  // NAO_LOLA__LOLA_ENUMS_HPP_
