@@ -17,6 +17,8 @@
 #include <utility>
 #include "nao_lola/msgpack_packer.hpp"
 #include "msgpack.hpp"
+#include "nao_lola/lola_enums.hpp"
+#include "nao_lola/joint_index_conversion.hpp"
 
 std::string MsgpackPacker::getPacked()
 {
@@ -72,6 +74,18 @@ std::string MsgpackPacker::getPacked()
   std::string packed = buffer.str();
 
   return packed;
+}
+
+void MsgpackPacker::setJoints(std::shared_ptr<nao_interfaces::msg::Joints> joints)
+{
+  position = std::make_shared<std::vector<float>>(static_cast<int>(LolaEnums::Joint::NUM_JOINTS));
+  stiffness = std::make_shared<std::vector<float>>(static_cast<int>(LolaEnums::Joint::NUM_JOINTS));
+  for (unsigned i = 0; i < static_cast<int>(joints->NUMJOINTS); ++i)
+  {
+    LolaEnums::Joint lola_joint_index = JointIndexConversion::index_msg_to_lola.at(i);
+    position->at(static_cast<int>(lola_joint_index)) = joints->angles.at(i);
+    stiffness->at(static_cast<int>(lola_joint_index)) = joints->stiffnesses.at(i);
+  }
 }
 
 // void MsgpackPacker::setPosition(std::shared_ptr<std::array<float>> position)

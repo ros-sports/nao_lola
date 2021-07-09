@@ -15,6 +15,9 @@
 #ifndef NAO_LOLA__LOLA_ENUMS_HPP_
 #define NAO_LOLA__LOLA_ENUMS_HPP_
 
+namespace LolaEnums
+{
+
 enum class Joint
 {
   HeadYaw,
@@ -92,5 +95,7 @@ enum class RobotConfig
   Head_FullHeadId,
   Head_Version
 };
+
+}
 
 #endif  // NAO_LOLA__LOLA_ENUMS_HPP_
