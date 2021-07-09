@@ -7,8 +7,8 @@ Ideally, this is a service started from systemd, so that any number of processes
 
 In your ROS2 workspace, clone the repository:
 ```
-git clone --recursive https://github.com/ijnek/naosoccer_sim.git src/naosoccer_sim
-vcs import src < src/naosoccer_sim/dependencies.repos
+git clone --recursive https://github.com/ijnek/nao_lola.git src/nao_lola
+vcs import src < src/nao_lola/dependencies.repos
 ```
 
 and build it
