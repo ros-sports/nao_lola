@@ -101,7 +101,8 @@ void MsgpackPacker::setLeftEarLeds(std::shared_ptr<nao_interfaces::msg::LeftEarL
 {
   l_ear = std::make_shared<std::vector<float>>(10);
   for (unsigned i = 0; i < leftEarLeds->NUM_LEDS; ++i) {
-    l_ear->at(i) = leftEarLeds->intensities[i];
+    LolaEnums::LeftEarLeds lola_index = IndexConversion::left_ear_leds_msg_to_lola.at(i);
+    l_ear->at(static_cast<int>(lola_index)) = leftEarLeds->intensities[i];
   }
 }
 
@@ -109,7 +110,8 @@ void MsgpackPacker::setRightEarLeds(std::shared_ptr<nao_interfaces::msg::RightEa
 {
   r_ear = std::make_shared<std::vector<float>>(10);
   for (unsigned i = 0; i < rightEarLeds->NUM_LEDS; ++i) {
-    r_ear->at(i) = rightEarLeds->intensities[i];
+    LolaEnums::RightEarLeds lola_index = IndexConversion::right_ear_leds_msg_to_lola.at(i);
+    r_ear->at(static_cast<int>(lola_index)) = rightEarLeds->intensities[i];
   }
 }
 

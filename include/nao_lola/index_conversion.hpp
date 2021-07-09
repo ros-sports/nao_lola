@@ -18,6 +18,8 @@
 #include <map>
 #include "nao_lola/lola_enums.hpp"
 #include "nao_interfaces/msg/joints.hpp"
+#include "nao_interfaces/msg/left_ear_leds.hpp"
+#include "nao_interfaces/msg/right_ear_leds.hpp"
 #include "nao_interfaces/msg/left_eye_leds.hpp"
 #include "nao_interfaces/msg/right_eye_leds.hpp"
 #include "nao_interfaces/msg/head_leds.hpp"
@@ -66,47 +68,77 @@ std::map<int, LolaEnums::Joint> flip(std::map<LolaEnums::Joint, int> in)
   return flipped;
 }
 
+// See http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#left-ear
+static const std::map<int, LolaEnums::LeftEarLeds> left_ear_leds_msg_to_lola
+{
+  {nao_interfaces::msg::LeftEarLeds::L0, LolaEnums::LeftEarLeds::Deg_0},
+  {nao_interfaces::msg::LeftEarLeds::L1, LolaEnums::LeftEarLeds::Deg_36},
+  {nao_interfaces::msg::LeftEarLeds::L2, LolaEnums::LeftEarLeds::Deg_72},
+  {nao_interfaces::msg::LeftEarLeds::L3, LolaEnums::LeftEarLeds::Deg_108},
+  {nao_interfaces::msg::LeftEarLeds::L4, LolaEnums::LeftEarLeds::Deg_144},
+  {nao_interfaces::msg::LeftEarLeds::L5, LolaEnums::LeftEarLeds::Deg_180},
+  {nao_interfaces::msg::LeftEarLeds::L6, LolaEnums::LeftEarLeds::Deg_216},
+  {nao_interfaces::msg::LeftEarLeds::L7, LolaEnums::LeftEarLeds::Deg_252},
+  {nao_interfaces::msg::LeftEarLeds::L8, LolaEnums::LeftEarLeds::Deg_288},
+  {nao_interfaces::msg::LeftEarLeds::L9, LolaEnums::LeftEarLeds::Deg_324}
+};
+
+// See http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#right-ear
+static const std::map<int, LolaEnums::RightEarLeds> right_ear_leds_msg_to_lola
+{
+  {nao_interfaces::msg::RightEarLeds::R0, LolaEnums::RightEarLeds::Deg_0},
+  {nao_interfaces::msg::RightEarLeds::R1, LolaEnums::RightEarLeds::Deg_36},
+  {nao_interfaces::msg::RightEarLeds::R2, LolaEnums::RightEarLeds::Deg_72},
+  {nao_interfaces::msg::RightEarLeds::R3, LolaEnums::RightEarLeds::Deg_108},
+  {nao_interfaces::msg::RightEarLeds::R4, LolaEnums::RightEarLeds::Deg_144},
+  {nao_interfaces::msg::RightEarLeds::R5, LolaEnums::RightEarLeds::Deg_180},
+  {nao_interfaces::msg::RightEarLeds::R6, LolaEnums::RightEarLeds::Deg_216},
+  {nao_interfaces::msg::RightEarLeds::R7, LolaEnums::RightEarLeds::Deg_252},
+  {nao_interfaces::msg::RightEarLeds::R8, LolaEnums::RightEarLeds::Deg_288},
+  {nao_interfaces::msg::RightEarLeds::R9, LolaEnums::RightEarLeds::Deg_324}
+};
+
 // See http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
 static const std::map<int, LolaEnums::LeftEyeLeds> left_eye_leds_msg_to_lola
 {
-  {nao_interfaces::msg::LeftEyeLeds::L0, LolaEnums::LeftEyeLeds::DEG_45},
-  {nao_interfaces::msg::LeftEyeLeds::L1, LolaEnums::LeftEyeLeds::DEG_0},
-  {nao_interfaces::msg::LeftEyeLeds::L2, LolaEnums::LeftEyeLeds::DEG_315},
-  {nao_interfaces::msg::LeftEyeLeds::L3, LolaEnums::LeftEyeLeds::DEG_270},
-  {nao_interfaces::msg::LeftEyeLeds::L4, LolaEnums::LeftEyeLeds::DEG_225},
-  {nao_interfaces::msg::LeftEyeLeds::L5, LolaEnums::LeftEyeLeds::DEG_180},
-  {nao_interfaces::msg::LeftEyeLeds::L6, LolaEnums::LeftEyeLeds::DEG_135},
-  {nao_interfaces::msg::LeftEyeLeds::L7, LolaEnums::LeftEyeLeds::DEG_90},
+  {nao_interfaces::msg::LeftEyeLeds::L0, LolaEnums::LeftEyeLeds::Deg_45},
+  {nao_interfaces::msg::LeftEyeLeds::L1, LolaEnums::LeftEyeLeds::Deg_0},
+  {nao_interfaces::msg::LeftEyeLeds::L2, LolaEnums::LeftEyeLeds::Deg_315},
+  {nao_interfaces::msg::LeftEyeLeds::L3, LolaEnums::LeftEyeLeds::Deg_270},
+  {nao_interfaces::msg::LeftEyeLeds::L4, LolaEnums::LeftEyeLeds::Deg_225},
+  {nao_interfaces::msg::LeftEyeLeds::L5, LolaEnums::LeftEyeLeds::Deg_180},
+  {nao_interfaces::msg::LeftEyeLeds::L6, LolaEnums::LeftEyeLeds::Deg_135},
+  {nao_interfaces::msg::LeftEyeLeds::L7, LolaEnums::LeftEyeLeds::Deg_90},
 };
 
 // See http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
 static const std::map<int, LolaEnums::RightEyeLeds> right_eye_leds_msg_to_lola
 {
-  {nao_interfaces::msg::RightEyeLeds::R0, LolaEnums::RightEyeLeds::DEG_315},
-  {nao_interfaces::msg::RightEyeLeds::R1, LolaEnums::RightEyeLeds::DEG_270},
-  {nao_interfaces::msg::RightEyeLeds::R2, LolaEnums::RightEyeLeds::DEG_225},
-  {nao_interfaces::msg::RightEyeLeds::R3, LolaEnums::RightEyeLeds::DEG_180},
-  {nao_interfaces::msg::RightEyeLeds::R4, LolaEnums::RightEyeLeds::DEG_135},
-  {nao_interfaces::msg::RightEyeLeds::R5, LolaEnums::RightEyeLeds::DEG_90},
-  {nao_interfaces::msg::RightEyeLeds::R6, LolaEnums::RightEyeLeds::DEG_45},
-  {nao_interfaces::msg::RightEyeLeds::R7, LolaEnums::RightEyeLeds::DEG_0},
+  {nao_interfaces::msg::RightEyeLeds::R0, LolaEnums::RightEyeLeds::Deg_315},
+  {nao_interfaces::msg::RightEyeLeds::R1, LolaEnums::RightEyeLeds::Deg_270},
+  {nao_interfaces::msg::RightEyeLeds::R2, LolaEnums::RightEyeLeds::Deg_225},
+  {nao_interfaces::msg::RightEyeLeds::R3, LolaEnums::RightEyeLeds::Deg_180},
+  {nao_interfaces::msg::RightEyeLeds::R4, LolaEnums::RightEyeLeds::Deg_135},
+  {nao_interfaces::msg::RightEyeLeds::R5, LolaEnums::RightEyeLeds::Deg_90},
+  {nao_interfaces::msg::RightEyeLeds::R6, LolaEnums::RightEyeLeds::Deg_45},
+  {nao_interfaces::msg::RightEyeLeds::R7, LolaEnums::RightEyeLeds::Deg_0},
 };
 
 // See http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#head-tactile-sensor-led-locations
 static const std::map<int, LolaEnums::SkullLeds> head_leds_msg_to_lola
 {
-  {nao_interfaces::msg::HeadLeds::B0, LolaEnums::SkullLeds::FRONT_RIGHT_1},
-  {nao_interfaces::msg::HeadLeds::B1, LolaEnums::SkullLeds::FRONT_RIGHT_0},
-  {nao_interfaces::msg::HeadLeds::B2, LolaEnums::SkullLeds::MIDDLE_RIGHT_0},
-  {nao_interfaces::msg::HeadLeds::B3, LolaEnums::SkullLeds::REAR_RIGHT_0},
-  {nao_interfaces::msg::HeadLeds::B4, LolaEnums::SkullLeds::REAR_RIGHT_1},
-  {nao_interfaces::msg::HeadLeds::B5, LolaEnums::SkullLeds::REAR_RIGHT_2},
-  {nao_interfaces::msg::HeadLeds::B6, LolaEnums::SkullLeds::REAR_LEFT_2},
-  {nao_interfaces::msg::HeadLeds::B7, LolaEnums::SkullLeds::REAR_LEFT_1},
-  {nao_interfaces::msg::HeadLeds::B8, LolaEnums::SkullLeds::REAR_LEFT_0},
-  {nao_interfaces::msg::HeadLeds::B9, LolaEnums::SkullLeds::MIDDLE_LEFT_0},
-  {nao_interfaces::msg::HeadLeds::B10, LolaEnums::SkullLeds::FRONT_LEFT_0},
-  {nao_interfaces::msg::HeadLeds::B11, LolaEnums::SkullLeds::FRONT_LEFT_1},
+  {nao_interfaces::msg::HeadLeds::B0, LolaEnums::SkullLeds::Front_Right_1},
+  {nao_interfaces::msg::HeadLeds::B1, LolaEnums::SkullLeds::Front_Right_0},
+  {nao_interfaces::msg::HeadLeds::B2, LolaEnums::SkullLeds::Middle_Right_0},
+  {nao_interfaces::msg::HeadLeds::B3, LolaEnums::SkullLeds::Rear_Right_0},
+  {nao_interfaces::msg::HeadLeds::B4, LolaEnums::SkullLeds::Rear_Right_1},
+  {nao_interfaces::msg::HeadLeds::B5, LolaEnums::SkullLeds::Rear_Right_2},
+  {nao_interfaces::msg::HeadLeds::B6, LolaEnums::SkullLeds::Rear_Left_2},
+  {nao_interfaces::msg::HeadLeds::B7, LolaEnums::SkullLeds::Rear_Left_1},
+  {nao_interfaces::msg::HeadLeds::B8, LolaEnums::SkullLeds::Rear_Left_0},
+  {nao_interfaces::msg::HeadLeds::B9, LolaEnums::SkullLeds::Middle_Left_0},
+  {nao_interfaces::msg::HeadLeds::B10, LolaEnums::SkullLeds::Front_Left_0},
+  {nao_interfaces::msg::HeadLeds::B11, LolaEnums::SkullLeds::Front_Left_1},
 };
 
 }  // namespace IndexConversion

@@ -75,12 +75,21 @@ TEST_F(TestMsgpackPacker, TestLeftEarLeds)
   nao_interfaces::msg::LeftEarLeds::SharedPtr leftEarLeds =
     std::make_shared<nao_interfaces::msg::LeftEarLeds>();
   leftEarLeds->intensities[leftEarLeds->L0] = 0.1;
+  leftEarLeds->intensities[leftEarLeds->L1] = 0.2;
+  leftEarLeds->intensities[leftEarLeds->L2] = 0.3;
+  leftEarLeds->intensities[leftEarLeds->L3] = 0.4;
+  leftEarLeds->intensities[leftEarLeds->L4] = 0.5;
+  leftEarLeds->intensities[leftEarLeds->L5] = 0.6;
+  leftEarLeds->intensities[leftEarLeds->L6] = 0.7;
+  leftEarLeds->intensities[leftEarLeds->L7] = 0.8;
+  leftEarLeds->intensities[leftEarLeds->L8] = 0.9;
   leftEarLeds->intensities[leftEarLeds->L9] = 1.0;
 
   packer.setLeftEarLeds(leftEarLeds);
   std::string packed = packer.getPacked();
 
-  std::vector<float> expected{0.1, 0, 0, 0, 0, 0, 0, 0, 0, 1.0};
+  std::vector<float> expected{
+    0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
   EXPECT_EQ(getFloatVector(packed, "LEar"), expected);
 }
 
@@ -89,13 +98,22 @@ TEST_F(TestMsgpackPacker, TestRightEarLeds)
 {
   nao_interfaces::msg::RightEarLeds::SharedPtr rightEarLeds =
     std::make_shared<nao_interfaces::msg::RightEarLeds>();
-  rightEarLeds->intensities[rightEarLeds->R0] = 0.2;
-  rightEarLeds->intensities[rightEarLeds->R9] = 0.8;
+  rightEarLeds->intensities[rightEarLeds->R0] = 0.1;
+  rightEarLeds->intensities[rightEarLeds->R1] = 0.2;
+  rightEarLeds->intensities[rightEarLeds->R2] = 0.3;
+  rightEarLeds->intensities[rightEarLeds->R3] = 0.4;
+  rightEarLeds->intensities[rightEarLeds->R4] = 0.5;
+  rightEarLeds->intensities[rightEarLeds->R5] = 0.6;
+  rightEarLeds->intensities[rightEarLeds->R6] = 0.7;
+  rightEarLeds->intensities[rightEarLeds->R7] = 0.8;
+  rightEarLeds->intensities[rightEarLeds->R8] = 0.9;
+  rightEarLeds->intensities[rightEarLeds->R9] = 1.0;
 
   packer.setRightEarLeds(rightEarLeds);
   std::string packed = packer.getPacked();
 
-  std::vector<float> expected{0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0.8};
+  std::vector<float> expected{
+    1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1};
   EXPECT_EQ(getFloatVector(packed, "REar"), expected);
 }
 

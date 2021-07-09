@@ -15,6 +15,10 @@
 #ifndef NAO_LOLA__LOLA_ENUMS_HPP_
 #define NAO_LOLA__LOLA_ENUMS_HPP_
 
+// The enums are exactly as defined (and in the same order) as what's provided
+// in "Lola RoboCupper Official Documentation.pdf" sent to all Standard Platform League
+// teams in RoboCup.
+
 namespace LolaEnums
 {
 
@@ -96,44 +100,72 @@ enum class RobotConfig
   Head_Version
 };
 
+enum class LeftEarLeds
+{
+  Deg_0,
+  Deg_36,
+  Deg_72,
+  Deg_108,
+  Deg_144,
+  Deg_180,
+  Deg_216,
+  Deg_252,
+  Deg_288,
+  Deg_324
+};
+
+enum class RightEarLeds
+{
+  Deg_324,
+  Deg_288,
+  Deg_252,
+  Deg_216,
+  Deg_180,
+  Deg_144,
+  Deg_108,
+  Deg_72,
+  Deg_36,
+  Deg_0
+};
+
 enum class LeftEyeLeds
 {
-  DEG_45,
-  DEG_0,
-  DEG_315,
-  DEG_270,
-  DEG_225,
-  DEG_180,
-  DEG_135,
-  DEG_90
+  Deg_45,
+  Deg_0,
+  Deg_315,
+  Deg_270,
+  Deg_225,
+  Deg_180,
+  Deg_135,
+  Deg_90
 };
 
 enum class RightEyeLeds
 {
-  DEG_0,
-  DEG_45,
-  DEG_90,
-  DEG_135,
-  DEG_180,
-  DEG_225,
-  DEG_270,
-  DEG_315
+  Deg_0,
+  Deg_45,
+  Deg_90,
+  Deg_135,
+  Deg_180,
+  Deg_225,
+  Deg_270,
+  Deg_315
 };
 
 enum class SkullLeds
 {
-  FRONT_LEFT_1,
-  FRONT_LEFT_0,
-  MIDDLE_LEFT_0,
-  REAR_LEFT_0,
-  REAR_LEFT_1,
-  REAR_LEFT_2,
-  REAR_RIGHT_2,
-  REAR_RIGHT_1,
-  REAR_RIGHT_0,
-  MIDDLE_RIGHT_0,
-  FRONT_RIGHT_0,
-  FRONT_RIGHT_1
+  Front_Left_1,
+  Front_Left_0,
+  Middle_Left_0,
+  Rear_Left_0,
+  Rear_Left_1,
+  Rear_Left_2,
+  Rear_Right_2,
+  Rear_Right_1,
+  Rear_Right_0,
+  Middle_Right_0,
+  Front_Right_0,
+  Front_Right_1
 };
 
 }  // namespace LolaEnums
