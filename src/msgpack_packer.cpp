@@ -135,52 +135,27 @@ void MsgpackPacker::setRightEyeLeds(std::shared_ptr<nao_interfaces::msg::RightEy
   }
 }
 
-// void MsgpackPacker::setStiffness(std::shared_ptr<std::array<float>> stiffness)
-// {
-//   this->stiffness = stiffness;
-// }
+void MsgpackPacker::setLeftFootLed(std::shared_ptr<nao_interfaces::msg::LeftFootLed> leftFootLed)
+{
+  l_foot = std::make_shared<std::vector<float>>(3);
+  l_foot->at(0) = leftFootLed->color.r;
+  l_foot->at(1) = leftFootLed->color.g;
+  l_foot->at(2) = leftFootLed->color.b;
+}
 
-// void MsgpackPacker::setChest(std::shared_ptr<std::array<float>> chest)
-// {
-//   this->chest = chest;
-// }
+void MsgpackPacker::setRightFootLed(std::shared_ptr<nao_interfaces::msg::RightFootLed> rightFootLed)
+{
+  r_foot = std::make_shared<std::vector<float>>(3);
+  r_foot->at(0) = rightFootLed->color.r;
+  r_foot->at(1) = rightFootLed->color.g;
+  r_foot->at(2) = rightFootLed->color.b;
+}
 
-// void MsgpackPacker::setLEar(std::shared_ptr<std::array<float>> l_ear)
-// {
-//   this->l_ear = l_ear;
-// }
-
-// void MsgpackPacker::setREar(std::shared_ptr<std::array<float>> r_ear)
-// {
-//   this->r_ear = r_ear;
-// }
-
-// void MsgpackPacker::setLEye(std::shared_ptr<std::array<float>> l_eye)
-// {
-//   this->l_eye = l_eye;
-// }
-
-// void MsgpackPacker::setREye(std::shared_ptr<std::array<float>> r_eye)
-// {
-//   this->r_eye = r_eye;
-// }
-
-// void MsgpackPacker::setLFoot(std::shared_ptr<std::array<float>> l_foot)
-// {
-//   this->l_foot = l_foot;
-// }
-
-// void MsgpackPacker::setRFoot(std::shared_ptr<std::array<float>> r_foot)
-// {
-//   this->r_foot = r_foot;
-// }
-
-// void MsgpackPacker::setSkull(std::shared_ptr<std::array<float>> skull)
-// {
-//   this->skull = skull;
-// }
-
-// void MsgpackPacker::setSonar(std::shared_ptr<std::array<bool>> sonar)
-// {
-//   this->sonar = sonar;
-// }
+void MsgpackPacker::setHeadLeds(std::shared_ptr<nao_interfaces::msg::HeadLeds> headLeds)
+{
+  skull = std::make_shared<std::vector<float>>(12);
+  for (unsigned i = 0; i < headLeds->NUM_LEDS; ++i) {
+    LolaEnums::SkullLeds lola_index = IndexConversion::head_leds_msg_to_lola.at(i);
+    skull->at(static_cast<int>(lola_index)) = headLeds->intensities[i];
+  }
+}

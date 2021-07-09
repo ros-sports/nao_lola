@@ -20,6 +20,7 @@
 #include "nao_interfaces/msg/joints.hpp"
 #include "nao_interfaces/msg/left_eye_leds.hpp"
 #include "nao_interfaces/msg/right_eye_leds.hpp"
+#include "nao_interfaces/msg/head_leds.hpp"
 
 namespace IndexConversion
 {
@@ -89,6 +90,23 @@ static const std::map<int, LolaEnums::RightEyeLeds> right_eye_leds_msg_to_lola
   {nao_interfaces::msg::RightEyeLeds::R5, LolaEnums::RightEyeLeds::DEG_90},
   {nao_interfaces::msg::RightEyeLeds::R6, LolaEnums::RightEyeLeds::DEG_45},
   {nao_interfaces::msg::RightEyeLeds::R7, LolaEnums::RightEyeLeds::DEG_0},
+};
+
+// See http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#head-tactile-sensor-led-locations
+static const std::map<int, LolaEnums::SkullLeds> head_leds_msg_to_lola
+{
+  {nao_interfaces::msg::HeadLeds::B0, LolaEnums::SkullLeds::FRONT_RIGHT_1},
+  {nao_interfaces::msg::HeadLeds::B1, LolaEnums::SkullLeds::FRONT_RIGHT_0},
+  {nao_interfaces::msg::HeadLeds::B2, LolaEnums::SkullLeds::MIDDLE_RIGHT_0},
+  {nao_interfaces::msg::HeadLeds::B3, LolaEnums::SkullLeds::REAR_RIGHT_0},
+  {nao_interfaces::msg::HeadLeds::B4, LolaEnums::SkullLeds::REAR_RIGHT_1},
+  {nao_interfaces::msg::HeadLeds::B5, LolaEnums::SkullLeds::REAR_RIGHT_2},
+  {nao_interfaces::msg::HeadLeds::B6, LolaEnums::SkullLeds::REAR_LEFT_2},
+  {nao_interfaces::msg::HeadLeds::B7, LolaEnums::SkullLeds::REAR_LEFT_1},
+  {nao_interfaces::msg::HeadLeds::B8, LolaEnums::SkullLeds::REAR_LEFT_0},
+  {nao_interfaces::msg::HeadLeds::B9, LolaEnums::SkullLeds::MIDDLE_LEFT_0},
+  {nao_interfaces::msg::HeadLeds::B10, LolaEnums::SkullLeds::FRONT_LEFT_0},
+  {nao_interfaces::msg::HeadLeds::B11, LolaEnums::SkullLeds::FRONT_LEFT_1},
 };
 
 }  // namespace IndexConversion

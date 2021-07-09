@@ -179,6 +179,61 @@ TEST_F(TestMsgpackPacker, TestRightEyeLeds)
   EXPECT_EQ(getFloatVector(packed, "REye"), expected);
 }
 
+TEST_F(TestMsgpackPacker, TestLeftFootLed)
+{
+  nao_interfaces::msg::LeftFootLed::SharedPtr leftFootLed =
+    std::make_shared<nao_interfaces::msg::LeftFootLed>();
+  leftFootLed->color.r = 0.2;
+  leftFootLed->color.g = 0.3;
+  leftFootLed->color.b = 0.4;
+
+  packer.setLeftFootLed(leftFootLed);
+  std::string packed = packer.getPacked();
+
+  std::vector<float> expected{0.2, 0.3, 0.4};
+  EXPECT_EQ(getFloatVector(packed, "LFoot"), expected);
+}
+
+TEST_F(TestMsgpackPacker, TestRightFootLed)
+{
+  nao_interfaces::msg::RightFootLed::SharedPtr rightFootLed =
+    std::make_shared<nao_interfaces::msg::RightFootLed>();
+  rightFootLed->color.r = 0.5;
+  rightFootLed->color.g = 0.6;
+  rightFootLed->color.b = 0.7;
+
+  packer.setRightFootLed(rightFootLed);
+  std::string packed = packer.getPacked();
+
+  std::vector<float> expected{0.5, 0.6, 0.7};
+  EXPECT_EQ(getFloatVector(packed, "RFoot"), expected);
+}
+
+TEST_F(TestMsgpackPacker, TestHeadLeds)
+{
+  nao_interfaces::msg::HeadLeds::SharedPtr headLeds =
+    std::make_shared<nao_interfaces::msg::HeadLeds>();
+  headLeds->intensities[headLeds->B0] = 0.00;
+  headLeds->intensities[headLeds->B1] = 0.01;
+  headLeds->intensities[headLeds->B2] = 0.02;
+  headLeds->intensities[headLeds->B3] = 0.03;
+  headLeds->intensities[headLeds->B4] = 0.04;
+  headLeds->intensities[headLeds->B5] = 0.05;
+  headLeds->intensities[headLeds->B6] = 0.06;
+  headLeds->intensities[headLeds->B7] = 0.07;
+  headLeds->intensities[headLeds->B8] = 0.08;
+  headLeds->intensities[headLeds->B9] = 0.09;
+  headLeds->intensities[headLeds->B10] = 0.10;
+  headLeds->intensities[headLeds->B11] = 0.11;
+
+  packer.setHeadLeds(headLeds);
+  std::string packed = packer.getPacked();
+
+  std::vector<float> expected{
+    0.11, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01, 0.00};
+  EXPECT_EQ(getFloatVector(packed, "Skull"), expected);
+}
+
 // TEST_F(TestMsgpackPacker, TestStiffness)
 // {
 //   std::vector<float> stiffness = {

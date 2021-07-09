@@ -26,7 +26,7 @@
 #include "nao_interfaces/msg/right_eye_leds.hpp"
 #include "nao_interfaces/msg/left_foot_led.hpp"
 #include "nao_interfaces/msg/right_foot_led.hpp"
-#include "nao_interfaces/msg/skull_leds.hpp"
+#include "nao_interfaces/msg/head_leds.hpp"
 #include "nao_interfaces/msg/sonar_usage.hpp"
 
 
@@ -41,9 +41,9 @@ public:
   void setRightEarLeds(std::shared_ptr<nao_interfaces::msg::RightEarLeds> rightEarLeds);
   void setLeftEyeLeds(std::shared_ptr<nao_interfaces::msg::LeftEyeLeds> leftEyeLeds);
   void setRightEyeLeds(std::shared_ptr<nao_interfaces::msg::RightEyeLeds> rightEyeLeds);
-  void setLeftFootLeds(std::shared_ptr<nao_interfaces::msg::LeftFootLed> leftFootLed);
-  void setRightFootLeds(std::shared_ptr<nao_interfaces::msg::RightFootLed> rightFootLed);
-  void setSkullLeds(std::shared_ptr<nao_interfaces::msg::SkullLeds> skullLeds);
+  void setLeftFootLed(std::shared_ptr<nao_interfaces::msg::LeftFootLed> leftFootLed);
+  void setRightFootLed(std::shared_ptr<nao_interfaces::msg::RightFootLed> rightFootLed);
+  void setHeadLeds(std::shared_ptr<nao_interfaces::msg::HeadLeds> headLeds);
   void setSonarUsage(std::shared_ptr<nao_interfaces::msg::SonarUsage> sonarUsage);
 
 private:

@@ -120,6 +120,22 @@ enum class RightEyeLeds
   DEG_315
 };
 
+enum class SkullLeds
+{
+  FRONT_LEFT_1,
+  FRONT_LEFT_0,
+  MIDDLE_LEFT_0,
+  REAR_LEFT_0,
+  REAR_LEFT_1,
+  REAR_LEFT_2,
+  REAR_RIGHT_2,
+  REAR_RIGHT_1,
+  REAR_RIGHT_0,
+  MIDDLE_RIGHT_0,
+  FRONT_RIGHT_0,
+  FRONT_RIGHT_1
+};
+
 }  // namespace LolaEnums
 
 #endif  // NAO_LOLA__LOLA_ENUMS_HPP_
