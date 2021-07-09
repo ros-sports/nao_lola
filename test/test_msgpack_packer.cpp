@@ -24,7 +24,7 @@
 
 
 static std::vector<float> getFloatVector(std::string packed, std::string mapKey);
-// static std::vector<bool> getBoolVector(std::string packed, std::string mapKey);
+static std::vector<bool> getBoolVector(std::string packed, std::string mapKey);
 static std::map<std::string, msgpack::object> unpack(std::string packed);
 
 class TestMsgpackPacker : public ::testing::Test
@@ -234,31 +234,19 @@ TEST_F(TestMsgpackPacker, TestHeadLeds)
   EXPECT_EQ(getFloatVector(packed, "Skull"), expected);
 }
 
-// TEST_F(TestMsgpackPacker, TestStiffness)
-// {
-//   std::vector<float> stiffness = {
-//     0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3,
-//     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-//     0.1, 0.1, 0.1, 0.1, 0.1};
-//   nao_interfaces::msg::Joints joints;
-//   joints.angles[nao_interfaces::msg::Joints::LELBOWYAW] = 0.5;
-//   joints.stiffnesses[nao_interfaces::msg::Joints::LELBOWYAW] = 0.7;
+TEST_F(TestMsgpackPacker, TestSonarUsage)
+{
+  nao_interfaces::msg::SonarUsage::SharedPtr sonarUsage =
+    std::make_shared<nao_interfaces::msg::SonarUsage>();
+  sonarUsage->left = true;
+  sonarUsage->right = false;
 
-//   packer.setJoints(std::make_shared(joints));
-//   std::string packed = packer.getPacked();
+  packer.setSonarUsage(sonarUsage);
+  std::string packed = packer.getPacked();
 
-//   EXPECT_EQ(getFloatVector(packed, "Stiffness"), stiffness);
-// }
-
-// TEST_F(TestMsgpackPacker, TestChest)
-// {
-//   std::vector<float> chest = {0.3, 0.3, 0.3};
-//   packer.setChest(chest);
-//   std::string packed = packer.getPacked();
-
-//   EXPECT_EQ(getFloatVector(packed, "Chest"), chest);
-// }
-
+  std::vector<bool> expected{true, false};
+  EXPECT_EQ(getBoolVector(packed, "Sonar"), expected);
+}
 
 // Helper functions
 static std::vector<float> getFloatVector(std::string packed, std::string mapKey)
@@ -267,11 +255,11 @@ static std::vector<float> getFloatVector(std::string packed, std::string mapKey)
   return unpacked.at(mapKey).as<std::vector<float>>();
 }
 
-// static std::vector<bool> getBoolVector(std::string packed, std::string mapKey)
-// {
-//   std::map<std::string, msgpack::object> unpacked = unpack(packed);
-//   return unpacked.at(mapKey).as<std::vector<bool>>();
-// }
+static std::vector<bool> getBoolVector(std::string packed, std::string mapKey)
+{
+  std::map<std::string, msgpack::object> unpacked = unpack(packed);
+  return unpacked.at(mapKey).as<std::vector<bool>>();
+}
 
 static std::map<std::string, msgpack::object> unpack(std::string packed)
 {

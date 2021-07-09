@@ -159,3 +159,10 @@ void MsgpackPacker::setHeadLeds(std::shared_ptr<nao_interfaces::msg::HeadLeds> h
     skull->at(static_cast<int>(lola_index)) = headLeds->intensities[i];
   }
 }
+
+void MsgpackPacker::setSonarUsage(std::shared_ptr<nao_interfaces::msg::SonarUsage> sonarUsage)
+{
+  sonar = std::make_shared<std::vector<bool>>(2);
+  sonar->at(0) = sonarUsage->left;
+  sonar->at(1) = sonarUsage->right;
+}
