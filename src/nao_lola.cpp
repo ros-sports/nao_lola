@@ -42,7 +42,7 @@ NaoLola::NaoLola()
         battery_pub->publish(parsed.getBattery());
         robot_config_pub->publish(parsed.getRobotConfig());
 
-        // connection.send(packer->getPacked());
+        connection.send(packer->getPacked());
 
         // Reset packer
         packer = std::make_shared<MsgpackPacker>();

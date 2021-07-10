@@ -39,3 +39,8 @@ std::string Connection::receive()
   }
   return data;
 }
+
+void Connection::send(std::string data)
+{
+  socket.send(boost::asio::buffer(data));
+}
