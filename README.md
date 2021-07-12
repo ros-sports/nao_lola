@@ -16,6 +16,12 @@ and build it
 colcon build
 ```
 
+## Running
+
+After sourcing the setup file, run
+```
+ros2 run nao_lola nao_lola
+```
 
 ## Publishing Topics
 
