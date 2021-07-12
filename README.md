@@ -30,7 +30,11 @@ ros2 run nao_lola nao_lola
 * `sensors/buttons` (`nao_interfaces::msg::Buttons`)
 * `sensors/fsr` (`nao_interfaces::msg::FSR`)
 * `sensors/gyroscope` (`nao_interfaces::msg::Gyroscope`)
-* `sensors/joints` (`nao_interfaces::msg::Joints`)
+* `sensors/joint_positions` (`nao_interfaces::msg::JointPositions`)
+* `sensors/joint_stiffnesses` (`nao_interfaces::msg::JointStiffnesses`)
+* `sensors/joint_temperatures` (`nao_interfaces::msg::JointTemperatures`)
+* `sensors/joint_currents` (`nao_interfaces::msg::JointCurrents`)
+* `sensors/joint_statuses` (`nao_interfaces::msg::JointStatuses`)
 * `sensors/sonar` (`nao_interfaces::msg::Sonar`)
 * `sensors/touch` (`nao_interfaces::msg::Touch`)
 * `sensors/battery` (`nao_interfaces::msg::Battery`)
@@ -38,4 +42,14 @@ ros2 run nao_lola nao_lola
 
 ## Subscription Topics
 
-** not implemented yet **
+* `effectors/joint_positions` (`nao_interfaces::msg::JointPositions`)
+* `effectors/joint_stiffnesses` (`nao_interfaces::msg::JointStiffnesses`)
+* `effectors/chest_led` (`nao_interfaces::msg::ChestLed`)
+* `effectors/left_ear_leds` (`nao_interfaces::msg::LeftEarLeds`)
+* `effectors/right_ear_leds` (`nao_interfaces::msg::RightEarLeds`)
+* `effectors/left_eye_leds` (`nao_interfaces::msg::LeftEyeLeds`)
+* `effectors/right_eye_leds` (`nao_interfaces::msg::RightEyeLeds`)
+* `effectors/left_foot_led` (`nao_interfaces::msg::LeftFootLed`)
+* `effectors/right_foot_led` (`nao_interfaces::msg::RightFootLed`)
+* `effectors/head_leds` (`nao_interfaces::msg::HeadLeds`)
+* `effectors/sonar_usage` (`nao_interfaces::msg::SonarUsage`)
