@@ -84,27 +84,67 @@ nao_interfaces::msg::Gyroscope MsgpackParser::getGyroscope()
   return gyr;
 }
 
-nao_interfaces::msg::Joints MsgpackParser::getJoints()
+nao_interfaces::msg::JointPositions MsgpackParser::getJointPositions()
 {
-  nao_interfaces::msg::Joints jts;
+  nao_interfaces::msg::JointPositions jointPositions;
+  jointPositions.positions.resize(nao_interfaces::msg::JointIndexes::NUMJOINTS);
 
   std::vector<float> positions = unpacked.at("Position").as<std::vector<float>>();
+  for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
+    int msg_index = IndexConversion::joint_lola_to_msg.at(static_cast<LolaEnums::Joint>(i));
+    jointPositions.positions.at(msg_index) = positions.at(i);
+  }
+  return jointPositions;
+}
+
+nao_interfaces::msg::JointStiffnesses MsgpackParser::getJointStiffnesses()
+{
+  nao_interfaces::msg::JointStiffnesses jointStiffnesses;
+  jointStiffnesses.stiffnesses.resize(nao_interfaces::msg::JointIndexes::NUMJOINTS);
+
   std::vector<float> stiffnesses = unpacked.at("Stiffness").as<std::vector<float>>();
+  for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
+    int msg_index = IndexConversion::joint_lola_to_msg.at(static_cast<LolaEnums::Joint>(i));
+    jointStiffnesses.stiffnesses.at(msg_index) = stiffnesses.at(i);
+  }
+  return jointStiffnesses;
+}
+
+nao_interfaces::msg::JointTemperatures MsgpackParser::getJointTemperatures()
+{
+  nao_interfaces::msg::JointTemperatures jointTemperatures;
+
   std::vector<float> temperatures = unpacked.at("Temperature").as<std::vector<float>>();
+  for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
+    int msg_index = IndexConversion::joint_lola_to_msg.at(static_cast<LolaEnums::Joint>(i));
+    jointTemperatures.temperatures.at(msg_index) = temperatures.at(i);
+  }
+  return jointTemperatures;
+}
+
+nao_interfaces::msg::JointCurrents MsgpackParser::getJointCurrents()
+{
+  nao_interfaces::msg::JointCurrents jointCurrents;
+
   std::vector<float> currents = unpacked.at("Current").as<std::vector<float>>();
+  for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
+    int msg_index = IndexConversion::joint_lola_to_msg.at(static_cast<LolaEnums::Joint>(i));
+    jointCurrents.currents.at(msg_index) = currents.at(i);
+  }
+  return jointCurrents;
+}
+
+nao_interfaces::msg::JointStatuses MsgpackParser::getJointStatuses()
+{
+  nao_interfaces::msg::JointStatuses jointStatuses;
 
   // The LoLA RoboCupper docs say "status" is an integer data type, that's wrong.
   std::vector<float> statuses = unpacked.at("Status").as<std::vector<float>>();
-
   for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
     int msg_index = IndexConversion::joint_lola_to_msg.at(static_cast<LolaEnums::Joint>(i));
-    jts.angles.at(msg_index) = positions.at(i);
-    jts.stiffnesses.at(msg_index) = stiffnesses.at(i);
-    jts.temperatures.at(msg_index) = temperatures.at(i);
-    jts.currents.at(msg_index) = currents.at(i);
-    jts.statuses.at(msg_index) = statuses.at(i);
+    jointStatuses.statuses.at(msg_index) = statuses.at(i);
   }
-  return jts;
+  return jointStatuses;
 }
 
 nao_interfaces::msg::Sonar MsgpackParser::getSonar()

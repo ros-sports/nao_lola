@@ -21,6 +21,7 @@
 #include "msgpack.hpp"
 #include "nao_lola/lola_enums.hpp"
 #include "nao_lola/index_conversion.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 std::string MsgpackPacker::getPacked()
 {
@@ -78,14 +79,52 @@ std::string MsgpackPacker::getPacked()
   return packed;
 }
 
-void MsgpackPacker::setJoints(std::shared_ptr<nao_interfaces::msg::Joints> joints)
+void MsgpackPacker::setJointPositions(
+  std::shared_ptr<nao_interfaces::msg::JointPositions> jointPositions)
 {
-  position = std::make_shared<std::vector<float>>(static_cast<int>(LolaEnums::Joint::NUM_JOINTS));
-  stiffness = std::make_shared<std::vector<float>>(static_cast<int>(LolaEnums::Joint::NUM_JOINTS));
-  for (unsigned i = 0; i < joints->NUMJOINTS; ++i) {
-    LolaEnums::Joint lola_joint_index = IndexConversion::joint_msg_to_lola.at(i);
-    position->at(static_cast<int>(lola_joint_index)) = joints->angles.at(i);
-    stiffness->at(static_cast<int>(lola_joint_index)) = joints->stiffnesses.at(i);
+  if (jointPositions->indexes.size() != jointPositions->positions.size()) {
+    RCLCPP_ERROR(
+      logger,
+      "Incorrect message received for nao_interfaces::msg::JointPositions. "
+      "Angles and Indexes vector must have the same length. "
+      "Angles vector has length %zu, while indexes vector has length %zu",
+      jointPositions->positions.size(), jointPositions->indexes.size());
+  }
+
+  if (!position) {
+    position = std::make_shared<std::vector<float>>(static_cast<int>(LolaEnums::Joint::NUM_JOINTS));
+  }
+
+  for (unsigned i = 0; i < jointPositions->indexes.size(); ++i) {
+    int msg_joint_index = jointPositions->indexes[i];
+    float joint_angle = jointPositions->positions[i];
+    LolaEnums::Joint lola_joint_index = IndexConversion::joint_msg_to_lola.at(msg_joint_index);
+    position->at(static_cast<int>(lola_joint_index)) = joint_angle;
+  }
+}
+
+void MsgpackPacker::setJointStiffnesses(
+  std::shared_ptr<nao_interfaces::msg::JointStiffnesses> jointStiffnesses)
+{
+  if (jointStiffnesses->indexes.size() != jointStiffnesses->stiffnesses.size()) {
+    RCLCPP_ERROR(
+      logger,
+      "Incorrect message received for nao_interfaces::msg::JointStiffnesses. "
+      "Stiffnesses and Indexes vector must have the same length. "
+      "Stiffnesses vector has length %zu, while indexes vector has length %zu",
+      jointStiffnesses->stiffnesses.size(), jointStiffnesses->indexes.size());
+  }
+
+  if (!stiffness) {
+    stiffness =
+      std::make_shared<std::vector<float>>(static_cast<int>(LolaEnums::Joint::NUM_JOINTS));
+  }
+
+  for (unsigned i = 0; i < jointStiffnesses->indexes.size(); ++i) {
+    int msg_joint_index = jointStiffnesses->indexes[i];
+    float joint_stiffness = jointStiffnesses->stiffnesses[i];
+    LolaEnums::Joint lola_joint_index = IndexConversion::joint_msg_to_lola.at(msg_joint_index);
+    stiffness->at(static_cast<int>(lola_joint_index)) = joint_stiffness;
   }
 }
 

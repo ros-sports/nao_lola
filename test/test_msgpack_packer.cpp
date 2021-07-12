@@ -19,7 +19,9 @@
 #include <memory>
 #include "msgpack.hpp"
 #include "nao_lola/msgpack_packer.hpp"
-#include "nao_interfaces/msg/joints.hpp"
+#include "nao_interfaces/msg/joint_positions.hpp"
+#include "nao_interfaces/msg/joint_stiffnesses.hpp"
+#include "nao_interfaces/msg/joint_indexes.hpp"
 #include "nao_lola/lola_enums.hpp"
 
 
@@ -33,21 +35,35 @@ public:
   MsgpackPacker packer;
 };
 
-TEST_F(TestMsgpackPacker, TestJoints)
+TEST_F(TestMsgpackPacker, TestJointPositions)
 {
-  nao_interfaces::msg::Joints::SharedPtr joints = std::make_shared<nao_interfaces::msg::Joints>();
-  joints->angles[joints->HEADYAW] = 1.0;
-  joints->angles[joints->RHAND] = 2.0;
-  joints->stiffnesses[joints->HEADPITCH] = 0.3;
-  joints->stiffnesses[joints->LHAND] = 0.7;
+  nao_interfaces::msg::JointPositions::SharedPtr joint_positions =
+    std::make_shared<nao_interfaces::msg::JointPositions>();
+  joint_positions->indexes.push_back(nao_interfaces::msg::JointIndexes::HEADYAW);
+  joint_positions->positions.push_back(1.01);
+  joint_positions->indexes.push_back(nao_interfaces::msg::JointIndexes::RHAND);
+  joint_positions->positions.push_back(2.0);
 
-  packer.setJoints(joints);
+  packer.setJointPositions(joint_positions);
   std::string packed = packer.getPacked();
 
   std::vector<float> position(static_cast<int>(LolaEnums::Joint::NUM_JOINTS), 0);
-  position.at(static_cast<int>(LolaEnums::Joint::HeadYaw)) = 1.0;
+  position.at(static_cast<int>(LolaEnums::Joint::HeadYaw)) = 1.01;
   position.at(static_cast<int>(LolaEnums::Joint::RHand)) = 2.0;
   EXPECT_EQ(getFloatVector(packed, "Position"), position);
+}
+
+TEST_F(TestMsgpackPacker, TestJointStiffnesses)
+{
+  nao_interfaces::msg::JointStiffnesses::SharedPtr joint_stiffnesses =
+    std::make_shared<nao_interfaces::msg::JointStiffnesses>();
+  joint_stiffnesses->indexes.push_back(nao_interfaces::msg::JointIndexes::HEADPITCH);
+  joint_stiffnesses->stiffnesses.push_back(0.3);
+  joint_stiffnesses->indexes.push_back(nao_interfaces::msg::JointIndexes::LHAND);
+  joint_stiffnesses->stiffnesses.push_back(0.7);
+
+  packer.setJointStiffnesses(joint_stiffnesses);
+  std::string packed = packer.getPacked();
 
   std::vector<float> stiffness(static_cast<int>(LolaEnums::Joint::NUM_JOINTS), 0);
   stiffness.at(static_cast<int>(LolaEnums::Joint::HeadPitch)) = 0.3;

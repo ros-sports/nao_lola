@@ -17,7 +17,7 @@
 
 #include <map>
 #include "nao_lola/lola_enums.hpp"
-#include "nao_interfaces/msg/joints.hpp"
+#include "nao_interfaces/msg/joint_indexes.hpp"
 #include "nao_interfaces/msg/left_ear_leds.hpp"
 #include "nao_interfaces/msg/right_ear_leds.hpp"
 #include "nao_interfaces/msg/left_eye_leds.hpp"
@@ -29,31 +29,31 @@ namespace IndexConversion
 std::map<int, LolaEnums::Joint> flip(std::map<LolaEnums::Joint, int> in);
 
 static const std::map<LolaEnums::Joint, int> joint_lola_to_msg = {
-  {LolaEnums::Joint::HeadYaw, nao_interfaces::msg::Joints::HEADYAW},
-  {LolaEnums::Joint::HeadPitch, nao_interfaces::msg::Joints::HEADPITCH},
-  {LolaEnums::Joint::LShoulderPitch, nao_interfaces::msg::Joints::LSHOULDERPITCH},
-  {LolaEnums::Joint::LShoulderRoll, nao_interfaces::msg::Joints::LSHOULDERROLL},
-  {LolaEnums::Joint::LElbowYaw, nao_interfaces::msg::Joints::LELBOWYAW},
-  {LolaEnums::Joint::LElbowRoll, nao_interfaces::msg::Joints::LELBOWROLL},
-  {LolaEnums::Joint::LWristYaw, nao_interfaces::msg::Joints::LWRISTYAW},
-  {LolaEnums::Joint::LHipYawPitch, nao_interfaces::msg::Joints::LHIPYAWPITCH},
-  {LolaEnums::Joint::LHipRoll, nao_interfaces::msg::Joints::LHIPROLL},
-  {LolaEnums::Joint::LHipPitch, nao_interfaces::msg::Joints::LHIPPITCH},
-  {LolaEnums::Joint::LKneePitch, nao_interfaces::msg::Joints::LKNEEPITCH},
-  {LolaEnums::Joint::LAnklePitch, nao_interfaces::msg::Joints::LANKLEPITCH},
-  {LolaEnums::Joint::LAnkleRoll, nao_interfaces::msg::Joints::LANKLEROLL},
-  {LolaEnums::Joint::RHipRoll, nao_interfaces::msg::Joints::RHIPROLL},
-  {LolaEnums::Joint::RHipPitch, nao_interfaces::msg::Joints::RHIPPITCH},
-  {LolaEnums::Joint::RKneePitch, nao_interfaces::msg::Joints::RKNEEPITCH},
-  {LolaEnums::Joint::RAnklePitch, nao_interfaces::msg::Joints::RANKLEPITCH},
-  {LolaEnums::Joint::RAnkleRoll, nao_interfaces::msg::Joints::RANKLEROLL},
-  {LolaEnums::Joint::RShoulderPitch, nao_interfaces::msg::Joints::RSHOULDERPITCH},
-  {LolaEnums::Joint::RShoulderRoll, nao_interfaces::msg::Joints::RSHOULDERROLL},
-  {LolaEnums::Joint::RElbowYaw, nao_interfaces::msg::Joints::RELBOWYAW},
-  {LolaEnums::Joint::RElbowRoll, nao_interfaces::msg::Joints::RELBOWROLL},
-  {LolaEnums::Joint::RWristYaw, nao_interfaces::msg::Joints::RWRISTYAW},
-  {LolaEnums::Joint::LHand, nao_interfaces::msg::Joints::LHAND},
-  {LolaEnums::Joint::RHand, nao_interfaces::msg::Joints::RHAND},
+  {LolaEnums::Joint::HeadYaw, nao_interfaces::msg::JointIndexes::HEADYAW},
+  {LolaEnums::Joint::HeadPitch, nao_interfaces::msg::JointIndexes::HEADPITCH},
+  {LolaEnums::Joint::LShoulderPitch, nao_interfaces::msg::JointIndexes::LSHOULDERPITCH},
+  {LolaEnums::Joint::LShoulderRoll, nao_interfaces::msg::JointIndexes::LSHOULDERROLL},
+  {LolaEnums::Joint::LElbowYaw, nao_interfaces::msg::JointIndexes::LELBOWYAW},
+  {LolaEnums::Joint::LElbowRoll, nao_interfaces::msg::JointIndexes::LELBOWROLL},
+  {LolaEnums::Joint::LWristYaw, nao_interfaces::msg::JointIndexes::LWRISTYAW},
+  {LolaEnums::Joint::LHipYawPitch, nao_interfaces::msg::JointIndexes::LHIPYAWPITCH},
+  {LolaEnums::Joint::LHipRoll, nao_interfaces::msg::JointIndexes::LHIPROLL},
+  {LolaEnums::Joint::LHipPitch, nao_interfaces::msg::JointIndexes::LHIPPITCH},
+  {LolaEnums::Joint::LKneePitch, nao_interfaces::msg::JointIndexes::LKNEEPITCH},
+  {LolaEnums::Joint::LAnklePitch, nao_interfaces::msg::JointIndexes::LANKLEPITCH},
+  {LolaEnums::Joint::LAnkleRoll, nao_interfaces::msg::JointIndexes::LANKLEROLL},
+  {LolaEnums::Joint::RHipRoll, nao_interfaces::msg::JointIndexes::RHIPROLL},
+  {LolaEnums::Joint::RHipPitch, nao_interfaces::msg::JointIndexes::RHIPPITCH},
+  {LolaEnums::Joint::RKneePitch, nao_interfaces::msg::JointIndexes::RKNEEPITCH},
+  {LolaEnums::Joint::RAnklePitch, nao_interfaces::msg::JointIndexes::RANKLEPITCH},
+  {LolaEnums::Joint::RAnkleRoll, nao_interfaces::msg::JointIndexes::RANKLEROLL},
+  {LolaEnums::Joint::RShoulderPitch, nao_interfaces::msg::JointIndexes::RSHOULDERPITCH},
+  {LolaEnums::Joint::RShoulderRoll, nao_interfaces::msg::JointIndexes::RSHOULDERROLL},
+  {LolaEnums::Joint::RElbowYaw, nao_interfaces::msg::JointIndexes::RELBOWYAW},
+  {LolaEnums::Joint::RElbowRoll, nao_interfaces::msg::JointIndexes::RELBOWROLL},
+  {LolaEnums::Joint::RWristYaw, nao_interfaces::msg::JointIndexes::RWRISTYAW},
+  {LolaEnums::Joint::LHand, nao_interfaces::msg::JointIndexes::LHAND},
+  {LolaEnums::Joint::RHand, nao_interfaces::msg::JointIndexes::RHAND},
 };
 
 static const std::map<int, LolaEnums::Joint> joint_msg_to_lola = flip(joint_lola_to_msg);

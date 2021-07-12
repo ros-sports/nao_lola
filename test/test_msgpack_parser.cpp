@@ -18,6 +18,7 @@
 #include <string>
 #include <memory>
 #include "nao_lola/msgpack_parser.hpp"
+#include "nao_interfaces/msg/joint_indexes.hpp"
 
 std::vector<float> status =
 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
@@ -136,22 +137,55 @@ TEST_F(TestMsgpackParser, TestGyroscope)
   EXPECT_NEAR(gyr.z, 0.001065264455974102, 0.000001);
 }
 
-TEST_F(TestMsgpackParser, TestJoints)
+TEST_F(TestMsgpackParser, TestJointPositions)
 {
-  // I dont think there's much point in testing every joint, so I'm only testing
-  // the first(HeadYaw) and last(RHand) joints.
-  nao_interfaces::msg::Joints jts = parser->getJoints();
-  EXPECT_NEAR(jts.angles.at(nao_interfaces::msg::Joints::HEADYAW), 0.59361600875854492, 0.000001);
-  EXPECT_NEAR(jts.stiffnesses.at(nao_interfaces::msg::Joints::HEADYAW), 0.3, 0.000001);
-  EXPECT_NEAR(jts.temperatures.at(nao_interfaces::msg::Joints::HEADYAW), 38.0, 0.000001);
-  EXPECT_NEAR(jts.currents.at(nao_interfaces::msg::Joints::HEADYAW), 0.1, 0.000001);
-  EXPECT_EQ(jts.statuses.at(nao_interfaces::msg::Joints::HEADYAW), 1);
+  nao_interfaces::msg::JointPositions jointPositions = parser->getJointPositions();
+  EXPECT_EQ(jointPositions.indexes.size(), 0u);
+  EXPECT_EQ(jointPositions.positions.size(), nao_interfaces::msg::JointIndexes::NUMJOINTS);
+  EXPECT_NEAR(
+    jointPositions.positions.at(
+      nao_interfaces::msg::JointIndexes::HEADYAW), 0.59361600875854492, 0.000001);
+  EXPECT_NEAR(
+    jointPositions.positions.at(
+      nao_interfaces::msg::JointIndexes::RHAND), 0.011199951171875, 0.00001);
+}
 
-  EXPECT_NEAR(jts.angles.at(nao_interfaces::msg::Joints::RHAND), 0.011199951171875, 0.00001);
-  EXPECT_NEAR(jts.stiffnesses.at(nao_interfaces::msg::Joints::RHAND), 0.8, 0.00001);
-  EXPECT_NEAR(jts.temperatures.at(nao_interfaces::msg::Joints::RHAND), 39.0, 0.00001);
-  EXPECT_NEAR(jts.currents.at(nao_interfaces::msg::Joints::RHAND), 0.2, 0.00001);
-  EXPECT_EQ(jts.statuses.at(nao_interfaces::msg::Joints::RHAND), 3);
+TEST_F(TestMsgpackParser, TestJointStiffnesses)
+{
+  nao_interfaces::msg::JointStiffnesses jointStiffnesses = parser->getJointStiffnesses();
+  EXPECT_EQ(jointStiffnesses.indexes.size(), 0u);
+  EXPECT_EQ(jointStiffnesses.stiffnesses.size(), nao_interfaces::msg::JointIndexes::NUMJOINTS);
+  EXPECT_NEAR(
+    jointStiffnesses.stiffnesses.at(
+      nao_interfaces::msg::JointIndexes::HEADYAW), 0.3, 0.000001);
+  EXPECT_NEAR(
+    jointStiffnesses.stiffnesses.at(
+      nao_interfaces::msg::JointIndexes::RHAND), 0.8, 0.00001);
+}
+
+TEST_F(TestMsgpackParser, TestJointTemperatures)
+{
+  nao_interfaces::msg::JointTemperatures jointTemperatures = parser->getJointTemperatures();
+  EXPECT_NEAR(
+    jointTemperatures.temperatures.at(
+      nao_interfaces::msg::JointIndexes::HEADYAW), 38.0, 0.000001);
+  EXPECT_NEAR(
+    jointTemperatures.temperatures.at(
+      nao_interfaces::msg::JointIndexes::RHAND), 39.0, 0.00001);
+}
+
+TEST_F(TestMsgpackParser, TestJointCurrents)
+{
+  nao_interfaces::msg::JointCurrents jointCurrents = parser->getJointCurrents();
+  EXPECT_NEAR(jointCurrents.currents.at(nao_interfaces::msg::JointIndexes::HEADYAW), 0.1, 0.000001);
+  EXPECT_NEAR(jointCurrents.currents.at(nao_interfaces::msg::JointIndexes::RHAND), 0.2, 0.00001);
+}
+
+TEST_F(TestMsgpackParser, TestJointStatuses)
+{
+  nao_interfaces::msg::JointStatuses jointStatuses = parser->getJointStatuses();
+  EXPECT_EQ(jointStatuses.statuses.at(nao_interfaces::msg::JointIndexes::HEADYAW), 1);
+  EXPECT_EQ(jointStatuses.statuses.at(nao_interfaces::msg::JointIndexes::RHAND), 3);
 }
 
 TEST_F(TestMsgpackParser, TestSonar)

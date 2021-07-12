@@ -18,7 +18,11 @@
 #include <thread>
 #include <memory>
 #include "rclcpp/rclcpp.hpp"
-#include "nao_interfaces/msg/joints.hpp"
+#include "nao_interfaces/msg/joint_positions.hpp"
+#include "nao_interfaces/msg/joint_stiffnesses.hpp"
+#include "nao_interfaces/msg/joint_temperatures.hpp"
+#include "nao_interfaces/msg/joint_currents.hpp"
+#include "nao_interfaces/msg/joint_statuses.hpp"
 #include "nao_interfaces/msg/buttons.hpp"
 #include "nao_interfaces/msg/accelerometer.hpp"
 #include "nao_interfaces/msg/gyroscope.hpp"
@@ -55,13 +59,18 @@ private:
   rclcpp::Publisher<nao_interfaces::msg::Buttons>::SharedPtr buttons_pub;
   rclcpp::Publisher<nao_interfaces::msg::FSR>::SharedPtr fsr_pub;
   rclcpp::Publisher<nao_interfaces::msg::Gyroscope>::SharedPtr gyroscope_pub;
-  rclcpp::Publisher<nao_interfaces::msg::Joints>::SharedPtr joints_pub;
+  rclcpp::Publisher<nao_interfaces::msg::JointPositions>::SharedPtr joint_positions_pub;
+  rclcpp::Publisher<nao_interfaces::msg::JointStiffnesses>::SharedPtr joint_stiffnesses_pub;
+  rclcpp::Publisher<nao_interfaces::msg::JointTemperatures>::SharedPtr joint_temperatures_pub;
+  rclcpp::Publisher<nao_interfaces::msg::JointCurrents>::SharedPtr joint_currents_pub;
+  rclcpp::Publisher<nao_interfaces::msg::JointStatuses>::SharedPtr joint_statuses_pub;
   rclcpp::Publisher<nao_interfaces::msg::Sonar>::SharedPtr sonar_pub;
   rclcpp::Publisher<nao_interfaces::msg::Touch>::SharedPtr touch_pub;
   rclcpp::Publisher<nao_interfaces::msg::Battery>::SharedPtr battery_pub;
   rclcpp::Publisher<nao_interfaces::msg::RobotConfig>::SharedPtr robot_config_pub;
 
-  rclcpp::Subscription<nao_interfaces::msg::Joints>::SharedPtr joints_sub;
+  rclcpp::Subscription<nao_interfaces::msg::JointPositions>::SharedPtr joint_positions_sub;
+  rclcpp::Subscription<nao_interfaces::msg::JointStiffnesses>::SharedPtr joint_stiffnesses_sub;
   rclcpp::Subscription<nao_interfaces::msg::ChestLed>::SharedPtr chest_led_sub;
   rclcpp::Subscription<nao_interfaces::msg::LeftEarLeds>::SharedPtr left_ear_leds_sub;
   rclcpp::Subscription<nao_interfaces::msg::RightEarLeds>::SharedPtr right_ear_leds_sub;

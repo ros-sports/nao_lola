@@ -36,7 +36,11 @@ NaoLola::NaoLola()
         buttons_pub->publish(parsed.getButtons());
         fsr_pub->publish(parsed.getFSR());
         gyroscope_pub->publish(parsed.getGyroscope());
-        joints_pub->publish(parsed.getJoints());
+        joint_positions_pub->publish(parsed.getJointPositions());
+        joint_stiffnesses_pub->publish(parsed.getJointStiffnesses());
+        joint_temperatures_pub->publish(parsed.getJointTemperatures());
+        joint_currents_pub->publish(parsed.getJointCurrents());
+        joint_statuses_pub->publish(parsed.getJointStatuses());
         sonar_pub->publish(parsed.getSonar());
         touch_pub->publish(parsed.getTouch());
         battery_pub->publish(parsed.getBattery());
@@ -58,7 +62,16 @@ void NaoLola::createPublishers()
   buttons_pub = create_publisher<nao_interfaces::msg::Buttons>("sensors/buttons", 10);
   fsr_pub = create_publisher<nao_interfaces::msg::FSR>("sensors/fsr", 10);
   gyroscope_pub = create_publisher<nao_interfaces::msg::Gyroscope>("sensors/gyroscope", 10);
-  joints_pub = create_publisher<nao_interfaces::msg::Joints>("sensors/joints", 10);
+  joint_positions_pub = create_publisher<nao_interfaces::msg::JointPositions>(
+    "sensors/joint_positions", 10);
+  joint_stiffnesses_pub = create_publisher<nao_interfaces::msg::JointStiffnesses>(
+    "sensors/joint_stiffnesses", 10);
+  joint_temperatures_pub = create_publisher<nao_interfaces::msg::JointTemperatures>(
+    "sensors/joint_temperatures", 10);
+  joint_currents_pub = create_publisher<nao_interfaces::msg::JointCurrents>(
+    "sensors/joint_currents", 10);
+  joint_statuses_pub = create_publisher<nao_interfaces::msg::JointStatuses>(
+    "sensors/joint_statuses", 10);
   sonar_pub = create_publisher<nao_interfaces::msg::Sonar>("sensors/sonar", 10);
   touch_pub = create_publisher<nao_interfaces::msg::Touch>("sensors/touch", 10);
   battery_pub = create_publisher<nao_interfaces::msg::Battery>("sensors/battery", 10);
@@ -67,11 +80,19 @@ void NaoLola::createPublishers()
 
 void NaoLola::createSubscriptions()
 {
-  joints_sub =
-    create_subscription<nao_interfaces::msg::Joints>(
-    "effectors/joints", 1,
-    [this](nao_interfaces::msg::Joints::SharedPtr joints) {
-      packer->setJoints(joints);
+  joint_positions_sub =
+    create_subscription<nao_interfaces::msg::JointPositions>(
+    "effectors/joint_positions", 1,
+    [this](nao_interfaces::msg::JointPositions::SharedPtr jointPositions) {
+      packer->setJointPositions(jointPositions);
+    }
+    );
+
+  joint_stiffnesses_sub =
+    create_subscription<nao_interfaces::msg::JointStiffnesses>(
+    "effectors/joint_stiffnesses", 1,
+    [this](nao_interfaces::msg::JointStiffnesses::SharedPtr jointStiffnesses) {
+      packer->setJointStiffnesses(jointStiffnesses);
     }
     );
 

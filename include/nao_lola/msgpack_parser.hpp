@@ -19,7 +19,11 @@
 #include <string>
 #include <vector>
 #include "msgpack.hpp"
-#include "nao_interfaces/msg/joints.hpp"
+#include "nao_interfaces/msg/joint_currents.hpp"
+#include "nao_interfaces/msg/joint_positions.hpp"
+#include "nao_interfaces/msg/joint_stiffnesses.hpp"
+#include "nao_interfaces/msg/joint_temperatures.hpp"
+#include "nao_interfaces/msg/joint_statuses.hpp"
 #include "nao_interfaces/msg/buttons.hpp"
 #include "nao_interfaces/msg/accelerometer.hpp"
 #include "nao_interfaces/msg/gyroscope.hpp"
@@ -40,7 +44,11 @@ public:
   nao_interfaces::msg::Buttons getButtons();
   nao_interfaces::msg::FSR getFSR();
   nao_interfaces::msg::Gyroscope getGyroscope();
-  nao_interfaces::msg::Joints getJoints();
+  nao_interfaces::msg::JointCurrents getJointCurrents();
+  nao_interfaces::msg::JointPositions getJointPositions();
+  nao_interfaces::msg::JointStiffnesses getJointStiffnesses();
+  nao_interfaces::msg::JointTemperatures getJointTemperatures();
+  nao_interfaces::msg::JointStatuses getJointStatuses();
   nao_interfaces::msg::Sonar getSonar();
   nao_interfaces::msg::Touch getTouch();
   nao_interfaces::msg::Battery getBattery();

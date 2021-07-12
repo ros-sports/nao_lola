@@ -18,7 +18,8 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "nao_interfaces/msg/joints.hpp"
+#include "nao_interfaces/msg/joint_positions.hpp"
+#include "nao_interfaces/msg/joint_stiffnesses.hpp"
 #include "nao_interfaces/msg/chest_led.hpp"
 #include "nao_interfaces/msg/left_ear_leds.hpp"
 #include "nao_interfaces/msg/right_ear_leds.hpp"
@@ -28,14 +29,18 @@
 #include "nao_interfaces/msg/right_foot_led.hpp"
 #include "nao_interfaces/msg/head_leds.hpp"
 #include "nao_interfaces/msg/sonar_usage.hpp"
+#include "rclcpp/logger.hpp"
 
 
 class MsgpackPacker
 {
 public:
+  MsgpackPacker()
+  : logger(rclcpp::get_logger("msgpack packer")) {}
   std::string getPacked();
 
-  void setJoints(std::shared_ptr<nao_interfaces::msg::Joints> joints);
+  void setJointPositions(std::shared_ptr<nao_interfaces::msg::JointPositions> jointPositions);
+  void setJointStiffnesses(std::shared_ptr<nao_interfaces::msg::JointStiffnesses> jointStiffnesses);
   void setChestLed(std::shared_ptr<nao_interfaces::msg::ChestLed> chestLed);
   void setLeftEarLeds(std::shared_ptr<nao_interfaces::msg::LeftEarLeds> leftEarLeds);
   void setRightEarLeds(std::shared_ptr<nao_interfaces::msg::RightEarLeds> rightEarLeds);
@@ -58,6 +63,8 @@ private:
   std::shared_ptr<std::vector<float>> r_foot;
   std::shared_ptr<std::vector<float>> skull;
   std::shared_ptr<std::vector<bool>> sonar;
+
+  rclcpp::Logger logger;
 };
 
 #endif  // NAO_LOLA__MSGPACK_PACKER_HPP_
