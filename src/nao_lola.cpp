@@ -14,13 +14,13 @@
 
 #include <string>
 #include <memory>
+#include <iostream>
 #include "nao_lola/nao_lola.hpp"
 #include "nao_lola/msgpack_parser.hpp"
 
 NaoLola::NaoLola()
 : Node("NaoLola")
 {
-  RCLCPP_DEBUG(get_logger(), "Initialise publishers");
   createPublishers();
   createSubscriptions();
 
@@ -28,8 +28,13 @@ NaoLola::NaoLola()
   receive_thread_ = std::thread(
     [this]() {
       while (rclcpp::ok()) {
+
+        std::cout << "starting receive." << std::endl;
+        
         std::string received = connection.receive();
+        std::cout << "received: " << received << std::endl;
         MsgpackParser parsed(received);
+        std::cout << "parsed successfully!" << std::endl;
 
         accelerometer_pub->publish(parsed.getAccelerometer());
         angle_pub->publish(parsed.getAngle());
@@ -56,6 +61,7 @@ NaoLola::NaoLola()
 
 void NaoLola::createPublishers()
 {
+  RCLCPP_DEBUG(get_logger(), "Initialise publishers");
   accelerometer_pub = create_publisher<nao_interfaces::msg::Accelerometer>(
     "sensors/accelerometer", 10);
   angle_pub = create_publisher<nao_interfaces::msg::Angle>("sensors/angle", 10);
@@ -76,10 +82,12 @@ void NaoLola::createPublishers()
   touch_pub = create_publisher<nao_interfaces::msg::Touch>("sensors/touch", 10);
   battery_pub = create_publisher<nao_interfaces::msg::Battery>("sensors/battery", 10);
   robot_config_pub = create_publisher<nao_interfaces::msg::RobotConfig>("sensors/robot_config", 10);
+  RCLCPP_DEBUG(get_logger(), "Finished initialising publishers");
 }
 
 void NaoLola::createSubscriptions()
 {
+  RCLCPP_DEBUG(get_logger(), "Initialise subscriptions");
   joint_positions_sub =
     create_subscription<nao_interfaces::msg::JointPositions>(
     "effectors/joint_positions", 1,
@@ -167,4 +175,5 @@ void NaoLola::createSubscriptions()
       packer->setSonarUsage(sonarUsage);
     }
     );
+  RCLCPP_DEBUG(get_logger(), "Finished creating subscriptions");
 }

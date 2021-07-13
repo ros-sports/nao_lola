@@ -15,6 +15,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <iostream>
 #include "nao_lola/msgpack_parser.hpp"
 #include "nao_lola/lola_enums.hpp"
 #include "nao_lola/index_conversion.hpp"
@@ -22,10 +23,13 @@
 
 MsgpackParser::MsgpackParser(std::string packed)
 {
+  std::cout << "(MsgpackParser) packed.size(): " << packed.size() << std::endl;
   msgpack::object_handle oh =
     msgpack::unpack(packed.data(), packed.size());
+  std::cout << "(MsgpackParser) unpacked succesfully" << std::endl;
 
   unpacked = oh.get().as<std::map<std::string, msgpack::object>>();
+  std::cout << "(MsgpackParser) parsed succesfully" << std::endl;
 }
 
 nao_interfaces::msg::Accelerometer MsgpackParser::getAccelerometer()
