@@ -54,6 +54,8 @@ nao_interfaces::msg::Angle MsgpackParser::getAngle()
   std::cout << __FILE__ << ": " << __LINE__<<std::endl;
   std::cout << "Angles count: " << unpacked.count("Angles") << std::endl;
   std::cout << __FILE__ << ": " << __LINE__<<std::endl;
+  std::cout << "Angles: " << unpacked.at("Angles") << std::endl;
+  std::cout << __FILE__ << ": " << __LINE__<<std::endl;
   std::vector<float> vec = unpacked.at("Angles").as<std::vector<float>>();
   std::cout << __FILE__ << ": " << __LINE__<<std::endl;
   ang.x = vec.at(static_cast<int>(LolaEnums::Angles::X));
