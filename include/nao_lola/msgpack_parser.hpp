@@ -37,7 +37,7 @@
 class MsgpackParser
 {
 public:
-  explicit MsgpackParser(std::string packed);
+  explicit MsgpackParser(char data[], int size);
 
   nao_interfaces::msg::Accelerometer getAccelerometer();
   nao_interfaces::msg::Angle getAngle();
@@ -55,6 +55,7 @@ public:
   nao_interfaces::msg::RobotConfig getRobotConfig();
 
 private:
+  msgpack::object_handle oh;  // Keep this variable throughout the lifetime of this object
   std::map<std::string, msgpack::object> unpacked;
 };
 
