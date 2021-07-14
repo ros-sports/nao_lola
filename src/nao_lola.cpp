@@ -14,7 +14,6 @@
 
 #include <string>
 #include <memory>
-#include <iostream>
 #include "nao_lola/nao_lola.hpp"
 #include "nao_lola/msgpack_parser.hpp"
 
@@ -28,21 +27,11 @@ NaoLola::NaoLola()
   receive_thread_ = std::thread(
     [this]() {
       while (rclcpp::ok()) {
-
-        std::cout << "starting receive." << std::endl;
-        
-        // char recvData[MSGPACK_READ_LENGTH] = {'\0'};
-        // connection.receive(recvData);
         auto recvData = connection.receive();
-
-        std::cout << "received: " << std::endl;
         MsgpackParser parsed(recvData.data(), recvData.size());
-        std::cout << "parsed successfully!" << std::endl;
 
         accelerometer_pub->publish(parsed.getAccelerometer());
-        std::cout << "published accelerometer" << std::endl;
         angle_pub->publish(parsed.getAngle());
-        std::cout << "published angles" << std::endl;
         buttons_pub->publish(parsed.getButtons());
         fsr_pub->publish(parsed.getFSR());
         gyroscope_pub->publish(parsed.getGyroscope());
@@ -55,9 +44,8 @@ NaoLola::NaoLola()
         touch_pub->publish(parsed.getTouch());
         battery_pub->publish(parsed.getBattery());
         robot_config_pub->publish(parsed.getRobotConfig());
-        std::cout << "published everything" << std::endl;
 
-        // connection.send(packer->getPacked());
+        connection.send(packer->getPacked());
 
         // Reset packer
         packer = std::make_shared<MsgpackPacker>();
