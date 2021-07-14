@@ -26,12 +26,11 @@ MsgpackParser::MsgpackParser(char data[896])
   oh = msgpack::unpack(data, 896);
   std::cout << "(MsgpackParser) unpacked succesfully" << std::endl;
 
-  unpacked = oh.get().as<std::map<std::string, msgpack::v2::object>>();
-  std::cout << "unpacked.size(): " << unpacked.size() << std::endl;
+  unpacked = oh.get().as<std::map<std::string, msgpack::object>>();
   std::cout << "(MsgpackParser) parsed succesfully" << std::endl;
 
   // Cout the whole map
-  for(std::map<std::string, msgpack::v2::object>::iterator it = unpacked.begin(); it != unpacked.end(); ++it)
+  for(std::map<std::string, msgpack::object>::iterator it = unpacked.begin(); it != unpacked.end(); ++it)
   {
     std::cout << it->first << " " << it->second << "\n";
   }
@@ -40,8 +39,7 @@ MsgpackParser::MsgpackParser(char data[896])
 nao_interfaces::msg::Accelerometer MsgpackParser::getAccelerometer()
 {
   nao_interfaces::msg::Accelerometer acc;
-  msgpack::object obj = unpacked.at("Accelerometer");
-  std::vector<float> vec = obj.as<std::vector<float>>();
+  std::vector<float> vec = unpacked.at("Accelerometer").as<std::vector<float>>();
   acc.x = vec.at(static_cast<int>(LolaEnums::Accelerometer::X));
   acc.y = vec.at(static_cast<int>(LolaEnums::Accelerometer::Y));
   acc.z = vec.at(static_cast<int>(LolaEnums::Accelerometer::Z));
@@ -51,13 +49,7 @@ nao_interfaces::msg::Accelerometer MsgpackParser::getAccelerometer()
 nao_interfaces::msg::Angle MsgpackParser::getAngle()
 {
   nao_interfaces::msg::Angle ang;
-  std::cout << __FILE__ << ": " << __LINE__<<std::endl;
-  std::cout << "Angles count: " << unpacked.count("Angles") << std::endl;
-  std::cout << __FILE__ << ": " << __LINE__<<std::endl;
-  std::cout << "Angles: " << unpacked.at("Angles") << std::endl;
-  std::cout << __FILE__ << ": " << __LINE__<<std::endl;
   std::vector<float> vec = unpacked.at("Angles").as<std::vector<float>>();
-  std::cout << __FILE__ << ": " << __LINE__<<std::endl;
   ang.x = vec.at(static_cast<int>(LolaEnums::Angles::X));
   ang.y = vec.at(static_cast<int>(LolaEnums::Angles::Y));
   return ang;

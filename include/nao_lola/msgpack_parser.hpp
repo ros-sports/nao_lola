@@ -55,8 +55,8 @@ public:
   nao_interfaces::msg::RobotConfig getRobotConfig();
 
 private:
-  msgpack::v2::object_handle oh;
-  std::map<std::string, msgpack::v2::object> unpacked;
+  msgpack::object_handle oh;  // Keep this variable throughout the lifetime of this object
+  std::map<std::string, msgpack::object> unpacked;
 };
 
 

@@ -41,18 +41,19 @@ NaoLola::NaoLola()
         std::cout << "published accelerometer" << std::endl;
         angle_pub->publish(parsed.getAngle());
         std::cout << "published angles" << std::endl;
-        // buttons_pub->publish(parsed.getButtons());
-        // fsr_pub->publish(parsed.getFSR());
-        // gyroscope_pub->publish(parsed.getGyroscope());
-        // joint_positions_pub->publish(parsed.getJointPositions());
-        // joint_stiffnesses_pub->publish(parsed.getJointStiffnesses());
-        // joint_temperatures_pub->publish(parsed.getJointTemperatures());
-        // joint_currents_pub->publish(parsed.getJointCurrents());
-        // joint_statuses_pub->publish(parsed.getJointStatuses());
-        // sonar_pub->publish(parsed.getSonar());
-        // touch_pub->publish(parsed.getTouch());
-        // battery_pub->publish(parsed.getBattery());
-        // robot_config_pub->publish(parsed.getRobotConfig());
+        buttons_pub->publish(parsed.getButtons());
+        fsr_pub->publish(parsed.getFSR());
+        gyroscope_pub->publish(parsed.getGyroscope());
+        joint_positions_pub->publish(parsed.getJointPositions());
+        joint_stiffnesses_pub->publish(parsed.getJointStiffnesses());
+        joint_temperatures_pub->publish(parsed.getJointTemperatures());
+        joint_currents_pub->publish(parsed.getJointCurrents());
+        joint_statuses_pub->publish(parsed.getJointStatuses());
+        sonar_pub->publish(parsed.getSonar());
+        touch_pub->publish(parsed.getTouch());
+        battery_pub->publish(parsed.getBattery());
+        robot_config_pub->publish(parsed.getRobotConfig());
+        std::cout << "published everything" << std::endl;
 
         // connection.send(packer->getPacked());
 

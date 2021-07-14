@@ -26,50 +26,50 @@
 std::string MsgpackPacker::getPacked()
 {
   msgpack::zone z;
-  std::map<std::string, msgpack::v2::object> map;
+  std::map<std::string, msgpack::object> map;
 
   if (position) {
-    map.insert(std::make_pair("Position", msgpack::v2::object(position, z)));
+    map.insert(std::make_pair("Position", msgpack::object(position, z)));
   }
 
   if (stiffness) {
-    map.insert(std::make_pair("Stiffness", msgpack::v2::object(stiffness, z)));
+    map.insert(std::make_pair("Stiffness", msgpack::object(stiffness, z)));
   }
 
   if (chest) {
-    map.insert(std::make_pair("Chest", msgpack::v2::object(chest, z)));
+    map.insert(std::make_pair("Chest", msgpack::object(chest, z)));
   }
 
   if (l_ear) {
-    map.insert(std::make_pair("LEar", msgpack::v2::object(l_ear, z)));
+    map.insert(std::make_pair("LEar", msgpack::object(l_ear, z)));
   }
 
   if (r_ear) {
-    map.insert(std::make_pair("REar", msgpack::v2::object(r_ear, z)));
+    map.insert(std::make_pair("REar", msgpack::object(r_ear, z)));
   }
 
   if (l_eye) {
-    map.insert(std::make_pair("LEye", msgpack::v2::object(l_eye, z)));
+    map.insert(std::make_pair("LEye", msgpack::object(l_eye, z)));
   }
 
   if (r_eye) {
-    map.insert(std::make_pair("REye", msgpack::v2::object(r_eye, z)));
+    map.insert(std::make_pair("REye", msgpack::object(r_eye, z)));
   }
 
   if (l_foot) {
-    map.insert(std::make_pair("LFoot", msgpack::v2::object(l_foot, z)));
+    map.insert(std::make_pair("LFoot", msgpack::object(l_foot, z)));
   }
 
   if (r_foot) {
-    map.insert(std::make_pair("RFoot", msgpack::v2::object(r_foot, z)));
+    map.insert(std::make_pair("RFoot", msgpack::object(r_foot, z)));
   }
 
   if (skull) {
-    map.insert(std::make_pair("Skull", msgpack::v2::object(skull, z)));
+    map.insert(std::make_pair("Skull", msgpack::object(skull, z)));
   }
 
   if (sonar) {
-    map.insert(std::make_pair("Sonar", msgpack::v2::object(sonar, z)));
+    map.insert(std::make_pair("Sonar", msgpack::object(sonar, z)));
   }
 
   std::stringstream buffer;
