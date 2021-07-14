@@ -55,6 +55,7 @@ public:
   nao_interfaces::msg::RobotConfig getRobotConfig();
 
 private:
+  msgpack::v2::object_handle oh;
   std::map<std::string, msgpack::v2::object> unpacked;
 };
 

@@ -23,8 +23,7 @@
 
 MsgpackParser::MsgpackParser(char data[896])
 {
-  msgpack::v2::object_handle oh =
-    msgpack::unpack(data, 896);
+  oh = msgpack::unpack(data, 896);
   std::cout << "(MsgpackParser) unpacked succesfully" << std::endl;
 
   unpacked = oh.get().as<std::map<std::string, msgpack::v2::object>>();
