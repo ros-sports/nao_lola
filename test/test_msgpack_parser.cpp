@@ -65,20 +65,20 @@ protected:
     // https://github.com/msgpack/msgpack-c/issues/651#issuecomment-365197261
     msgpack::zone z;
 
-    std::map<std::string, msgpack::object> map{
-      {"Status", msgpack::object(status, z)},
-      {"Stiffness", msgpack::object(stiffness, z)},
-      {"Accelerometer", msgpack::object(accelerometer, z)},
-      {"Battery", msgpack::object(battery, z)},
-      {"Current", msgpack::object(current, z)},
-      {"Touch", msgpack::object(touch, z)},
-      {"FSR", msgpack::object(fsr, z)},
-      {"Angles", msgpack::object(angles, z)},
-      {"Position", msgpack::object(position, z)},
-      {"Sonar", msgpack::object(sonar, z)},
-      {"Gyroscope", msgpack::object(gyroscope, z)},
-      {"Temperature", msgpack::object(temperature, z)},
-      {"RobotConfig", msgpack::object(robotConfig, z)}
+    std::map<std::string, msgpack::v2::object> map{
+      {"Status", msgpack::v2::object(status, z)},
+      {"Stiffness", msgpack::v2::object(stiffness, z)},
+      {"Accelerometer", msgpack::v2::object(accelerometer, z)},
+      {"Battery", msgpack::v2::object(battery, z)},
+      {"Current", msgpack::v2::object(current, z)},
+      {"Touch", msgpack::v2::object(touch, z)},
+      {"FSR", msgpack::v2::object(fsr, z)},
+      {"Angles", msgpack::v2::object(angles, z)},
+      {"Position", msgpack::v2::object(position, z)},
+      {"Sonar", msgpack::v2::object(sonar, z)},
+      {"Gyroscope", msgpack::v2::object(gyroscope, z)},
+      {"Temperature", msgpack::v2::object(temperature, z)},
+      {"RobotConfig", msgpack::v2::object(robotConfig, z)}
     };
 
     // serialize the buffer

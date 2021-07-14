@@ -27,7 +27,7 @@
 
 static std::vector<float> getFloatVector(std::string packed, std::string mapKey);
 static std::vector<bool> getBoolVector(std::string packed, std::string mapKey);
-static std::map<std::string, msgpack::object> unpack(std::string packed);
+static std::map<std::string, msgpack::v2::object> unpack(std::string packed);
 
 class TestMsgpackPacker : public ::testing::Test
 {
@@ -285,19 +285,19 @@ TEST_F(TestMsgpackPacker, TestSonarUsage)
 // Helper functions
 static std::vector<float> getFloatVector(std::string packed, std::string mapKey)
 {
-  std::map<std::string, msgpack::object> unpacked = unpack(packed);
+  std::map<std::string, msgpack::v2::object> unpacked = unpack(packed);
   return unpacked.at(mapKey).as<std::vector<float>>();
 }
 
 static std::vector<bool> getBoolVector(std::string packed, std::string mapKey)
 {
-  std::map<std::string, msgpack::object> unpacked = unpack(packed);
+  std::map<std::string, msgpack::v2::object> unpacked = unpack(packed);
   return unpacked.at(mapKey).as<std::vector<bool>>();
 }
 
-static std::map<std::string, msgpack::object> unpack(std::string packed)
+static std::map<std::string, msgpack::v2::object> unpack(std::string packed)
 {
-  msgpack::object_handle oh =
+  msgpack::v2::object_handle oh =
     msgpack::unpack(packed.data(), packed.size());
-  return oh.get().as<std::map<std::string, msgpack::object>>();
+  return oh.get().as<std::map<std::string, msgpack::v2::object>>();
 }
