@@ -37,8 +37,8 @@ NaoLola::NaoLola()
         MsgpackParser parsed(recvData);
         std::cout << "parsed successfully!" << std::endl;
 
-        accelerometer_pub->publish(parsed.getAccelerometer());
-        std::cout << "published accelerometer" << std::endl;
+        // accelerometer_pub->publish(parsed.getAccelerometer());
+        // std::cout << "published accelerometer" << std::endl;
         angle_pub->publish(parsed.getAngle());
         std::cout << "published angles" << std::endl;
         // buttons_pub->publish(parsed.getButtons());
