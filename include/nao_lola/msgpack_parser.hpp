@@ -37,7 +37,7 @@
 class MsgpackParser
 {
 public:
-  explicit MsgpackParser(std::string packed);
+  explicit MsgpackParser(char data[896]);
 
   nao_interfaces::msg::Accelerometer getAccelerometer();
   nao_interfaces::msg::Angle getAngle();

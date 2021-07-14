@@ -31,9 +31,10 @@ NaoLola::NaoLola()
 
         std::cout << "starting receive." << std::endl;
         
-        std::string received = connection.receive();
-        std::cout << "received: " << received << std::endl;
-        MsgpackParser parsed(received);
+        char recvData[896] = {'\0'};
+        connection.receive(recvData);
+        std::cout << "received: " << std::endl;
+        MsgpackParser parsed(recvData);
         std::cout << "parsed successfully!" << std::endl;
 
         accelerometer_pub->publish(parsed.getAccelerometer());

@@ -24,7 +24,7 @@ class Connection
 {
 public:
   Connection();
-  std::string receive();
+  void receive(char data[896]);
   void send(std::string data);
 
 private:

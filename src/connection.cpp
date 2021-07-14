@@ -28,16 +28,13 @@ Connection::Connection()
   }
 }
 
-std::string Connection::receive()
+void Connection::receive(char data[896])
 {
-  char data[896];
   boost::system::error_code ec;
-  socket.receive(boost::asio::buffer(data), 0, ec);
+  socket.receive(boost::asio::buffer(data, 896), 0, ec);
   if (ec) {
     RCLCPP_ERROR(logger, (std::string{"Could not read from LoLA: "} + ec.message()).c_str());
-    return "";
   }
-  return data;
 }
 
 void Connection::send(std::string data)
