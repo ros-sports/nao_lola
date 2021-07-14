@@ -30,6 +30,12 @@ MsgpackParser::MsgpackParser(char data[896])
   unpacked = oh.get().as<std::map<std::string, msgpack::v2::object>>();
   std::cout << "unpacked.size(): " << unpacked.size() << std::endl;
   std::cout << "(MsgpackParser) parsed succesfully" << std::endl;
+
+  // Cout the whole map
+  for(std::map<std::string, msgpack::v2::object>::iterator it = unpacked.begin(); it != unpacked.end(); ++it)
+  {
+    std::cout << it->first << " " << it->second << "\n";
+  }
 }
 
 nao_interfaces::msg::Accelerometer MsgpackParser::getAccelerometer()
