@@ -30,7 +30,7 @@ Connection::Connection()
 
 std::string Connection::receive()
 {
-  char data[MSGPACK_READ_LENGTH];
+  char data[896];
   boost::system::error_code ec;
   socket.receive(boost::asio::buffer(data), 0, ec);
   if (ec) {
