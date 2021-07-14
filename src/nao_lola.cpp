@@ -35,7 +35,7 @@ NaoLola::NaoLola()
         // connection.receive(recvData);
         auto recvData = connection.receive();
 
-        std::cout << "received size: " << recvData.size() << std::endl;
+        std::cout << "received: " << std::endl;
         MsgpackParser parsed(recvData.data(), recvData.size());
         std::cout << "parsed successfully!" << std::endl;
 

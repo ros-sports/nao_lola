@@ -16,7 +16,6 @@
 #include <string>
 
 #define ENDPOINT "/tmp/robocup"
-#define MSGPACK_READ_LENGTH 896
 
 Connection::Connection()
 : io_service(), socket(io_service), logger(rclcpp::get_logger("lola connection"))
@@ -28,11 +27,11 @@ Connection::Connection()
   }
 }
 
-std::vector<char> Connection::receive()
+std::array<char, MSGPACK_READ_LENGTH> Connection::receive()
 {
   boost::system::error_code ec;
-  std::vector<char> data;
-  socket.receive(boost::asio::buffer(data, MSGPACK_READ_LENGTH), 0, ec);
+  std::array<char, MSGPACK_READ_LENGTH> data;
+  socket.receive(boost::asio::buffer(data), 0, ec);
   if (ec) {
     RCLCPP_ERROR(logger, (std::string{"Could not read from LoLA: "} + ec.message()).c_str());
   }
