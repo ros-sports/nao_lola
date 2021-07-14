@@ -41,7 +41,8 @@ MsgpackParser::MsgpackParser(char data[896])
 nao_interfaces::msg::Accelerometer MsgpackParser::getAccelerometer()
 {
   nao_interfaces::msg::Accelerometer acc;
-  std::vector<float> vec = unpacked.at("Accelerometer").as<std::vector<float>>();
+  msgpack::object obj = unpacked.at("Accelerometer");
+  std::vector<float> vec = obj.as<std::vector<float>>();
   acc.x = vec.at(static_cast<int>(LolaEnums::Accelerometer::X));
   acc.y = vec.at(static_cast<int>(LolaEnums::Accelerometer::Y));
   acc.z = vec.at(static_cast<int>(LolaEnums::Accelerometer::Z));
