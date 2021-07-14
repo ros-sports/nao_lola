@@ -21,9 +21,9 @@
 #include "nao_lola/index_conversion.hpp"
 
 
-MsgpackParser::MsgpackParser(char data[896])
+MsgpackParser::MsgpackParser(char data[], int size)
 {
-  oh = msgpack::unpack(data, 896);
+  oh = msgpack::unpack(data, size);
   std::cout << "(MsgpackParser) unpacked succesfully" << std::endl;
 
   unpacked = oh.get().as<std::map<std::string, msgpack::object>>();

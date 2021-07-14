@@ -87,7 +87,7 @@ protected:
 
     // deserialize the buffer
     std::string packed = buffer.str();
-    parser = std::make_shared<MsgpackParser>(packed);
+    parser = std::make_shared<MsgpackParser>(packed.data(), packed.size());
   }
 };
 
