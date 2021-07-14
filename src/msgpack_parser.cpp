@@ -28,6 +28,7 @@ MsgpackParser::MsgpackParser(char data[896])
   std::cout << "(MsgpackParser) unpacked succesfully" << std::endl;
 
   unpacked = oh.get().as<std::map<std::string, msgpack::object>>();
+  std::cout << "unpacked.size(): " << unpacked.size() << std::endl;
   std::cout << "(MsgpackParser) parsed succesfully" << std::endl;
 }
 
@@ -44,7 +45,11 @@ nao_interfaces::msg::Accelerometer MsgpackParser::getAccelerometer()
 nao_interfaces::msg::Angle MsgpackParser::getAngle()
 {
   nao_interfaces::msg::Angle ang;
+  std::cout << __FILE__ << ": " << __LINE__<<std::endl;
+  std::cout << "Angles count: " << unpacked.count("Angles") << std::endl;
+  std::cout << __FILE__ << ": " << __LINE__<<std::endl;
   std::vector<float> vec = unpacked.at("Angles").as<std::vector<float>>();
+  std::cout << __FILE__ << ": " << __LINE__<<std::endl;
   ang.x = vec.at(static_cast<int>(LolaEnums::Angles::X));
   ang.y = vec.at(static_cast<int>(LolaEnums::Angles::Y));
   return ang;

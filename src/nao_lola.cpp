@@ -37,11 +37,10 @@ NaoLola::NaoLola()
         MsgpackParser parsed(recvData);
         std::cout << "parsed successfully!" << std::endl;
 
-        nao_interfaces::msg::Accelerometer acc = parsed.getAccelerometer();
-        std::cout << acc.x << ", " << acc.y << ", " << acc.z << std::endl;
-
-        // accelerometer_pub->publish(parsed.getAccelerometer());
-        // angle_pub->publish(parsed.getAngle());
+        accelerometer_pub->publish(parsed.getAccelerometer());
+        std::cout << "published accelerometer" << std::endl;
+        angle_pub->publish(parsed.getAngle());
+        std::cout << "published angles" << std::endl;
         // buttons_pub->publish(parsed.getButtons());
         // fsr_pub->publish(parsed.getFSR());
         // gyroscope_pub->publish(parsed.getGyroscope());
