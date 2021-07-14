@@ -20,13 +20,11 @@
 #include "rclcpp/logger.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-#define MSGPACK_READ_LENGTH 896
-
 class Connection
 {
 public:
   Connection();
-  std::array<char, MSGPACK_READ_LENGTH> receive();
+  std::vector<char> receive();
   void send(std::string data);
 
 private:
