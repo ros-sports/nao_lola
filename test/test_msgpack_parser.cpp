@@ -86,7 +86,13 @@ protected:
     msgpack::pack(buffer, map);
 
     // deserialize the buffer
-    std::string packed = buffer.str();
+    // DO NOT use a std::string because serialized data may contain null characters
+    char c;
+    std::vector<char> packed;
+    packed.reserve(1000);
+    while (buffer.get(c)) {
+      packed.push_back(c);
+    }
     parser = std::make_shared<MsgpackParser>(packed.data(), packed.size());
   }
 };
