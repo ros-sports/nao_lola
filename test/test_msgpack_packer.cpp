@@ -19,8 +19,8 @@
 #include <memory>
 #include "msgpack.hpp"
 #include "nao_lola/msgpack_packer.hpp"
-#include "nao_command_msgs/msg/joint_positions_command.hpp"
-#include "nao_command_msgs/msg/joint_stiffnesses_command.hpp"
+#include "nao_command_msgs/msg/joint_positions.hpp"
+#include "nao_command_msgs/msg/joint_stiffnesses.hpp"
 #include "nao_command_msgs/msg/joint_indexes.hpp"
 #include "nao_lola/lola_enums.hpp"
 
