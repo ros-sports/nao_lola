@@ -18,7 +18,8 @@ include_directories(
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(nao_interfaces REQUIRED)
+find_package(nao_sensor_msgs REQUIRED)
+find_package(nao_command_msgs REQUIRED)
 
 # build msgpack_parser_lib
 add_library(msgpack_parser_lib SHARED
@@ -26,7 +27,7 @@ add_library(msgpack_parser_lib SHARED
 
 ament_target_dependencies(msgpack_parser_lib
   rclcpp
-  nao_interfaces)
+  nao_sensor_msgs)
 
 # build msgpack_packer_lib
 add_library(msgpack_packer_lib SHARED
@@ -34,7 +35,7 @@ add_library(msgpack_packer_lib SHARED
 
 ament_target_dependencies(msgpack_packer_lib
   rclcpp
-  nao_interfaces)
+  nao_command_msgs)
 
 # build nao_lola
 add_executable(nao_lola

@@ -19,40 +19,40 @@
 #include <string>
 #include <vector>
 #include "msgpack.hpp"
-#include "nao_interfaces/msg/joint_currents.hpp"
-#include "nao_interfaces/msg/joint_positions.hpp"
-#include "nao_interfaces/msg/joint_stiffnesses.hpp"
-#include "nao_interfaces/msg/joint_temperatures.hpp"
-#include "nao_interfaces/msg/joint_statuses.hpp"
-#include "nao_interfaces/msg/buttons.hpp"
-#include "nao_interfaces/msg/accelerometer.hpp"
-#include "nao_interfaces/msg/gyroscope.hpp"
-#include "nao_interfaces/msg/angle.hpp"
-#include "nao_interfaces/msg/sonar.hpp"
-#include "nao_interfaces/msg/fsr.hpp"
-#include "nao_interfaces/msg/touch.hpp"
-#include "nao_interfaces/msg/battery.hpp"
-#include "nao_interfaces/msg/robot_config.hpp"
+#include "nao_sensor_msgs/msg/joint_currents.hpp"
+#include "nao_sensor_msgs/msg/joint_positions.hpp"
+#include "nao_sensor_msgs/msg/joint_stiffnesses.hpp"
+#include "nao_sensor_msgs/msg/joint_temperatures.hpp"
+#include "nao_sensor_msgs/msg/joint_statuses.hpp"
+#include "nao_sensor_msgs/msg/buttons.hpp"
+#include "nao_sensor_msgs/msg/accelerometer.hpp"
+#include "nao_sensor_msgs/msg/gyroscope.hpp"
+#include "nao_sensor_msgs/msg/angle.hpp"
+#include "nao_sensor_msgs/msg/sonar.hpp"
+#include "nao_sensor_msgs/msg/fsr.hpp"
+#include "nao_sensor_msgs/msg/touch.hpp"
+#include "nao_sensor_msgs/msg/battery.hpp"
+#include "nao_sensor_msgs/msg/robot_config.hpp"
 
 class MsgpackParser
 {
 public:
   explicit MsgpackParser(char data[], int size);
 
-  nao_interfaces::msg::Accelerometer getAccelerometer();
-  nao_interfaces::msg::Angle getAngle();
-  nao_interfaces::msg::Buttons getButtons();
-  nao_interfaces::msg::FSR getFSR();
-  nao_interfaces::msg::Gyroscope getGyroscope();
-  nao_interfaces::msg::JointCurrents getJointCurrents();
-  nao_interfaces::msg::JointPositions getJointPositions();
-  nao_interfaces::msg::JointStiffnesses getJointStiffnesses();
-  nao_interfaces::msg::JointTemperatures getJointTemperatures();
-  nao_interfaces::msg::JointStatuses getJointStatuses();
-  nao_interfaces::msg::Sonar getSonar();
-  nao_interfaces::msg::Touch getTouch();
-  nao_interfaces::msg::Battery getBattery();
-  nao_interfaces::msg::RobotConfig getRobotConfig();
+  nao_sensor_msgs::msg::Accelerometer getAccelerometer();
+  nao_sensor_msgs::msg::Angle getAngle();
+  nao_sensor_msgs::msg::Buttons getButtons();
+  nao_sensor_msgs::msg::FSR getFSR();
+  nao_sensor_msgs::msg::Gyroscope getGyroscope();
+  nao_sensor_msgs::msg::JointCurrents getJointCurrents();
+  nao_sensor_msgs::msg::JointPositions getJointPositions();
+  nao_sensor_msgs::msg::JointStiffnesses getJointStiffnesses();
+  nao_sensor_msgs::msg::JointTemperatures getJointTemperatures();
+  nao_sensor_msgs::msg::JointStatuses getJointStatuses();
+  nao_sensor_msgs::msg::Sonar getSonar();
+  nao_sensor_msgs::msg::Touch getTouch();
+  nao_sensor_msgs::msg::Battery getBattery();
+  nao_sensor_msgs::msg::RobotConfig getRobotConfig();
 
 private:
   msgpack::object_handle oh;  // Keep this variable throughout the lifetime of this object

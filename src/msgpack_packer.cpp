@@ -20,7 +20,7 @@
 #include "nao_lola/msgpack_packer.hpp"
 #include "msgpack.hpp"
 #include "nao_lola/lola_enums.hpp"
-#include "nao_lola/index_conversion.hpp"
+#include "nao_lola/command_index_conversion.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 std::string MsgpackPacker::getPacked()
@@ -80,12 +80,12 @@ std::string MsgpackPacker::getPacked()
 }
 
 void MsgpackPacker::setJointPositions(
-  std::shared_ptr<nao_interfaces::msg::JointPositions> jointPositions)
+  std::shared_ptr<nao_command_msgs::msg::JointPositions> jointPositions)
 {
   if (jointPositions->indexes.size() != jointPositions->positions.size()) {
     RCLCPP_ERROR(
       logger,
-      "Incorrect message received for nao_interfaces::msg::JointPositions. "
+      "Incorrect message received for nao_command_msgs::msg::JointPositions. "
       "Angles and Indexes vector must have the same length. "
       "Angles vector has length %zu, while indexes vector has length %zu",
       jointPositions->positions.size(), jointPositions->indexes.size());
@@ -104,12 +104,12 @@ void MsgpackPacker::setJointPositions(
 }
 
 void MsgpackPacker::setJointStiffnesses(
-  std::shared_ptr<nao_interfaces::msg::JointStiffnesses> jointStiffnesses)
+  std::shared_ptr<nao_command_msgs::msg::JointStiffnesses> jointStiffnesses)
 {
   if (jointStiffnesses->indexes.size() != jointStiffnesses->stiffnesses.size()) {
     RCLCPP_ERROR(
       logger,
-      "Incorrect message received for nao_interfaces::msg::JointStiffnesses. "
+      "Incorrect message received for nao_command_msgs::msg::JointStiffnesses. "
       "Stiffnesses and Indexes vector must have the same length. "
       "Stiffnesses vector has length %zu, while indexes vector has length %zu",
       jointStiffnesses->stiffnesses.size(), jointStiffnesses->indexes.size());
@@ -128,7 +128,7 @@ void MsgpackPacker::setJointStiffnesses(
   }
 }
 
-void MsgpackPacker::setChestLed(std::shared_ptr<nao_interfaces::msg::ChestLed> chestLed)
+void MsgpackPacker::setChestLed(std::shared_ptr<nao_command_msgs::msg::ChestLed> chestLed)
 {
   chest = std::make_shared<std::vector<float>>(3);
   chest->at(0) = chestLed->color.r;
@@ -136,7 +136,7 @@ void MsgpackPacker::setChestLed(std::shared_ptr<nao_interfaces::msg::ChestLed> c
   chest->at(2) = chestLed->color.b;
 }
 
-void MsgpackPacker::setLeftEarLeds(std::shared_ptr<nao_interfaces::msg::LeftEarLeds> leftEarLeds)
+void MsgpackPacker::setLeftEarLeds(std::shared_ptr<nao_command_msgs::msg::LeftEarLeds> leftEarLeds)
 {
   l_ear = std::make_shared<std::vector<float>>(10);
   for (unsigned i = 0; i < leftEarLeds->NUM_LEDS; ++i) {
@@ -145,7 +145,8 @@ void MsgpackPacker::setLeftEarLeds(std::shared_ptr<nao_interfaces::msg::LeftEarL
   }
 }
 
-void MsgpackPacker::setRightEarLeds(std::shared_ptr<nao_interfaces::msg::RightEarLeds> rightEarLeds)
+void MsgpackPacker::setRightEarLeds(
+  std::shared_ptr<nao_command_msgs::msg::RightEarLeds> rightEarLeds)
 {
   r_ear = std::make_shared<std::vector<float>>(10);
   for (unsigned i = 0; i < rightEarLeds->NUM_LEDS; ++i) {
@@ -154,7 +155,7 @@ void MsgpackPacker::setRightEarLeds(std::shared_ptr<nao_interfaces::msg::RightEa
   }
 }
 
-void MsgpackPacker::setLeftEyeLeds(std::shared_ptr<nao_interfaces::msg::LeftEyeLeds> leftEyeLeds)
+void MsgpackPacker::setLeftEyeLeds(std::shared_ptr<nao_command_msgs::msg::LeftEyeLeds> leftEyeLeds)
 {
   l_eye = std::make_shared<std::vector<float>>(24);
   for (unsigned i = 0; i < leftEyeLeds->NUM_LEDS; ++i) {
@@ -165,7 +166,8 @@ void MsgpackPacker::setLeftEyeLeds(std::shared_ptr<nao_interfaces::msg::LeftEyeL
   }
 }
 
-void MsgpackPacker::setRightEyeLeds(std::shared_ptr<nao_interfaces::msg::RightEyeLeds> rightEyeLeds)
+void MsgpackPacker::setRightEyeLeds(
+  std::shared_ptr<nao_command_msgs::msg::RightEyeLeds> rightEyeLeds)
 {
   r_eye = std::make_shared<std::vector<float>>(24);
   for (unsigned i = 0; i < rightEyeLeds->NUM_LEDS; ++i) {
@@ -176,7 +178,7 @@ void MsgpackPacker::setRightEyeLeds(std::shared_ptr<nao_interfaces::msg::RightEy
   }
 }
 
-void MsgpackPacker::setLeftFootLed(std::shared_ptr<nao_interfaces::msg::LeftFootLed> leftFootLed)
+void MsgpackPacker::setLeftFootLed(std::shared_ptr<nao_command_msgs::msg::LeftFootLed> leftFootLed)
 {
   l_foot = std::make_shared<std::vector<float>>(3);
   l_foot->at(0) = leftFootLed->color.r;
@@ -184,7 +186,8 @@ void MsgpackPacker::setLeftFootLed(std::shared_ptr<nao_interfaces::msg::LeftFoot
   l_foot->at(2) = leftFootLed->color.b;
 }
 
-void MsgpackPacker::setRightFootLed(std::shared_ptr<nao_interfaces::msg::RightFootLed> rightFootLed)
+void MsgpackPacker::setRightFootLed(
+  std::shared_ptr<nao_command_msgs::msg::RightFootLed> rightFootLed)
 {
   r_foot = std::make_shared<std::vector<float>>(3);
   r_foot->at(0) = rightFootLed->color.r;
@@ -192,7 +195,7 @@ void MsgpackPacker::setRightFootLed(std::shared_ptr<nao_interfaces::msg::RightFo
   r_foot->at(2) = rightFootLed->color.b;
 }
 
-void MsgpackPacker::setHeadLeds(std::shared_ptr<nao_interfaces::msg::HeadLeds> headLeds)
+void MsgpackPacker::setHeadLeds(std::shared_ptr<nao_command_msgs::msg::HeadLeds> headLeds)
 {
   skull = std::make_shared<std::vector<float>>(12);
   for (unsigned i = 0; i < headLeds->NUM_LEDS; ++i) {
@@ -201,7 +204,7 @@ void MsgpackPacker::setHeadLeds(std::shared_ptr<nao_interfaces::msg::HeadLeds> h
   }
 }
 
-void MsgpackPacker::setSonarUsage(std::shared_ptr<nao_interfaces::msg::SonarUsage> sonarUsage)
+void MsgpackPacker::setSonarUsage(std::shared_ptr<nao_command_msgs::msg::SonarUsage> sonarUsage)
 {
   sonar = std::make_shared<std::vector<bool>>(2);
   sonar->at(0) = sonarUsage->left;

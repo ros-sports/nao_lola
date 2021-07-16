@@ -19,9 +19,9 @@
 #include <memory>
 #include "msgpack.hpp"
 #include "nao_lola/msgpack_packer.hpp"
-#include "nao_interfaces/msg/joint_positions.hpp"
-#include "nao_interfaces/msg/joint_stiffnesses.hpp"
-#include "nao_interfaces/msg/joint_indexes.hpp"
+#include "nao_command_msgs/msg/joint_positions_command.hpp"
+#include "nao_command_msgs/msg/joint_stiffnesses_command.hpp"
+#include "nao_command_msgs/msg/joint_indexes.hpp"
 #include "nao_lola/lola_enums.hpp"
 
 
@@ -37,14 +37,14 @@ public:
 
 TEST_F(TestMsgpackPacker, TestJointPositions)
 {
-  nao_interfaces::msg::JointPositions::SharedPtr joint_positions =
-    std::make_shared<nao_interfaces::msg::JointPositions>();
-  joint_positions->indexes.push_back(nao_interfaces::msg::JointIndexes::HEADYAW);
-  joint_positions->positions.push_back(1.01);
-  joint_positions->indexes.push_back(nao_interfaces::msg::JointIndexes::RHAND);
-  joint_positions->positions.push_back(2.0);
+  nao_command_msgs::msg::JointPositions::SharedPtr command =
+    std::make_shared<nao_command_msgs::msg::JointPositions>();
+  command->indexes.push_back(nao_command_msgs::msg::JointIndexes::HEADYAW);
+  command->positions.push_back(1.01);
+  command->indexes.push_back(nao_command_msgs::msg::JointIndexes::RHAND);
+  command->positions.push_back(2.0);
 
-  packer.setJointPositions(joint_positions);
+  packer.setJointPositions(command);
   std::string packed = packer.getPacked();
 
   std::vector<float> position(static_cast<int>(LolaEnums::Joint::NUM_JOINTS), 0);
@@ -55,14 +55,14 @@ TEST_F(TestMsgpackPacker, TestJointPositions)
 
 TEST_F(TestMsgpackPacker, TestJointStiffnesses)
 {
-  nao_interfaces::msg::JointStiffnesses::SharedPtr joint_stiffnesses =
-    std::make_shared<nao_interfaces::msg::JointStiffnesses>();
-  joint_stiffnesses->indexes.push_back(nao_interfaces::msg::JointIndexes::HEADPITCH);
-  joint_stiffnesses->stiffnesses.push_back(0.3);
-  joint_stiffnesses->indexes.push_back(nao_interfaces::msg::JointIndexes::LHAND);
-  joint_stiffnesses->stiffnesses.push_back(0.7);
+  nao_command_msgs::msg::JointStiffnesses::SharedPtr command =
+    std::make_shared<nao_command_msgs::msg::JointStiffnesses>();
+  command->indexes.push_back(nao_command_msgs::msg::JointIndexes::HEADPITCH);
+  command->stiffnesses.push_back(0.3);
+  command->indexes.push_back(nao_command_msgs::msg::JointIndexes::LHAND);
+  command->stiffnesses.push_back(0.7);
 
-  packer.setJointStiffnesses(joint_stiffnesses);
+  packer.setJointStiffnesses(command);
   std::string packed = packer.getPacked();
 
   std::vector<float> stiffness(static_cast<int>(LolaEnums::Joint::NUM_JOINTS), 0);
@@ -73,8 +73,8 @@ TEST_F(TestMsgpackPacker, TestJointStiffnesses)
 
 TEST_F(TestMsgpackPacker, TestChestLed)
 {
-  nao_interfaces::msg::ChestLed::SharedPtr chestLed =
-    std::make_shared<nao_interfaces::msg::ChestLed>();
+  nao_command_msgs::msg::ChestLed::SharedPtr chestLed =
+    std::make_shared<nao_command_msgs::msg::ChestLed>();
   chestLed->color.r = 0.1;
   chestLed->color.g = 0.5;
   chestLed->color.b = 1.0;
@@ -88,8 +88,8 @@ TEST_F(TestMsgpackPacker, TestChestLed)
 
 TEST_F(TestMsgpackPacker, TestLeftEarLeds)
 {
-  nao_interfaces::msg::LeftEarLeds::SharedPtr leftEarLeds =
-    std::make_shared<nao_interfaces::msg::LeftEarLeds>();
+  nao_command_msgs::msg::LeftEarLeds::SharedPtr leftEarLeds =
+    std::make_shared<nao_command_msgs::msg::LeftEarLeds>();
   leftEarLeds->intensities[leftEarLeds->L0] = 0.1;
   leftEarLeds->intensities[leftEarLeds->L1] = 0.2;
   leftEarLeds->intensities[leftEarLeds->L2] = 0.3;
@@ -112,8 +112,8 @@ TEST_F(TestMsgpackPacker, TestLeftEarLeds)
 
 TEST_F(TestMsgpackPacker, TestRightEarLeds)
 {
-  nao_interfaces::msg::RightEarLeds::SharedPtr rightEarLeds =
-    std::make_shared<nao_interfaces::msg::RightEarLeds>();
+  nao_command_msgs::msg::RightEarLeds::SharedPtr rightEarLeds =
+    std::make_shared<nao_command_msgs::msg::RightEarLeds>();
   rightEarLeds->intensities[rightEarLeds->R0] = 0.1;
   rightEarLeds->intensities[rightEarLeds->R1] = 0.2;
   rightEarLeds->intensities[rightEarLeds->R2] = 0.3;
@@ -136,8 +136,8 @@ TEST_F(TestMsgpackPacker, TestRightEarLeds)
 TEST_F(TestMsgpackPacker, TestLeftEyeLeds)
 {
   // Explanation of eye correspondence: http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
-  nao_interfaces::msg::LeftEyeLeds::SharedPtr leftEyeLeds =
-    std::make_shared<nao_interfaces::msg::LeftEyeLeds>();
+  nao_command_msgs::msg::LeftEyeLeds::SharedPtr leftEyeLeds =
+    std::make_shared<nao_command_msgs::msg::LeftEyeLeds>();
   leftEyeLeds->colors[leftEyeLeds->L0].r = 0.01;
   leftEyeLeds->colors[leftEyeLeds->L0].g = 0.02;
   leftEyeLeds->colors[leftEyeLeds->L0].b = 0.03;
@@ -176,8 +176,8 @@ TEST_F(TestMsgpackPacker, TestLeftEyeLeds)
 TEST_F(TestMsgpackPacker, TestRightEyeLeds)
 {
   // Explanation of eye correspondence: http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
-  nao_interfaces::msg::RightEyeLeds::SharedPtr rightEyeLeds =
-    std::make_shared<nao_interfaces::msg::RightEyeLeds>();
+  nao_command_msgs::msg::RightEyeLeds::SharedPtr rightEyeLeds =
+    std::make_shared<nao_command_msgs::msg::RightEyeLeds>();
   rightEyeLeds->colors[rightEyeLeds->R0].r = 0.01;
   rightEyeLeds->colors[rightEyeLeds->R0].g = 0.02;
   rightEyeLeds->colors[rightEyeLeds->R0].b = 0.03;
@@ -215,8 +215,8 @@ TEST_F(TestMsgpackPacker, TestRightEyeLeds)
 
 TEST_F(TestMsgpackPacker, TestLeftFootLed)
 {
-  nao_interfaces::msg::LeftFootLed::SharedPtr leftFootLed =
-    std::make_shared<nao_interfaces::msg::LeftFootLed>();
+  nao_command_msgs::msg::LeftFootLed::SharedPtr leftFootLed =
+    std::make_shared<nao_command_msgs::msg::LeftFootLed>();
   leftFootLed->color.r = 0.2;
   leftFootLed->color.g = 0.3;
   leftFootLed->color.b = 0.4;
@@ -230,8 +230,8 @@ TEST_F(TestMsgpackPacker, TestLeftFootLed)
 
 TEST_F(TestMsgpackPacker, TestRightFootLed)
 {
-  nao_interfaces::msg::RightFootLed::SharedPtr rightFootLed =
-    std::make_shared<nao_interfaces::msg::RightFootLed>();
+  nao_command_msgs::msg::RightFootLed::SharedPtr rightFootLed =
+    std::make_shared<nao_command_msgs::msg::RightFootLed>();
   rightFootLed->color.r = 0.5;
   rightFootLed->color.g = 0.6;
   rightFootLed->color.b = 0.7;
@@ -245,8 +245,8 @@ TEST_F(TestMsgpackPacker, TestRightFootLed)
 
 TEST_F(TestMsgpackPacker, TestHeadLeds)
 {
-  nao_interfaces::msg::HeadLeds::SharedPtr headLeds =
-    std::make_shared<nao_interfaces::msg::HeadLeds>();
+  nao_command_msgs::msg::HeadLeds::SharedPtr headLeds =
+    std::make_shared<nao_command_msgs::msg::HeadLeds>();
   headLeds->intensities[headLeds->B0] = 0.00;
   headLeds->intensities[headLeds->B1] = 0.01;
   headLeds->intensities[headLeds->B2] = 0.02;
@@ -270,8 +270,8 @@ TEST_F(TestMsgpackPacker, TestHeadLeds)
 
 TEST_F(TestMsgpackPacker, TestSonarUsage)
 {
-  nao_interfaces::msg::SonarUsage::SharedPtr sonarUsage =
-    std::make_shared<nao_interfaces::msg::SonarUsage>();
+  nao_command_msgs::msg::SonarUsage::SharedPtr sonarUsage =
+    std::make_shared<nao_command_msgs::msg::SonarUsage>();
   sonarUsage->left = true;
   sonarUsage->right = false;
 

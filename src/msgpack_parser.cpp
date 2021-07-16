@@ -17,7 +17,7 @@
 #include <string>
 #include "nao_lola/msgpack_parser.hpp"
 #include "nao_lola/lola_enums.hpp"
-#include "nao_lola/index_conversion.hpp"
+#include "nao_lola/sensor_index_conversion.hpp"
 
 
 MsgpackParser::MsgpackParser(char data[], int size)
@@ -27,9 +27,9 @@ MsgpackParser::MsgpackParser(char data[], int size)
   unpacked = oh.get().as<std::map<std::string, msgpack::object>>();
 }
 
-nao_interfaces::msg::Accelerometer MsgpackParser::getAccelerometer()
+nao_sensor_msgs::msg::Accelerometer MsgpackParser::getAccelerometer()
 {
-  nao_interfaces::msg::Accelerometer acc;
+  nao_sensor_msgs::msg::Accelerometer acc;
   std::vector<float> vec = unpacked.at("Accelerometer").as<std::vector<float>>();
   acc.x = vec.at(static_cast<int>(LolaEnums::Accelerometer::X));
   acc.y = vec.at(static_cast<int>(LolaEnums::Accelerometer::Y));
@@ -37,18 +37,18 @@ nao_interfaces::msg::Accelerometer MsgpackParser::getAccelerometer()
   return acc;
 }
 
-nao_interfaces::msg::Angle MsgpackParser::getAngle()
+nao_sensor_msgs::msg::Angle MsgpackParser::getAngle()
 {
-  nao_interfaces::msg::Angle ang;
+  nao_sensor_msgs::msg::Angle ang;
   std::vector<float> vec = unpacked.at("Angles").as<std::vector<float>>();
   ang.x = vec.at(static_cast<int>(LolaEnums::Angles::X));
   ang.y = vec.at(static_cast<int>(LolaEnums::Angles::Y));
   return ang;
 }
 
-nao_interfaces::msg::Buttons MsgpackParser::getButtons()
+nao_sensor_msgs::msg::Buttons MsgpackParser::getButtons()
 {
-  nao_interfaces::msg::Buttons but;
+  nao_sensor_msgs::msg::Buttons but;
   std::vector<float> vec = unpacked.at("Touch").as<std::vector<float>>();
   but.chest = vec.at(static_cast<int>(LolaEnums::Touch::ChestBoard_Button));
   but.l_foot_bumper_left = vec.at(static_cast<int>(LolaEnums::Touch::LFoot_Bumper_Left));
@@ -58,9 +58,9 @@ nao_interfaces::msg::Buttons MsgpackParser::getButtons()
   return but;
 }
 
-nao_interfaces::msg::FSR MsgpackParser::getFSR()
+nao_sensor_msgs::msg::FSR MsgpackParser::getFSR()
 {
-  nao_interfaces::msg::FSR fsr;
+  nao_sensor_msgs::msg::FSR fsr;
   std::vector<float> vec = unpacked.at("FSR").as<std::vector<float>>();
   fsr.l_foot_front_left = vec.at(static_cast<int>(LolaEnums::FSR::LFoot_FrontLeft));
   fsr.l_foot_front_right = vec.at(static_cast<int>(LolaEnums::FSR::LFoot_FrontRight));
@@ -73,9 +73,9 @@ nao_interfaces::msg::FSR MsgpackParser::getFSR()
   return fsr;
 }
 
-nao_interfaces::msg::Gyroscope MsgpackParser::getGyroscope()
+nao_sensor_msgs::msg::Gyroscope MsgpackParser::getGyroscope()
 {
-  nao_interfaces::msg::Gyroscope gyr;
+  nao_sensor_msgs::msg::Gyroscope gyr;
   std::vector<float> vec = unpacked.at("Gyroscope").as<std::vector<float>>();
   gyr.x = vec.at(static_cast<int>(LolaEnums::Gyroscope::X));
   gyr.y = vec.at(static_cast<int>(LolaEnums::Gyroscope::Y));
@@ -83,10 +83,9 @@ nao_interfaces::msg::Gyroscope MsgpackParser::getGyroscope()
   return gyr;
 }
 
-nao_interfaces::msg::JointPositions MsgpackParser::getJointPositions()
+nao_sensor_msgs::msg::JointPositions MsgpackParser::getJointPositions()
 {
-  nao_interfaces::msg::JointPositions jointPositions;
-  jointPositions.positions.resize(nao_interfaces::msg::JointIndexes::NUMJOINTS);
+  nao_sensor_msgs::msg::JointPositions jointPositions;
 
   std::vector<float> positions = unpacked.at("Position").as<std::vector<float>>();
   for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
@@ -96,10 +95,9 @@ nao_interfaces::msg::JointPositions MsgpackParser::getJointPositions()
   return jointPositions;
 }
 
-nao_interfaces::msg::JointStiffnesses MsgpackParser::getJointStiffnesses()
+nao_sensor_msgs::msg::JointStiffnesses MsgpackParser::getJointStiffnesses()
 {
-  nao_interfaces::msg::JointStiffnesses jointStiffnesses;
-  jointStiffnesses.stiffnesses.resize(nao_interfaces::msg::JointIndexes::NUMJOINTS);
+  nao_sensor_msgs::msg::JointStiffnesses jointStiffnesses;
 
   std::vector<float> stiffnesses = unpacked.at("Stiffness").as<std::vector<float>>();
   for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
@@ -109,9 +107,9 @@ nao_interfaces::msg::JointStiffnesses MsgpackParser::getJointStiffnesses()
   return jointStiffnesses;
 }
 
-nao_interfaces::msg::JointTemperatures MsgpackParser::getJointTemperatures()
+nao_sensor_msgs::msg::JointTemperatures MsgpackParser::getJointTemperatures()
 {
-  nao_interfaces::msg::JointTemperatures jointTemperatures;
+  nao_sensor_msgs::msg::JointTemperatures jointTemperatures;
 
   std::vector<float> temperatures = unpacked.at("Temperature").as<std::vector<float>>();
   for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
@@ -121,9 +119,9 @@ nao_interfaces::msg::JointTemperatures MsgpackParser::getJointTemperatures()
   return jointTemperatures;
 }
 
-nao_interfaces::msg::JointCurrents MsgpackParser::getJointCurrents()
+nao_sensor_msgs::msg::JointCurrents MsgpackParser::getJointCurrents()
 {
-  nao_interfaces::msg::JointCurrents jointCurrents;
+  nao_sensor_msgs::msg::JointCurrents jointCurrents;
 
   std::vector<float> currents = unpacked.at("Current").as<std::vector<float>>();
   for (int i = 0; i < static_cast<int>(LolaEnums::Joint::NUM_JOINTS); ++i) {
@@ -133,9 +131,9 @@ nao_interfaces::msg::JointCurrents MsgpackParser::getJointCurrents()
   return jointCurrents;
 }
 
-nao_interfaces::msg::JointStatuses MsgpackParser::getJointStatuses()
+nao_sensor_msgs::msg::JointStatuses MsgpackParser::getJointStatuses()
 {
-  nao_interfaces::msg::JointStatuses jointStatuses;
+  nao_sensor_msgs::msg::JointStatuses jointStatuses;
 
   // The LoLA RoboCupper docs say "status" is an integer data type, that's wrong.
   std::vector<float> statuses = unpacked.at("Status").as<std::vector<float>>();
@@ -146,9 +144,9 @@ nao_interfaces::msg::JointStatuses MsgpackParser::getJointStatuses()
   return jointStatuses;
 }
 
-nao_interfaces::msg::Sonar MsgpackParser::getSonar()
+nao_sensor_msgs::msg::Sonar MsgpackParser::getSonar()
 {
-  nao_interfaces::msg::Sonar snr;
+  nao_sensor_msgs::msg::Sonar snr;
   std::vector<float> vec = unpacked.at("Sonar").as<std::vector<float>>();
   snr.left = vec.at(static_cast<int>(LolaEnums::Sonar::Left));
   snr.right = vec.at(static_cast<int>(LolaEnums::Sonar::Right));
@@ -156,9 +154,9 @@ nao_interfaces::msg::Sonar MsgpackParser::getSonar()
 }
 
 
-nao_interfaces::msg::Touch MsgpackParser::getTouch()
+nao_sensor_msgs::msg::Touch MsgpackParser::getTouch()
 {
-  nao_interfaces::msg::Touch tch;
+  nao_sensor_msgs::msg::Touch tch;
   std::vector<float> vec = unpacked.at("Touch").as<std::vector<float>>();
   tch.head_front = vec.at(static_cast<int>(LolaEnums::Touch::Head_Touch_Front));
   tch.head_middle = vec.at(static_cast<int>(LolaEnums::Touch::Head_Touch_Middle));
@@ -166,9 +164,9 @@ nao_interfaces::msg::Touch MsgpackParser::getTouch()
   return tch;
 }
 
-nao_interfaces::msg::Battery MsgpackParser::getBattery()
+nao_sensor_msgs::msg::Battery MsgpackParser::getBattery()
 {
-  nao_interfaces::msg::Battery btr;
+  nao_sensor_msgs::msg::Battery btr;
   std::vector<float> vec = unpacked.at("Battery").as<std::vector<float>>();
   // Convert charge to [0% - 100%]
   btr.charge = vec.at(static_cast<int>(LolaEnums::Battery::Charge)) * 100.0;
@@ -184,9 +182,9 @@ nao_interfaces::msg::Battery MsgpackParser::getBattery()
   return btr;
 }
 
-nao_interfaces::msg::RobotConfig MsgpackParser::getRobotConfig()
+nao_sensor_msgs::msg::RobotConfig MsgpackParser::getRobotConfig()
 {
-  nao_interfaces::msg::RobotConfig cfg;
+  nao_sensor_msgs::msg::RobotConfig cfg;
   std::vector<std::string> vec = unpacked.at("RobotConfig").as<std::vector<std::string>>();
   cfg.body_id = vec.at(static_cast<int>(LolaEnums::RobotConfig::Body_BodyId));
   cfg.body_version = vec.at(static_cast<int>(LolaEnums::RobotConfig::Body_Version));

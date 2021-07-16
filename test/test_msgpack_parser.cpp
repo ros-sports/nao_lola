@@ -18,7 +18,7 @@
 #include <string>
 #include <memory>
 #include "nao_lola/msgpack_parser.hpp"
-#include "nao_interfaces/msg/joint_indexes.hpp"
+#include "nao_sensor_msgs/msg/joint_indexes.hpp"
 
 std::vector<float> status =
 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
@@ -99,7 +99,7 @@ protected:
 
 TEST_F(TestMsgpackParser, TestAccelerometer)
 {
-  nao_interfaces::msg::Accelerometer acc = parser->getAccelerometer();
+  nao_sensor_msgs::msg::Accelerometer acc = parser->getAccelerometer();
   EXPECT_NEAR(acc.x, -3.0656251907348633, 0.000001);
   EXPECT_NEAR(acc.y, -0.39278322458267212, 0.000001);
   EXPECT_NEAR(acc.z, -9.3214168548583984, 0.000001);
@@ -107,14 +107,14 @@ TEST_F(TestMsgpackParser, TestAccelerometer)
 
 TEST_F(TestMsgpackParser, TestAngle)
 {
-  nao_interfaces::msg::Angle ang = parser->getAngle();
+  nao_sensor_msgs::msg::Angle ang = parser->getAngle();
   EXPECT_NEAR(ang.x, 0.037582572549581528, 0.000001);
   EXPECT_NEAR(ang.y, -0.35991066694259644, 0.000001);
 }
 
 TEST_F(TestMsgpackParser, TestButtons)
 {
-  nao_interfaces::msg::Buttons but = parser->getButtons();
+  nao_sensor_msgs::msg::Buttons but = parser->getButtons();
   EXPECT_TRUE(but.chest);
   EXPECT_TRUE(but.l_foot_bumper_left);
   EXPECT_FALSE(but.l_foot_bumper_right);
@@ -124,7 +124,7 @@ TEST_F(TestMsgpackParser, TestButtons)
 
 TEST_F(TestMsgpackParser, TestFSR)
 {
-  nao_interfaces::msg::FSR fsr = parser->getFSR();
+  nao_sensor_msgs::msg::FSR fsr = parser->getFSR();
   EXPECT_NEAR(fsr.l_foot_front_left, 0.014380865730345249, 0.000001);
   EXPECT_NEAR(fsr.l_foot_front_right, 0.29265055060386658, 0.000001);
   EXPECT_NEAR(fsr.l_foot_back_left, 0.47892898321151733, 0.000001);
@@ -137,7 +137,7 @@ TEST_F(TestMsgpackParser, TestFSR)
 
 TEST_F(TestMsgpackParser, TestGyroscope)
 {
-  nao_interfaces::msg::Gyroscope gyr = parser->getGyroscope();
+  nao_sensor_msgs::msg::Gyroscope gyr = parser->getGyroscope();
   EXPECT_NEAR(gyr.x, -0.00026631611399352551, 0.000001);
   EXPECT_NEAR(gyr.y, -0.001065264455974102, 0.000001);
   EXPECT_NEAR(gyr.z, 0.001065264455974102, 0.000001);
@@ -145,65 +145,63 @@ TEST_F(TestMsgpackParser, TestGyroscope)
 
 TEST_F(TestMsgpackParser, TestJointPositions)
 {
-  nao_interfaces::msg::JointPositions jointPositions = parser->getJointPositions();
-  EXPECT_EQ(jointPositions.indexes.size(), 0u);
-  EXPECT_EQ(jointPositions.positions.size(), nao_interfaces::msg::JointIndexes::NUMJOINTS);
+  nao_sensor_msgs::msg::JointPositions jointPositions = parser->getJointPositions();
   EXPECT_NEAR(
     jointPositions.positions.at(
-      nao_interfaces::msg::JointIndexes::HEADYAW), 0.59361600875854492, 0.000001);
+      nao_sensor_msgs::msg::JointIndexes::HEADYAW), 0.59361600875854492, 0.000001);
   EXPECT_NEAR(
     jointPositions.positions.at(
-      nao_interfaces::msg::JointIndexes::RHAND), 0.011199951171875, 0.00001);
+      nao_sensor_msgs::msg::JointIndexes::RHAND), 0.011199951171875, 0.00001);
 }
 
 TEST_F(TestMsgpackParser, TestJointStiffnesses)
 {
-  nao_interfaces::msg::JointStiffnesses jointStiffnesses = parser->getJointStiffnesses();
-  EXPECT_EQ(jointStiffnesses.indexes.size(), 0u);
-  EXPECT_EQ(jointStiffnesses.stiffnesses.size(), nao_interfaces::msg::JointIndexes::NUMJOINTS);
+  nao_sensor_msgs::msg::JointStiffnesses jointStiffnesses = parser->getJointStiffnesses();
   EXPECT_NEAR(
     jointStiffnesses.stiffnesses.at(
-      nao_interfaces::msg::JointIndexes::HEADYAW), 0.3, 0.000001);
+      nao_sensor_msgs::msg::JointIndexes::HEADYAW), 0.3, 0.000001);
   EXPECT_NEAR(
     jointStiffnesses.stiffnesses.at(
-      nao_interfaces::msg::JointIndexes::RHAND), 0.8, 0.00001);
+      nao_sensor_msgs::msg::JointIndexes::RHAND), 0.8, 0.00001);
 }
 
 TEST_F(TestMsgpackParser, TestJointTemperatures)
 {
-  nao_interfaces::msg::JointTemperatures jointTemperatures = parser->getJointTemperatures();
+  nao_sensor_msgs::msg::JointTemperatures jointTemperatures = parser->getJointTemperatures();
   EXPECT_NEAR(
     jointTemperatures.temperatures.at(
-      nao_interfaces::msg::JointIndexes::HEADYAW), 38.0, 0.000001);
+      nao_sensor_msgs::msg::JointIndexes::HEADYAW), 38.0, 0.000001);
   EXPECT_NEAR(
     jointTemperatures.temperatures.at(
-      nao_interfaces::msg::JointIndexes::RHAND), 39.0, 0.00001);
+      nao_sensor_msgs::msg::JointIndexes::RHAND), 39.0, 0.00001);
 }
 
 TEST_F(TestMsgpackParser, TestJointCurrents)
 {
-  nao_interfaces::msg::JointCurrents jointCurrents = parser->getJointCurrents();
-  EXPECT_NEAR(jointCurrents.currents.at(nao_interfaces::msg::JointIndexes::HEADYAW), 0.1, 0.000001);
-  EXPECT_NEAR(jointCurrents.currents.at(nao_interfaces::msg::JointIndexes::RHAND), 0.2, 0.00001);
+  nao_sensor_msgs::msg::JointCurrents jointCurrents = parser->getJointCurrents();
+  EXPECT_NEAR(
+    jointCurrents.currents.at(nao_sensor_msgs::msg::JointIndexes::HEADYAW), 0.1,
+    0.000001);
+  EXPECT_NEAR(jointCurrents.currents.at(nao_sensor_msgs::msg::JointIndexes::RHAND), 0.2, 0.00001);
 }
 
 TEST_F(TestMsgpackParser, TestJointStatuses)
 {
-  nao_interfaces::msg::JointStatuses jointStatuses = parser->getJointStatuses();
-  EXPECT_EQ(jointStatuses.statuses.at(nao_interfaces::msg::JointIndexes::HEADYAW), 1);
-  EXPECT_EQ(jointStatuses.statuses.at(nao_interfaces::msg::JointIndexes::RHAND), 3);
+  nao_sensor_msgs::msg::JointStatuses jointStatuses = parser->getJointStatuses();
+  EXPECT_EQ(jointStatuses.statuses.at(nao_sensor_msgs::msg::JointIndexes::HEADYAW), 1);
+  EXPECT_EQ(jointStatuses.statuses.at(nao_sensor_msgs::msg::JointIndexes::RHAND), 3);
 }
 
 TEST_F(TestMsgpackParser, TestSonar)
 {
-  nao_interfaces::msg::Sonar snr = parser->getSonar();
+  nao_sensor_msgs::msg::Sonar snr = parser->getSonar();
   EXPECT_NEAR(snr.left, 0.3, 0.000001);
   EXPECT_NEAR(snr.right, 1.3, 0.000001);
 }
 
 TEST_F(TestMsgpackParser, TestTouch)
 {
-  nao_interfaces::msg::Touch tch = parser->getTouch();
+  nao_sensor_msgs::msg::Touch tch = parser->getTouch();
   EXPECT_FALSE(tch.head_front);
   EXPECT_TRUE(tch.head_middle);
   EXPECT_FALSE(tch.head_rear);
@@ -211,7 +209,7 @@ TEST_F(TestMsgpackParser, TestTouch)
 
 TEST_F(TestMsgpackParser, TestBattery)
 {
-  nao_interfaces::msg::Battery btr = parser->getBattery();
+  nao_sensor_msgs::msg::Battery btr = parser->getBattery();
   // From Lola, charge has range 0.0 - 1.0, but in Battery msg, we have 0.0% - 100.0%.
   // So, we multiply by 100 below.
   EXPECT_NEAR(btr.charge, 0.9 * 100, 0.000001);
@@ -223,7 +221,7 @@ TEST_F(TestMsgpackParser, TestBattery)
 
 TEST_F(TestMsgpackParser, TestRobotConfig)
 {
-  nao_interfaces::msg::RobotConfig robotConfig = parser->getRobotConfig();
+  nao_sensor_msgs::msg::RobotConfig robotConfig = parser->getRobotConfig();
   EXPECT_EQ(robotConfig.body_id, "P0000073A07S94700012");
   EXPECT_EQ(robotConfig.body_version, "6.0.0");
   EXPECT_EQ(robotConfig.head_id, "P0000074A05S93M00061");
