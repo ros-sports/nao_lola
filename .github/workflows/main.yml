@@ -28,6 +28,5 @@ jobs:
           required-ros-distributions: galactic
       - uses: ros-tooling/action-ros-ci@v0.2
         with:
-          package-name: nao_lola
           target-ros2-distro: galactic
           vcs-repo-file-url: dependencies.repos
