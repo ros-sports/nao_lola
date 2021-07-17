@@ -3,9 +3,9 @@
 <package format="3">
   <name>nao_lola</name>
   <version>0.0.1</version>
-  <description>TODO: Package description</description>
+  <description>Packages that allow communicating with the NAO’s Lola middle-ware.</description>
   <maintainer email="kenjibrameld@gmail.com">ijnek</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache License 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
