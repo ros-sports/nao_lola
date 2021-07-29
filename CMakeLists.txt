@@ -20,6 +20,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(nao_sensor_msgs REQUIRED)
 find_package(nao_command_msgs REQUIRED)
+find_package(Boost COMPONENTS system program_options filesystem REQUIRED)
 
 # build msgpack_parser_lib
 add_library(msgpack_parser_lib SHARED
@@ -27,7 +28,8 @@ add_library(msgpack_parser_lib SHARED
 
 ament_target_dependencies(msgpack_parser_lib
   rclcpp
-  nao_sensor_msgs)
+  nao_sensor_msgs
+  Boost)
 
 # build msgpack_packer_lib
 add_library(msgpack_packer_lib SHARED
@@ -35,7 +37,8 @@ add_library(msgpack_packer_lib SHARED
 
 ament_target_dependencies(msgpack_packer_lib
   rclcpp
-  nao_command_msgs)
+  nao_command_msgs
+  Boost)
 
 # build nao_lola
 add_executable(nao_lola
