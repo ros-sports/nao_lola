@@ -1,14 +1,16 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build and Test (rolling)
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Triggers the workflow on push
   push:
-    branches: [ main ]
+    branches: [ rolling ]
+
+  # Triggers the workflow on pull requests
   pull_request:
-    branches: [ main ]
+    branches: [ rolling ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,5 +28,5 @@ jobs:
       - uses: ros-tooling/setup-ros@v0.2
       - uses: ros-tooling/action-ros-ci@v0.2
         with:
-          target-ros2-distro: galactic
+          target-ros2-distro: rolling
           vcs-repo-file-url: dependencies.repos
