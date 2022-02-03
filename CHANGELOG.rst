@@ -2,6 +2,12 @@
 Changelog for package nao_lola
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* fix cpplint warning
+* add changes to ci to test all distros
+* Contributors: Kenji Brameld, ijnek
+
 0.0.3 (2021-07-29)
 ------------------
 * add ament_cmake_gtest and boost dependency in package.xml and CMakeLists.txt
