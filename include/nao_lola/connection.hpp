@@ -15,8 +15,8 @@
 #ifndef NAO_LOLA__CONNECTION_HPP_
 #define NAO_LOLA__CONNECTION_HPP_
 
-#include <boost/asio.hpp>
 #include <string>
+#include "boost/asio.hpp"
 #include "rclcpp/logger.hpp"
 #include "rclcpp/rclcpp.hpp"
 

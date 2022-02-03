@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "nao_lola/connection.hpp"
 #include <string>
+#include "nao_lola/connection.hpp"
 
 #define ENDPOINT "/tmp/robocup"
 
