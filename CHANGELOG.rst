@@ -2,8 +2,8 @@
 Changelog for package nao_lola
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.4 (2022-02-04)
+------------------
 * fix cpplint warning
 * add changes to ci to test all distros
 * Contributors: Kenji Brameld, ijnek
