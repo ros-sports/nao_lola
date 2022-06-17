@@ -20,7 +20,7 @@
 #include "nao_lola/msgpack_parser.hpp"
 #include "nao_sensor_msgs/msg/joint_indexes.hpp"
 
-std::vector<float> status =
+std::vector<int> status =
 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
 std::vector<float> stiffness =
 {0.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
