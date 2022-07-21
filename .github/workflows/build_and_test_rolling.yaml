@@ -2,7 +2,7 @@
 
 name: Build and Test (rolling)
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push
   push:
