@@ -2,6 +2,12 @@
 Changelog for package nao_lola
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Split off galactic and humble branches
+* Fix status test to use int rather than float
+* Contributors: Kenji Brameld
+
 0.0.4 (2022-02-04)
 ------------------
 * fix cpplint warning
