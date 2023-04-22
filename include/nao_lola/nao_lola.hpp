@@ -17,6 +17,7 @@
 
 #include <thread>
 #include <memory>
+#include <mutex>
 #include "rclcpp/rclcpp.hpp"
 #include "nao_sensor_msgs/msg/joint_positions.hpp"
 #include "nao_sensor_msgs/msg/joint_stiffnesses.hpp"
@@ -87,6 +88,7 @@ private:
   Connection connection;
 
   std::shared_ptr<MsgpackPacker> packer = std::make_shared<MsgpackPacker>();
+  std::mutex packer_mutex;
 };
 
 #endif  // NAO_LOLA__NAO_LOLA_HPP_
