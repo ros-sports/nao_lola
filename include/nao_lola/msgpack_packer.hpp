@@ -29,6 +29,7 @@
 #include "nao_command_msgs/msg/right_foot_led.hpp"
 #include "nao_command_msgs/msg/head_leds.hpp"
 #include "nao_command_msgs/msg/sonar_usage.hpp"
+#include "nao_lola/lola_enums.hpp"
 #include "rclcpp/logger.hpp"
 
 
@@ -39,31 +40,30 @@ public:
   : logger(rclcpp::get_logger("msgpack packer")) {}
   std::string getPacked();
 
-  void setJointPositions(std::shared_ptr<nao_command_msgs::msg::JointPositions> jointPositions);
-  void setJointStiffnesses(
-    std::shared_ptr<nao_command_msgs::msg::JointStiffnesses> jointStiffnesses);
-  void setChestLed(std::shared_ptr<nao_command_msgs::msg::ChestLed> chestLed);
-  void setLeftEarLeds(std::shared_ptr<nao_command_msgs::msg::LeftEarLeds> leftEarLeds);
-  void setRightEarLeds(std::shared_ptr<nao_command_msgs::msg::RightEarLeds> rightEarLeds);
-  void setLeftEyeLeds(std::shared_ptr<nao_command_msgs::msg::LeftEyeLeds> leftEyeLeds);
-  void setRightEyeLeds(std::shared_ptr<nao_command_msgs::msg::RightEyeLeds> rightEyeLeds);
-  void setLeftFootLed(std::shared_ptr<nao_command_msgs::msg::LeftFootLed> leftFootLed);
-  void setRightFootLed(std::shared_ptr<nao_command_msgs::msg::RightFootLed> rightFootLed);
-  void setHeadLeds(std::shared_ptr<nao_command_msgs::msg::HeadLeds> headLeds);
-  void setSonarUsage(std::shared_ptr<nao_command_msgs::msg::SonarUsage> sonarUsage);
+  void setJointPositions(const nao_command_msgs::msg::JointPositions & jointPositions);
+  void setJointStiffnesses(const nao_command_msgs::msg::JointStiffnesses & jointStiffnesses);
+  void setChestLed(const nao_command_msgs::msg::ChestLed & chestLed);
+  void setLeftEarLeds(const nao_command_msgs::msg::LeftEarLeds & leftEarLeds);
+  void setRightEarLeds(const nao_command_msgs::msg::RightEarLeds & rightEarLeds);
+  void setLeftEyeLeds(const nao_command_msgs::msg::LeftEyeLeds & leftEyeLeds);
+  void setRightEyeLeds(const nao_command_msgs::msg::RightEyeLeds & rightEyeLeds);
+  void setLeftFootLed(const nao_command_msgs::msg::LeftFootLed & leftFootLed);
+  void setRightFootLed(const nao_command_msgs::msg::RightFootLed & rightFootLed);
+  void setHeadLeds(const nao_command_msgs::msg::HeadLeds & headLeds);
+  void setSonarUsage(const nao_command_msgs::msg::SonarUsage & sonarUsage);
 
 private:
-  std::shared_ptr<std::vector<float>> position;
-  std::shared_ptr<std::vector<float>> stiffness;
-  std::shared_ptr<std::vector<float>> chest;
-  std::shared_ptr<std::vector<float>> l_ear;
-  std::shared_ptr<std::vector<float>> r_ear;
-  std::shared_ptr<std::vector<float>> l_eye;
-  std::shared_ptr<std::vector<float>> r_eye;
-  std::shared_ptr<std::vector<float>> l_foot;
-  std::shared_ptr<std::vector<float>> r_foot;
-  std::shared_ptr<std::vector<float>> skull;
-  std::shared_ptr<std::vector<bool>> sonar;
+  std::array<float, static_cast<int>(LolaEnums::Joint::NUM_JOINTS)> position;
+  std::array<float, static_cast<int>(LolaEnums::Joint::NUM_JOINTS)> stiffness;
+  std::array<float, 3> chest;
+  std::array<float, static_cast<int>(nao_command_msgs::msg::LeftEarLeds::NUM_LEDS)> l_ear;
+  std::array<float, static_cast<int>(nao_command_msgs::msg::RightEarLeds::NUM_LEDS)> r_ear;
+  std::array<float, 3 * static_cast<int>(nao_command_msgs::msg::LeftEyeLeds::NUM_LEDS)> l_eye;
+  std::array<float, 3 * static_cast<int>(nao_command_msgs::msg::RightEyeLeds::NUM_LEDS)> r_eye;
+  std::array<float, 3> l_foot;
+  std::array<float, 3> r_foot;
+  std::array<float, static_cast<int>(nao_command_msgs::msg::HeadLeds::NUM_LEDS)> skull;
+  std::array<bool, 2> sonar;
 
   rclcpp::Logger logger;
 };
