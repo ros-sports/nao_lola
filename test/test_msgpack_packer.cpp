@@ -37,12 +37,11 @@ public:
 
 TEST_F(TestMsgpackPacker, TestJointPositions)
 {
-  nao_command_msgs::msg::JointPositions::SharedPtr command =
-    std::make_shared<nao_command_msgs::msg::JointPositions>();
-  command->indexes.push_back(nao_command_msgs::msg::JointIndexes::HEADYAW);
-  command->positions.push_back(1.01);
-  command->indexes.push_back(nao_command_msgs::msg::JointIndexes::RHAND);
-  command->positions.push_back(2.0);
+  nao_command_msgs::msg::JointPositions command;
+  command.indexes.push_back(nao_command_msgs::msg::JointIndexes::HEADYAW);
+  command.positions.push_back(1.01);
+  command.indexes.push_back(nao_command_msgs::msg::JointIndexes::RHAND);
+  command.positions.push_back(2.0);
 
   packer.setJointPositions(command);
   std::string packed = packer.getPacked();
@@ -55,12 +54,11 @@ TEST_F(TestMsgpackPacker, TestJointPositions)
 
 TEST_F(TestMsgpackPacker, TestJointStiffnesses)
 {
-  nao_command_msgs::msg::JointStiffnesses::SharedPtr command =
-    std::make_shared<nao_command_msgs::msg::JointStiffnesses>();
-  command->indexes.push_back(nao_command_msgs::msg::JointIndexes::HEADPITCH);
-  command->stiffnesses.push_back(0.3);
-  command->indexes.push_back(nao_command_msgs::msg::JointIndexes::LHAND);
-  command->stiffnesses.push_back(0.7);
+  nao_command_msgs::msg::JointStiffnesses command;
+  command.indexes.push_back(nao_command_msgs::msg::JointIndexes::HEADPITCH);
+  command.stiffnesses.push_back(0.3);
+  command.indexes.push_back(nao_command_msgs::msg::JointIndexes::LHAND);
+  command.stiffnesses.push_back(0.7);
 
   packer.setJointStiffnesses(command);
   std::string packed = packer.getPacked();
@@ -73,11 +71,10 @@ TEST_F(TestMsgpackPacker, TestJointStiffnesses)
 
 TEST_F(TestMsgpackPacker, TestChestLed)
 {
-  nao_command_msgs::msg::ChestLed::SharedPtr chestLed =
-    std::make_shared<nao_command_msgs::msg::ChestLed>();
-  chestLed->color.r = 0.1;
-  chestLed->color.g = 0.5;
-  chestLed->color.b = 1.0;
+  nao_command_msgs::msg::ChestLed chestLed;
+  chestLed.color.r = 0.1;
+  chestLed.color.g = 0.5;
+  chestLed.color.b = 1.0;
 
   packer.setChestLed(chestLed);
   std::string packed = packer.getPacked();
@@ -88,18 +85,17 @@ TEST_F(TestMsgpackPacker, TestChestLed)
 
 TEST_F(TestMsgpackPacker, TestLeftEarLeds)
 {
-  nao_command_msgs::msg::LeftEarLeds::SharedPtr leftEarLeds =
-    std::make_shared<nao_command_msgs::msg::LeftEarLeds>();
-  leftEarLeds->intensities[leftEarLeds->L0] = 0.1;
-  leftEarLeds->intensities[leftEarLeds->L1] = 0.2;
-  leftEarLeds->intensities[leftEarLeds->L2] = 0.3;
-  leftEarLeds->intensities[leftEarLeds->L3] = 0.4;
-  leftEarLeds->intensities[leftEarLeds->L4] = 0.5;
-  leftEarLeds->intensities[leftEarLeds->L5] = 0.6;
-  leftEarLeds->intensities[leftEarLeds->L6] = 0.7;
-  leftEarLeds->intensities[leftEarLeds->L7] = 0.8;
-  leftEarLeds->intensities[leftEarLeds->L8] = 0.9;
-  leftEarLeds->intensities[leftEarLeds->L9] = 1.0;
+  nao_command_msgs::msg::LeftEarLeds leftEarLeds;
+  leftEarLeds.intensities[leftEarLeds.L0] = 0.1;
+  leftEarLeds.intensities[leftEarLeds.L1] = 0.2;
+  leftEarLeds.intensities[leftEarLeds.L2] = 0.3;
+  leftEarLeds.intensities[leftEarLeds.L3] = 0.4;
+  leftEarLeds.intensities[leftEarLeds.L4] = 0.5;
+  leftEarLeds.intensities[leftEarLeds.L5] = 0.6;
+  leftEarLeds.intensities[leftEarLeds.L6] = 0.7;
+  leftEarLeds.intensities[leftEarLeds.L7] = 0.8;
+  leftEarLeds.intensities[leftEarLeds.L8] = 0.9;
+  leftEarLeds.intensities[leftEarLeds.L9] = 1.0;
 
   packer.setLeftEarLeds(leftEarLeds);
   std::string packed = packer.getPacked();
@@ -112,18 +108,17 @@ TEST_F(TestMsgpackPacker, TestLeftEarLeds)
 
 TEST_F(TestMsgpackPacker, TestRightEarLeds)
 {
-  nao_command_msgs::msg::RightEarLeds::SharedPtr rightEarLeds =
-    std::make_shared<nao_command_msgs::msg::RightEarLeds>();
-  rightEarLeds->intensities[rightEarLeds->R0] = 0.1;
-  rightEarLeds->intensities[rightEarLeds->R1] = 0.2;
-  rightEarLeds->intensities[rightEarLeds->R2] = 0.3;
-  rightEarLeds->intensities[rightEarLeds->R3] = 0.4;
-  rightEarLeds->intensities[rightEarLeds->R4] = 0.5;
-  rightEarLeds->intensities[rightEarLeds->R5] = 0.6;
-  rightEarLeds->intensities[rightEarLeds->R6] = 0.7;
-  rightEarLeds->intensities[rightEarLeds->R7] = 0.8;
-  rightEarLeds->intensities[rightEarLeds->R8] = 0.9;
-  rightEarLeds->intensities[rightEarLeds->R9] = 1.0;
+  nao_command_msgs::msg::RightEarLeds rightEarLeds;
+  rightEarLeds.intensities[rightEarLeds.R0] = 0.1;
+  rightEarLeds.intensities[rightEarLeds.R1] = 0.2;
+  rightEarLeds.intensities[rightEarLeds.R2] = 0.3;
+  rightEarLeds.intensities[rightEarLeds.R3] = 0.4;
+  rightEarLeds.intensities[rightEarLeds.R4] = 0.5;
+  rightEarLeds.intensities[rightEarLeds.R5] = 0.6;
+  rightEarLeds.intensities[rightEarLeds.R6] = 0.7;
+  rightEarLeds.intensities[rightEarLeds.R7] = 0.8;
+  rightEarLeds.intensities[rightEarLeds.R8] = 0.9;
+  rightEarLeds.intensities[rightEarLeds.R9] = 1.0;
 
   packer.setRightEarLeds(rightEarLeds);
   std::string packed = packer.getPacked();
@@ -136,32 +131,31 @@ TEST_F(TestMsgpackPacker, TestRightEarLeds)
 TEST_F(TestMsgpackPacker, TestLeftEyeLeds)
 {
   // Explanation of eye correspondence: http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
-  nao_command_msgs::msg::LeftEyeLeds::SharedPtr leftEyeLeds =
-    std::make_shared<nao_command_msgs::msg::LeftEyeLeds>();
-  leftEyeLeds->colors[leftEyeLeds->L0].r = 0.01;
-  leftEyeLeds->colors[leftEyeLeds->L0].g = 0.02;
-  leftEyeLeds->colors[leftEyeLeds->L0].b = 0.03;
-  leftEyeLeds->colors[leftEyeLeds->L1].r = 0.04;
-  leftEyeLeds->colors[leftEyeLeds->L1].g = 0.05;
-  leftEyeLeds->colors[leftEyeLeds->L1].b = 0.06;
-  leftEyeLeds->colors[leftEyeLeds->L2].r = 0.07;
-  leftEyeLeds->colors[leftEyeLeds->L2].g = 0.08;
-  leftEyeLeds->colors[leftEyeLeds->L2].b = 0.09;
-  leftEyeLeds->colors[leftEyeLeds->L3].r = 0.10;
-  leftEyeLeds->colors[leftEyeLeds->L3].g = 0.11;
-  leftEyeLeds->colors[leftEyeLeds->L3].b = 0.12;
-  leftEyeLeds->colors[leftEyeLeds->L4].r = 0.13;
-  leftEyeLeds->colors[leftEyeLeds->L4].g = 0.14;
-  leftEyeLeds->colors[leftEyeLeds->L4].b = 0.15;
-  leftEyeLeds->colors[leftEyeLeds->L5].r = 0.16;
-  leftEyeLeds->colors[leftEyeLeds->L5].g = 0.17;
-  leftEyeLeds->colors[leftEyeLeds->L5].b = 0.18;
-  leftEyeLeds->colors[leftEyeLeds->L6].r = 0.19;
-  leftEyeLeds->colors[leftEyeLeds->L6].g = 0.20;
-  leftEyeLeds->colors[leftEyeLeds->L6].b = 0.21;
-  leftEyeLeds->colors[leftEyeLeds->L7].r = 0.22;
-  leftEyeLeds->colors[leftEyeLeds->L7].g = 0.23;
-  leftEyeLeds->colors[leftEyeLeds->L7].b = 0.24;
+  nao_command_msgs::msg::LeftEyeLeds leftEyeLeds;
+  leftEyeLeds.colors[leftEyeLeds.L0].r = 0.01;
+  leftEyeLeds.colors[leftEyeLeds.L0].g = 0.02;
+  leftEyeLeds.colors[leftEyeLeds.L0].b = 0.03;
+  leftEyeLeds.colors[leftEyeLeds.L1].r = 0.04;
+  leftEyeLeds.colors[leftEyeLeds.L1].g = 0.05;
+  leftEyeLeds.colors[leftEyeLeds.L1].b = 0.06;
+  leftEyeLeds.colors[leftEyeLeds.L2].r = 0.07;
+  leftEyeLeds.colors[leftEyeLeds.L2].g = 0.08;
+  leftEyeLeds.colors[leftEyeLeds.L2].b = 0.09;
+  leftEyeLeds.colors[leftEyeLeds.L3].r = 0.10;
+  leftEyeLeds.colors[leftEyeLeds.L3].g = 0.11;
+  leftEyeLeds.colors[leftEyeLeds.L3].b = 0.12;
+  leftEyeLeds.colors[leftEyeLeds.L4].r = 0.13;
+  leftEyeLeds.colors[leftEyeLeds.L4].g = 0.14;
+  leftEyeLeds.colors[leftEyeLeds.L4].b = 0.15;
+  leftEyeLeds.colors[leftEyeLeds.L5].r = 0.16;
+  leftEyeLeds.colors[leftEyeLeds.L5].g = 0.17;
+  leftEyeLeds.colors[leftEyeLeds.L5].b = 0.18;
+  leftEyeLeds.colors[leftEyeLeds.L6].r = 0.19;
+  leftEyeLeds.colors[leftEyeLeds.L6].g = 0.20;
+  leftEyeLeds.colors[leftEyeLeds.L6].b = 0.21;
+  leftEyeLeds.colors[leftEyeLeds.L7].r = 0.22;
+  leftEyeLeds.colors[leftEyeLeds.L7].g = 0.23;
+  leftEyeLeds.colors[leftEyeLeds.L7].b = 0.24;
 
   packer.setLeftEyeLeds(leftEyeLeds);
   std::string packed = packer.getPacked();
@@ -176,32 +170,31 @@ TEST_F(TestMsgpackPacker, TestLeftEyeLeds)
 TEST_F(TestMsgpackPacker, TestRightEyeLeds)
 {
   // Explanation of eye correspondence: http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
-  nao_command_msgs::msg::RightEyeLeds::SharedPtr rightEyeLeds =
-    std::make_shared<nao_command_msgs::msg::RightEyeLeds>();
-  rightEyeLeds->colors[rightEyeLeds->R0].r = 0.01;
-  rightEyeLeds->colors[rightEyeLeds->R0].g = 0.02;
-  rightEyeLeds->colors[rightEyeLeds->R0].b = 0.03;
-  rightEyeLeds->colors[rightEyeLeds->R1].r = 0.04;
-  rightEyeLeds->colors[rightEyeLeds->R1].g = 0.05;
-  rightEyeLeds->colors[rightEyeLeds->R1].b = 0.06;
-  rightEyeLeds->colors[rightEyeLeds->R2].r = 0.07;
-  rightEyeLeds->colors[rightEyeLeds->R2].g = 0.08;
-  rightEyeLeds->colors[rightEyeLeds->R2].b = 0.09;
-  rightEyeLeds->colors[rightEyeLeds->R3].r = 0.10;
-  rightEyeLeds->colors[rightEyeLeds->R3].g = 0.11;
-  rightEyeLeds->colors[rightEyeLeds->R3].b = 0.12;
-  rightEyeLeds->colors[rightEyeLeds->R4].r = 0.13;
-  rightEyeLeds->colors[rightEyeLeds->R4].g = 0.14;
-  rightEyeLeds->colors[rightEyeLeds->R4].b = 0.15;
-  rightEyeLeds->colors[rightEyeLeds->R5].r = 0.16;
-  rightEyeLeds->colors[rightEyeLeds->R5].g = 0.17;
-  rightEyeLeds->colors[rightEyeLeds->R5].b = 0.18;
-  rightEyeLeds->colors[rightEyeLeds->R6].r = 0.19;
-  rightEyeLeds->colors[rightEyeLeds->R6].g = 0.20;
-  rightEyeLeds->colors[rightEyeLeds->R6].b = 0.21;
-  rightEyeLeds->colors[rightEyeLeds->R7].r = 0.22;
-  rightEyeLeds->colors[rightEyeLeds->R7].g = 0.23;
-  rightEyeLeds->colors[rightEyeLeds->R7].b = 0.24;
+  nao_command_msgs::msg::RightEyeLeds rightEyeLeds;
+  rightEyeLeds.colors[rightEyeLeds.R0].r = 0.01;
+  rightEyeLeds.colors[rightEyeLeds.R0].g = 0.02;
+  rightEyeLeds.colors[rightEyeLeds.R0].b = 0.03;
+  rightEyeLeds.colors[rightEyeLeds.R1].r = 0.04;
+  rightEyeLeds.colors[rightEyeLeds.R1].g = 0.05;
+  rightEyeLeds.colors[rightEyeLeds.R1].b = 0.06;
+  rightEyeLeds.colors[rightEyeLeds.R2].r = 0.07;
+  rightEyeLeds.colors[rightEyeLeds.R2].g = 0.08;
+  rightEyeLeds.colors[rightEyeLeds.R2].b = 0.09;
+  rightEyeLeds.colors[rightEyeLeds.R3].r = 0.10;
+  rightEyeLeds.colors[rightEyeLeds.R3].g = 0.11;
+  rightEyeLeds.colors[rightEyeLeds.R3].b = 0.12;
+  rightEyeLeds.colors[rightEyeLeds.R4].r = 0.13;
+  rightEyeLeds.colors[rightEyeLeds.R4].g = 0.14;
+  rightEyeLeds.colors[rightEyeLeds.R4].b = 0.15;
+  rightEyeLeds.colors[rightEyeLeds.R5].r = 0.16;
+  rightEyeLeds.colors[rightEyeLeds.R5].g = 0.17;
+  rightEyeLeds.colors[rightEyeLeds.R5].b = 0.18;
+  rightEyeLeds.colors[rightEyeLeds.R6].r = 0.19;
+  rightEyeLeds.colors[rightEyeLeds.R6].g = 0.20;
+  rightEyeLeds.colors[rightEyeLeds.R6].b = 0.21;
+  rightEyeLeds.colors[rightEyeLeds.R7].r = 0.22;
+  rightEyeLeds.colors[rightEyeLeds.R7].g = 0.23;
+  rightEyeLeds.colors[rightEyeLeds.R7].b = 0.24;
 
   packer.setRightEyeLeds(rightEyeLeds);
   std::string packed = packer.getPacked();
@@ -215,11 +208,10 @@ TEST_F(TestMsgpackPacker, TestRightEyeLeds)
 
 TEST_F(TestMsgpackPacker, TestLeftFootLed)
 {
-  nao_command_msgs::msg::LeftFootLed::SharedPtr leftFootLed =
-    std::make_shared<nao_command_msgs::msg::LeftFootLed>();
-  leftFootLed->color.r = 0.2;
-  leftFootLed->color.g = 0.3;
-  leftFootLed->color.b = 0.4;
+  nao_command_msgs::msg::LeftFootLed leftFootLed;
+  leftFootLed.color.r = 0.2;
+  leftFootLed.color.g = 0.3;
+  leftFootLed.color.b = 0.4;
 
   packer.setLeftFootLed(leftFootLed);
   std::string packed = packer.getPacked();
@@ -230,11 +222,10 @@ TEST_F(TestMsgpackPacker, TestLeftFootLed)
 
 TEST_F(TestMsgpackPacker, TestRightFootLed)
 {
-  nao_command_msgs::msg::RightFootLed::SharedPtr rightFootLed =
-    std::make_shared<nao_command_msgs::msg::RightFootLed>();
-  rightFootLed->color.r = 0.5;
-  rightFootLed->color.g = 0.6;
-  rightFootLed->color.b = 0.7;
+  nao_command_msgs::msg::RightFootLed rightFootLed;
+  rightFootLed.color.r = 0.5;
+  rightFootLed.color.g = 0.6;
+  rightFootLed.color.b = 0.7;
 
   packer.setRightFootLed(rightFootLed);
   std::string packed = packer.getPacked();
@@ -245,20 +236,19 @@ TEST_F(TestMsgpackPacker, TestRightFootLed)
 
 TEST_F(TestMsgpackPacker, TestHeadLeds)
 {
-  nao_command_msgs::msg::HeadLeds::SharedPtr headLeds =
-    std::make_shared<nao_command_msgs::msg::HeadLeds>();
-  headLeds->intensities[headLeds->B0] = 0.00;
-  headLeds->intensities[headLeds->B1] = 0.01;
-  headLeds->intensities[headLeds->B2] = 0.02;
-  headLeds->intensities[headLeds->B3] = 0.03;
-  headLeds->intensities[headLeds->B4] = 0.04;
-  headLeds->intensities[headLeds->B5] = 0.05;
-  headLeds->intensities[headLeds->B6] = 0.06;
-  headLeds->intensities[headLeds->B7] = 0.07;
-  headLeds->intensities[headLeds->B8] = 0.08;
-  headLeds->intensities[headLeds->B9] = 0.09;
-  headLeds->intensities[headLeds->B10] = 0.10;
-  headLeds->intensities[headLeds->B11] = 0.11;
+  nao_command_msgs::msg::HeadLeds headLeds;
+  headLeds.intensities[headLeds.B0] = 0.00;
+  headLeds.intensities[headLeds.B1] = 0.01;
+  headLeds.intensities[headLeds.B2] = 0.02;
+  headLeds.intensities[headLeds.B3] = 0.03;
+  headLeds.intensities[headLeds.B4] = 0.04;
+  headLeds.intensities[headLeds.B5] = 0.05;
+  headLeds.intensities[headLeds.B6] = 0.06;
+  headLeds.intensities[headLeds.B7] = 0.07;
+  headLeds.intensities[headLeds.B8] = 0.08;
+  headLeds.intensities[headLeds.B9] = 0.09;
+  headLeds.intensities[headLeds.B10] = 0.10;
+  headLeds.intensities[headLeds.B11] = 0.11;
 
   packer.setHeadLeds(headLeds);
   std::string packed = packer.getPacked();
@@ -270,10 +260,9 @@ TEST_F(TestMsgpackPacker, TestHeadLeds)
 
 TEST_F(TestMsgpackPacker, TestSonarUsage)
 {
-  nao_command_msgs::msg::SonarUsage::SharedPtr sonarUsage =
-    std::make_shared<nao_command_msgs::msg::SonarUsage>();
-  sonarUsage->left = true;
-  sonarUsage->right = false;
+  nao_command_msgs::msg::SonarUsage sonarUsage;
+  sonarUsage.left = true;
+  sonarUsage.right = false;
 
   packer.setSonarUsage(sonarUsage);
   std::string packed = packer.getPacked();
