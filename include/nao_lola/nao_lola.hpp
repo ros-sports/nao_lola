@@ -87,7 +87,7 @@ private:
   std::thread receive_thread_;
   Connection connection;
 
-  std::shared_ptr<MsgpackPacker> packer = std::make_shared<MsgpackPacker>();
+  MsgpackPacker packer;
   std::mutex packer_mutex;
 };
 
