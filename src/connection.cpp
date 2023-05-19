@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #include <string>
-#include "nao_lola/connection.hpp"
+#include "connection.hpp"
 
 #define ENDPOINT "/tmp/robocup"
 

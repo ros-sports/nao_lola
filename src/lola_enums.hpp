@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__LOLA_ENUMS_HPP_
-#define NAO_LOLA__LOLA_ENUMS_HPP_
+#ifndef LOLA_ENUMS_HPP_
+#define LOLA_ENUMS_HPP_
 
 // The enums are exactly as defined (and in the same order) as what's provided
 // in "Lola RoboCupper Official Documentation.pdf" sent to all Standard Platform League
@@ -170,4 +170,4 @@ enum class SkullLeds
 
 }  // namespace LolaEnums
 
-#endif  // NAO_LOLA__LOLA_ENUMS_HPP_
+#endif  // LOLA_ENUMS_HPP_

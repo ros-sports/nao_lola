@@ -17,12 +17,12 @@
 #include <vector>
 #include <map>
 #include <memory>
-#include "msgpack.hpp"
-#include "nao_lola/msgpack_packer.hpp"
 #include "nao_command_msgs/msg/joint_positions.hpp"
 #include "nao_command_msgs/msg/joint_stiffnesses.hpp"
 #include "nao_command_msgs/msg/joint_indexes.hpp"
-#include "nao_lola/lola_enums.hpp"
+#include "msgpack.hpp"
+#include "../src/lola_enums.hpp"
+#include "../src/msgpack_packer.hpp"
 
 
 static std::vector<float> getFloatVector(std::string packed, std::string mapKey);

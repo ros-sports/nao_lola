@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__MSGPACK_PARSER_HPP_
-#define NAO_LOLA__MSGPACK_PARSER_HPP_
+#ifndef MSGPACK_PARSER_HPP_
+#define MSGPACK_PARSER_HPP_
 
 #include <map>
 #include <string>
 #include <vector>
-#include "msgpack.hpp"
 #include "nao_sensor_msgs/msg/joint_currents.hpp"
 #include "nao_sensor_msgs/msg/joint_positions.hpp"
 #include "nao_sensor_msgs/msg/joint_stiffnesses.hpp"
@@ -33,6 +32,7 @@
 #include "nao_sensor_msgs/msg/touch.hpp"
 #include "nao_sensor_msgs/msg/battery.hpp"
 #include "nao_sensor_msgs/msg/robot_config.hpp"
+#include "msgpack.hpp"
 
 class MsgpackParser
 {
@@ -60,4 +60,4 @@ private:
 };
 
 
-#endif  // NAO_LOLA__MSGPACK_PARSER_HPP_
+#endif  // MSGPACK_PARSER_HPP_

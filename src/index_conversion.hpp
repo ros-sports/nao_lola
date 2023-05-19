@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__COMMAND_INDEX_CONVERSION_HPP_
-#define NAO_LOLA__COMMAND_INDEX_CONVERSION_HPP_
+#ifndef INDEX_CONVERSION_HPP_
+#define INDEX_CONVERSION_HPP_
 
 #include <map>
-#include "nao_lola/lola_enums.hpp"
 #include "nao_command_msgs/msg/joint_indexes.hpp"
 #include "nao_command_msgs/msg/left_ear_leds.hpp"
 #include "nao_command_msgs/msg/right_ear_leds.hpp"
 #include "nao_command_msgs/msg/left_eye_leds.hpp"
 #include "nao_command_msgs/msg/right_eye_leds.hpp"
 #include "nao_command_msgs/msg/head_leds.hpp"
+#include "lola_enums.hpp"
 
 namespace IndexConversion
 {
@@ -143,4 +143,4 @@ static const std::map<int, LolaEnums::SkullLeds> head_leds_msg_to_lola
 
 }  // namespace IndexConversion
 
-#endif  // NAO_LOLA__COMMAND_INDEX_CONVERSION_HPP_
+#endif  // INDEX_CONVERSION_HPP_

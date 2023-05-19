@@ -15,9 +15,9 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "nao_lola/msgpack_parser.hpp"
-#include "nao_lola/lola_enums.hpp"
-#include "nao_lola/sensor_index_conversion.hpp"
+#include "lola_enums.hpp"
+#include "msgpack_parser.hpp"
+#include "sensor_index_conversion.hpp"
 
 
 MsgpackParser::MsgpackParser(char data[], int size)

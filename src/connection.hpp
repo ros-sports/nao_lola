@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__CONNECTION_HPP_
-#define NAO_LOLA__CONNECTION_HPP_
+#ifndef CONNECTION_HPP_
+#define CONNECTION_HPP_
 
 #include <string>
 #include "boost/asio.hpp"
@@ -35,4 +35,4 @@ private:
   rclcpp::Logger logger;
 };
 
-#endif  // NAO_LOLA__CONNECTION_HPP_
+#endif  // CONNECTION_HPP_

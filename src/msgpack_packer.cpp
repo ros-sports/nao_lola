@@ -17,10 +17,10 @@
 #include <utility>
 #include <memory>
 #include <vector>
-#include "nao_lola/msgpack_packer.hpp"
-#include "msgpack.hpp"
-#include "nao_lola/command_index_conversion.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "command_index_conversion.hpp"
+#include "msgpack.hpp"
+#include "msgpack_packer.hpp"
 
 std::string MsgpackPacker::getPacked()
 {

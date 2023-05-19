@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__MSGPACK_PACKER_HPP_
-#define NAO_LOLA__MSGPACK_PACKER_HPP_
+#ifndef MSGPACK_PACKER_HPP_
+#define MSGPACK_PACKER_HPP_
 
 #include <string>
 #include <vector>
@@ -29,8 +29,8 @@
 #include "nao_command_msgs/msg/right_foot_led.hpp"
 #include "nao_command_msgs/msg/head_leds.hpp"
 #include "nao_command_msgs/msg/sonar_usage.hpp"
-#include "nao_lola/lola_enums.hpp"
 #include "rclcpp/logger.hpp"
+#include "lola_enums.hpp"
 
 
 class MsgpackPacker
@@ -68,4 +68,4 @@ private:
   rclcpp::Logger logger;
 };
 
-#endif  // NAO_LOLA__MSGPACK_PACKER_HPP_
+#endif  // MSGPACK_PACKER_HPP_
