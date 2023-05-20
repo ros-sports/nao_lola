@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__NAO_LOLA_HPP_
-#define NAO_LOLA__NAO_LOLA_HPP_
+#ifndef NAO_LOLA__NAO_LOLA_NODE_HPP_
+#define NAO_LOLA__NAO_LOLA_NODE_HPP_
 
 #include <memory>
 #include "rclcpp/rclcpp.hpp"
 
-class NaoLola : public rclcpp::Node
+class NaoLolaNode : public rclcpp::Node
 {
 public:
-  NaoLola();
-  virtual ~NaoLola() {}
+  NaoLolaNode(const rclcpp::NodeOptions & options = rclcpp::NodeOptions{});
+  virtual ~NaoLolaNode() {}
 
 private:
   class Impl;
   std::shared_ptr<Impl> impl;
 };
 
-#endif  // NAO_LOLA__NAO_LOLA_HPP_
+#endif  // NAO_LOLA__NAO_LOLA_NODE_HPP_
