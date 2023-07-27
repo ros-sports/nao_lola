@@ -1,4 +1,8 @@
-[submodule "external/msgpack-c"]
-	path = external/msgpack-c
+[submodule "nao_lola_client/external/msgpack-c"]
+	path = nao_lola_client/external/msgpack-c
+	url = https://github.com/msgpack/msgpack-c.git
+	branch = cpp_master
+[submodule "nao_lola/external/msgpack-c"]
+	path = nao_lola/external/msgpack-c
 	url = https://github.com/msgpack/msgpack-c.git
 	branch = cpp_master
