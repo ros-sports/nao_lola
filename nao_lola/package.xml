@@ -21,8 +21,7 @@
   <export>
     <build_type>ament_cmake</build_type>
     <deprecated>
-      This package has been renamed to nao_lola, and nao_lola will be removed in ROS K-Turtle.
-      Please update your packages to depend on nao_lola instead.
+      Please use nao_lola_client. nao_lola will be removed in K-turtle.
     </deprecated>
   </export>
 </package>

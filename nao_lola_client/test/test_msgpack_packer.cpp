@@ -19,9 +19,9 @@
 #include <memory>
 #include "msgpack.hpp"
 #include "nao_lola_client/msgpack_packer.hpp"
-#include "nao_command_msgs/msg/joint_positions.hpp"
-#include "nao_command_msgs/msg/joint_stiffnesses.hpp"
-#include "nao_command_msgs/msg/joint_indexes.hpp"
+#include "nao_lola_command_msgs/msg/joint_positions.hpp"
+#include "nao_lola_command_msgs/msg/joint_stiffnesses.hpp"
+#include "nao_lola_command_msgs/msg/joint_indexes.hpp"
 #include "nao_lola_client/lola_enums.hpp"
 
 
@@ -37,10 +37,10 @@ public:
 
 TEST_F(TestMsgpackPacker, TestJointPositions)
 {
-  nao_command_msgs::msg::JointPositions command;
-  command.indexes.push_back(nao_command_msgs::msg::JointIndexes::HEADYAW);
+  nao_lola_command_msgs::msg::JointPositions command;
+  command.indexes.push_back(nao_lola_command_msgs::msg::JointIndexes::HEADYAW);
   command.positions.push_back(1.01);
-  command.indexes.push_back(nao_command_msgs::msg::JointIndexes::RHAND);
+  command.indexes.push_back(nao_lola_command_msgs::msg::JointIndexes::RHAND);
   command.positions.push_back(2.0);
 
   packer.setJointPositions(command);
@@ -54,10 +54,10 @@ TEST_F(TestMsgpackPacker, TestJointPositions)
 
 TEST_F(TestMsgpackPacker, TestJointStiffnesses)
 {
-  nao_command_msgs::msg::JointStiffnesses command;
-  command.indexes.push_back(nao_command_msgs::msg::JointIndexes::HEADPITCH);
+  nao_lola_command_msgs::msg::JointStiffnesses command;
+  command.indexes.push_back(nao_lola_command_msgs::msg::JointIndexes::HEADPITCH);
   command.stiffnesses.push_back(0.3);
-  command.indexes.push_back(nao_command_msgs::msg::JointIndexes::LHAND);
+  command.indexes.push_back(nao_lola_command_msgs::msg::JointIndexes::LHAND);
   command.stiffnesses.push_back(0.7);
 
   packer.setJointStiffnesses(command);
@@ -71,7 +71,7 @@ TEST_F(TestMsgpackPacker, TestJointStiffnesses)
 
 TEST_F(TestMsgpackPacker, TestChestLed)
 {
-  nao_command_msgs::msg::ChestLed chestLed;
+  nao_lola_command_msgs::msg::ChestLed chestLed;
   chestLed.color.r = 0.1;
   chestLed.color.g = 0.5;
   chestLed.color.b = 1.0;
@@ -85,7 +85,7 @@ TEST_F(TestMsgpackPacker, TestChestLed)
 
 TEST_F(TestMsgpackPacker, TestLeftEarLeds)
 {
-  nao_command_msgs::msg::LeftEarLeds leftEarLeds;
+  nao_lola_command_msgs::msg::LeftEarLeds leftEarLeds;
   leftEarLeds.intensities[leftEarLeds.L0] = 0.1;
   leftEarLeds.intensities[leftEarLeds.L1] = 0.2;
   leftEarLeds.intensities[leftEarLeds.L2] = 0.3;
@@ -108,7 +108,7 @@ TEST_F(TestMsgpackPacker, TestLeftEarLeds)
 
 TEST_F(TestMsgpackPacker, TestRightEarLeds)
 {
-  nao_command_msgs::msg::RightEarLeds rightEarLeds;
+  nao_lola_command_msgs::msg::RightEarLeds rightEarLeds;
   rightEarLeds.intensities[rightEarLeds.R0] = 0.1;
   rightEarLeds.intensities[rightEarLeds.R1] = 0.2;
   rightEarLeds.intensities[rightEarLeds.R2] = 0.3;
@@ -131,7 +131,7 @@ TEST_F(TestMsgpackPacker, TestRightEarLeds)
 TEST_F(TestMsgpackPacker, TestLeftEyeLeds)
 {
   // Explanation of eye correspondence: http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
-  nao_command_msgs::msg::LeftEyeLeds leftEyeLeds;
+  nao_lola_command_msgs::msg::LeftEyeLeds leftEyeLeds;
   leftEyeLeds.colors[leftEyeLeds.L0].r = 0.01;
   leftEyeLeds.colors[leftEyeLeds.L0].g = 0.02;
   leftEyeLeds.colors[leftEyeLeds.L0].b = 0.03;
@@ -170,7 +170,7 @@ TEST_F(TestMsgpackPacker, TestLeftEyeLeds)
 TEST_F(TestMsgpackPacker, TestRightEyeLeds)
 {
   // Explanation of eye correspondence: http://doc.aldebaran.com/2-5/family/robots/leds_robot.html#nao-v5-v4-and-v3-3
-  nao_command_msgs::msg::RightEyeLeds rightEyeLeds;
+  nao_lola_command_msgs::msg::RightEyeLeds rightEyeLeds;
   rightEyeLeds.colors[rightEyeLeds.R0].r = 0.01;
   rightEyeLeds.colors[rightEyeLeds.R0].g = 0.02;
   rightEyeLeds.colors[rightEyeLeds.R0].b = 0.03;
@@ -208,7 +208,7 @@ TEST_F(TestMsgpackPacker, TestRightEyeLeds)
 
 TEST_F(TestMsgpackPacker, TestLeftFootLed)
 {
-  nao_command_msgs::msg::LeftFootLed leftFootLed;
+  nao_lola_command_msgs::msg::LeftFootLed leftFootLed;
   leftFootLed.color.r = 0.2;
   leftFootLed.color.g = 0.3;
   leftFootLed.color.b = 0.4;
@@ -222,7 +222,7 @@ TEST_F(TestMsgpackPacker, TestLeftFootLed)
 
 TEST_F(TestMsgpackPacker, TestRightFootLed)
 {
-  nao_command_msgs::msg::RightFootLed rightFootLed;
+  nao_lola_command_msgs::msg::RightFootLed rightFootLed;
   rightFootLed.color.r = 0.5;
   rightFootLed.color.g = 0.6;
   rightFootLed.color.b = 0.7;
@@ -236,7 +236,7 @@ TEST_F(TestMsgpackPacker, TestRightFootLed)
 
 TEST_F(TestMsgpackPacker, TestHeadLeds)
 {
-  nao_command_msgs::msg::HeadLeds headLeds;
+  nao_lola_command_msgs::msg::HeadLeds headLeds;
   headLeds.intensities[headLeds.B0] = 0.00;
   headLeds.intensities[headLeds.B1] = 0.01;
   headLeds.intensities[headLeds.B2] = 0.02;
@@ -260,7 +260,7 @@ TEST_F(TestMsgpackPacker, TestHeadLeds)
 
 TEST_F(TestMsgpackPacker, TestSonarUsage)
 {
-  nao_command_msgs::msg::SonarUsage sonarUsage;
+  nao_lola_command_msgs::msg::SonarUsage sonarUsage;
   sonarUsage.left = true;
   sonarUsage.right = false;
 
