@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__COMMAND_INDEX_CONVERSION_HPP_
-#define NAO_LOLA__COMMAND_INDEX_CONVERSION_HPP_
+#ifndef NAO_LOLA_CLIENT__COMMAND_INDEX_CONVERSION_HPP_
+#define NAO_LOLA_CLIENT__COMMAND_INDEX_CONVERSION_HPP_
 
 #include <map>
 #include "nao_lola_client/lola_enums.hpp"
@@ -143,4 +143,4 @@ static const std::map<int, LolaEnums::SkullLeds> head_leds_msg_to_lola
 
 }  // namespace IndexConversion
 
-#endif  // NAO_LOLA__COMMAND_INDEX_CONVERSION_HPP_
+#endif  // NAO_LOLA_CLIENT__COMMAND_INDEX_CONVERSION_HPP_

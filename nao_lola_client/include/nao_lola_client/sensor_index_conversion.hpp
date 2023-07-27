@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__SENSOR_INDEX_CONVERSION_HPP_
-#define NAO_LOLA__SENSOR_INDEX_CONVERSION_HPP_
+#ifndef NAO_LOLA_CLIENT__SENSOR_INDEX_CONVERSION_HPP_
+#define NAO_LOLA_CLIENT__SENSOR_INDEX_CONVERSION_HPP_
 
 #include <map>
 #include "nao_lola_client/lola_enums.hpp"
@@ -65,4 +65,4 @@ std::map<int, LolaEnums::Joint> flip(std::map<LolaEnums::Joint, int> in)
 
 }  // namespace IndexConversion
 
-#endif  // NAO_LOLA__SENSOR_INDEX_CONVERSION_HPP_
+#endif  // NAO_LOLA_CLIENT__SENSOR_INDEX_CONVERSION_HPP_

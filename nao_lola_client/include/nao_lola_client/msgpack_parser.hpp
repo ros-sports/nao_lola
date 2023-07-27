@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__MSGPACK_PARSER_HPP_
-#define NAO_LOLA__MSGPACK_PARSER_HPP_
+#ifndef NAO_LOLA_CLIENT__MSGPACK_PARSER_HPP_
+#define NAO_LOLA_CLIENT__MSGPACK_PARSER_HPP_
 
 #include <map>
 #include <string>
@@ -60,4 +60,4 @@ private:
 };
 
 
-#endif  // NAO_LOLA__MSGPACK_PARSER_HPP_
+#endif  // NAO_LOLA_CLIENT__MSGPACK_PARSER_HPP_

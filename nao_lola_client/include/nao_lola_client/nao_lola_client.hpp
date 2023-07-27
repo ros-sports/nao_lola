@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_LOLA__NAO_LOLA_HPP_
-#define NAO_LOLA__NAO_LOLA_HPP_
+#ifndef NAO_LOLA_CLIENT__NAO_LOLA_CLIENT_HPP_
+#define NAO_LOLA_CLIENT__NAO_LOLA_CLIENT_HPP_
 
 #include <thread>
 #include <memory>
@@ -73,7 +73,8 @@ private:
   rclcpp::Publisher<nao_lola_sensor_msgs::msg::RobotConfig>::SharedPtr robot_config_pub;
 
   rclcpp::Subscription<nao_lola_command_msgs::msg::JointPositions>::SharedPtr joint_positions_sub;
-  rclcpp::Subscription<nao_lola_command_msgs::msg::JointStiffnesses>::SharedPtr joint_stiffnesses_sub;
+  rclcpp::Subscription<nao_lola_command_msgs::msg::JointStiffnesses>::SharedPtr
+    joint_stiffnesses_sub;
   rclcpp::Subscription<nao_lola_command_msgs::msg::ChestLed>::SharedPtr chest_led_sub;
   rclcpp::Subscription<nao_lola_command_msgs::msg::LeftEarLeds>::SharedPtr left_ear_leds_sub;
   rclcpp::Subscription<nao_lola_command_msgs::msg::RightEarLeds>::SharedPtr right_ear_leds_sub;
@@ -91,4 +92,4 @@ private:
   std::mutex packer_mutex;
 };
 
-#endif  // NAO_LOLA__NAO_LOLA_HPP_
+#endif  // NAO_LOLA_CLIENT__NAO_LOLA_CLIENT_HPP_
