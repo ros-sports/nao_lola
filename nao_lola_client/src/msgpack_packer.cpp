@@ -47,12 +47,12 @@ std::string MsgpackPacker::getPacked()
 }
 
 void MsgpackPacker::setJointPositions(
-  const nao_command_msgs::msg::JointPositions & jointPositions)
+  const nao_lola_command_msgs::msg::JointPositions & jointPositions)
 {
   if (jointPositions.indexes.size() != jointPositions.positions.size()) {
     RCLCPP_ERROR(
       logger,
-      "Incorrect message received for nao_command_msgs::msg::JointPositions. "
+      "Incorrect message received for nao_lola_command_msgs::msg::JointPositions. "
       "Angles and Indexes vector must have the same length. "
       "Angles vector has length %zu, while indexes vector has length %zu",
       jointPositions.positions.size(), jointPositions.indexes.size());
@@ -67,12 +67,12 @@ void MsgpackPacker::setJointPositions(
 }
 
 void MsgpackPacker::setJointStiffnesses(
-  const nao_command_msgs::msg::JointStiffnesses & jointStiffnesses)
+  const nao_lola_command_msgs::msg::JointStiffnesses & jointStiffnesses)
 {
   if (jointStiffnesses.indexes.size() != jointStiffnesses.stiffnesses.size()) {
     RCLCPP_ERROR(
       logger,
-      "Incorrect message received for nao_command_msgs::msg::JointStiffnesses. "
+      "Incorrect message received for nao_lola_command_msgs::msg::JointStiffnesses. "
       "Stiffnesses and Indexes vector must have the same length. "
       "Stiffnesses vector has length %zu, while indexes vector has length %zu",
       jointStiffnesses.stiffnesses.size(), jointStiffnesses.indexes.size());
@@ -86,14 +86,14 @@ void MsgpackPacker::setJointStiffnesses(
   }
 }
 
-void MsgpackPacker::setChestLed(const nao_command_msgs::msg::ChestLed & chestLed)
+void MsgpackPacker::setChestLed(const nao_lola_command_msgs::msg::ChestLed & chestLed)
 {
   chest.at(0) = chestLed.color.r;
   chest.at(1) = chestLed.color.g;
   chest.at(2) = chestLed.color.b;
 }
 
-void MsgpackPacker::setLeftEarLeds(const nao_command_msgs::msg::LeftEarLeds & leftEarLeds)
+void MsgpackPacker::setLeftEarLeds(const nao_lola_command_msgs::msg::LeftEarLeds & leftEarLeds)
 {
   for (unsigned i = 0; i < leftEarLeds.NUM_LEDS; ++i) {
     LolaEnums::LeftEarLeds lola_index = IndexConversion::left_ear_leds_msg_to_lola.at(i);
@@ -102,7 +102,7 @@ void MsgpackPacker::setLeftEarLeds(const nao_command_msgs::msg::LeftEarLeds & le
 }
 
 void MsgpackPacker::setRightEarLeds(
-  const nao_command_msgs::msg::RightEarLeds & rightEarLeds)
+  const nao_lola_command_msgs::msg::RightEarLeds & rightEarLeds)
 {
   for (unsigned i = 0; i < rightEarLeds.NUM_LEDS; ++i) {
     LolaEnums::RightEarLeds lola_index = IndexConversion::right_ear_leds_msg_to_lola.at(i);
@@ -110,7 +110,7 @@ void MsgpackPacker::setRightEarLeds(
   }
 }
 
-void MsgpackPacker::setLeftEyeLeds(const nao_command_msgs::msg::LeftEyeLeds & leftEyeLeds)
+void MsgpackPacker::setLeftEyeLeds(const nao_lola_command_msgs::msg::LeftEyeLeds & leftEyeLeds)
 {
   for (unsigned i = 0; i < leftEyeLeds.NUM_LEDS; ++i) {
     LolaEnums::LeftEyeLeds lola_index = IndexConversion::left_eye_leds_msg_to_lola.at(i);
@@ -121,7 +121,7 @@ void MsgpackPacker::setLeftEyeLeds(const nao_command_msgs::msg::LeftEyeLeds & le
 }
 
 void MsgpackPacker::setRightEyeLeds(
-  const nao_command_msgs::msg::RightEyeLeds & rightEyeLeds)
+  const nao_lola_command_msgs::msg::RightEyeLeds & rightEyeLeds)
 {
   for (unsigned i = 0; i < rightEyeLeds.NUM_LEDS; ++i) {
     LolaEnums::RightEyeLeds lola_index = IndexConversion::right_eye_leds_msg_to_lola.at(i);
@@ -131,7 +131,7 @@ void MsgpackPacker::setRightEyeLeds(
   }
 }
 
-void MsgpackPacker::setLeftFootLed(const nao_command_msgs::msg::LeftFootLed & leftFootLed)
+void MsgpackPacker::setLeftFootLed(const nao_lola_command_msgs::msg::LeftFootLed & leftFootLed)
 {
   l_foot.at(0) = leftFootLed.color.r;
   l_foot.at(1) = leftFootLed.color.g;
@@ -139,14 +139,14 @@ void MsgpackPacker::setLeftFootLed(const nao_command_msgs::msg::LeftFootLed & le
 }
 
 void MsgpackPacker::setRightFootLed(
-  const nao_command_msgs::msg::RightFootLed & rightFootLed)
+  const nao_lola_command_msgs::msg::RightFootLed & rightFootLed)
 {
   r_foot.at(0) = rightFootLed.color.r;
   r_foot.at(1) = rightFootLed.color.g;
   r_foot.at(2) = rightFootLed.color.b;
 }
 
-void MsgpackPacker::setHeadLeds(const nao_command_msgs::msg::HeadLeds & headLeds)
+void MsgpackPacker::setHeadLeds(const nao_lola_command_msgs::msg::HeadLeds & headLeds)
 {
   for (unsigned i = 0; i < headLeds.NUM_LEDS; ++i) {
     LolaEnums::SkullLeds lola_index = IndexConversion::head_leds_msg_to_lola.at(i);
@@ -154,7 +154,7 @@ void MsgpackPacker::setHeadLeds(const nao_command_msgs::msg::HeadLeds & headLeds
   }
 }
 
-void MsgpackPacker::setSonarUsage(const nao_command_msgs::msg::SonarUsage & sonarUsage)
+void MsgpackPacker::setSonarUsage(const nao_lola_command_msgs::msg::SonarUsage & sonarUsage)
 {
   sonar.at(0) = sonarUsage.left;
   sonar.at(1) = sonarUsage.right;

@@ -1,0 +1,5 @@
+bool chest
+bool l_foot_bumper_left
+bool l_foot_bumper_right
+bool r_foot_bumper_left
+bool r_foot_bumper_right

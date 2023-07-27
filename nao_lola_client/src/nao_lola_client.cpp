@@ -61,27 +61,27 @@ NaoLolaClient::NaoLolaClient()
 void NaoLolaClient::createPublishers()
 {
   RCLCPP_DEBUG(get_logger(), "Initialise publishers");
-  accelerometer_pub = create_publisher<nao_sensor_msgs::msg::Accelerometer>(
+  accelerometer_pub = create_publisher<nao_lola_sensor_msgs::msg::Accelerometer>(
     "sensors/accelerometer", 10);
-  angle_pub = create_publisher<nao_sensor_msgs::msg::Angle>("sensors/angle", 10);
-  buttons_pub = create_publisher<nao_sensor_msgs::msg::Buttons>("sensors/buttons", 10);
-  fsr_pub = create_publisher<nao_sensor_msgs::msg::FSR>("sensors/fsr", 10);
-  gyroscope_pub = create_publisher<nao_sensor_msgs::msg::Gyroscope>("sensors/gyroscope", 10);
-  joint_positions_pub = create_publisher<nao_sensor_msgs::msg::JointPositions>(
+  angle_pub = create_publisher<nao_lola_sensor_msgs::msg::Angle>("sensors/angle", 10);
+  buttons_pub = create_publisher<nao_lola_sensor_msgs::msg::Buttons>("sensors/buttons", 10);
+  fsr_pub = create_publisher<nao_lola_sensor_msgs::msg::FSR>("sensors/fsr", 10);
+  gyroscope_pub = create_publisher<nao_lola_sensor_msgs::msg::Gyroscope>("sensors/gyroscope", 10);
+  joint_positions_pub = create_publisher<nao_lola_sensor_msgs::msg::JointPositions>(
     "sensors/joint_positions", 10);
-  joint_stiffnesses_pub = create_publisher<nao_sensor_msgs::msg::JointStiffnesses>(
+  joint_stiffnesses_pub = create_publisher<nao_lola_sensor_msgs::msg::JointStiffnesses>(
     "sensors/joint_stiffnesses", 10);
-  joint_temperatures_pub = create_publisher<nao_sensor_msgs::msg::JointTemperatures>(
+  joint_temperatures_pub = create_publisher<nao_lola_sensor_msgs::msg::JointTemperatures>(
     "sensors/joint_temperatures", 10);
-  joint_currents_pub = create_publisher<nao_sensor_msgs::msg::JointCurrents>(
+  joint_currents_pub = create_publisher<nao_lola_sensor_msgs::msg::JointCurrents>(
     "sensors/joint_currents", 10);
-  joint_statuses_pub = create_publisher<nao_sensor_msgs::msg::JointStatuses>(
+  joint_statuses_pub = create_publisher<nao_lola_sensor_msgs::msg::JointStatuses>(
     "sensors/joint_statuses", 10);
-  sonar_pub = create_publisher<nao_sensor_msgs::msg::Sonar>("sensors/sonar", 10);
-  touch_pub = create_publisher<nao_sensor_msgs::msg::Touch>("sensors/touch", 10);
-  battery_pub = create_publisher<nao_sensor_msgs::msg::Battery>("sensors/battery", 10);
+  sonar_pub = create_publisher<nao_lola_sensor_msgs::msg::Sonar>("sensors/sonar", 10);
+  touch_pub = create_publisher<nao_lola_sensor_msgs::msg::Touch>("sensors/touch", 10);
+  battery_pub = create_publisher<nao_lola_sensor_msgs::msg::Battery>("sensors/battery", 10);
   robot_config_pub =
-    create_publisher<nao_sensor_msgs::msg::RobotConfig>("sensors/robot_config", 10);
+    create_publisher<nao_lola_sensor_msgs::msg::RobotConfig>("sensors/robot_config", 10);
   RCLCPP_DEBUG(get_logger(), "Finished initialising publishers");
 }
 
@@ -89,99 +89,99 @@ void NaoLolaClient::createSubscriptions()
 {
   RCLCPP_DEBUG(get_logger(), "Initialise subscriptions");
   joint_positions_sub =
-    create_subscription<nao_command_msgs::msg::JointPositions>(
+    create_subscription<nao_lola_command_msgs::msg::JointPositions>(
     "effectors/joint_positions", 1,
-    [this](const nao_command_msgs::msg::JointPositions & jointPositions) {
+    [this](const nao_lola_command_msgs::msg::JointPositions & jointPositions) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setJointPositions(jointPositions);
     }
     );
 
   joint_stiffnesses_sub =
-    create_subscription<nao_command_msgs::msg::JointStiffnesses>(
+    create_subscription<nao_lola_command_msgs::msg::JointStiffnesses>(
     "effectors/joint_stiffnesses", 1,
-    [this](const nao_command_msgs::msg::JointStiffnesses & jointStiffnesses) {
+    [this](const nao_lola_command_msgs::msg::JointStiffnesses & jointStiffnesses) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setJointStiffnesses(jointStiffnesses);
     }
     );
 
   chest_led_sub =
-    create_subscription<nao_command_msgs::msg::ChestLed>(
+    create_subscription<nao_lola_command_msgs::msg::ChestLed>(
     "effectors/chest_led", 1,
-    [this](const nao_command_msgs::msg::ChestLed & chestLed) {
+    [this](const nao_lola_command_msgs::msg::ChestLed & chestLed) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setChestLed(chestLed);
     }
     );
 
   left_ear_leds_sub =
-    create_subscription<nao_command_msgs::msg::LeftEarLeds>(
+    create_subscription<nao_lola_command_msgs::msg::LeftEarLeds>(
     "effectors/left_ear_leds", 1,
-    [this](const nao_command_msgs::msg::LeftEarLeds & leftEarLeds) {
+    [this](const nao_lola_command_msgs::msg::LeftEarLeds & leftEarLeds) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setLeftEarLeds(leftEarLeds);
     }
     );
 
   right_ear_leds_sub =
-    create_subscription<nao_command_msgs::msg::RightEarLeds>(
+    create_subscription<nao_lola_command_msgs::msg::RightEarLeds>(
     "effectors/right_ear_leds", 1,
-    [this](const nao_command_msgs::msg::RightEarLeds & rightEarLeds) {
+    [this](const nao_lola_command_msgs::msg::RightEarLeds & rightEarLeds) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setRightEarLeds(rightEarLeds);
     }
     );
 
   left_eye_leds_sub =
-    create_subscription<nao_command_msgs::msg::LeftEyeLeds>(
+    create_subscription<nao_lola_command_msgs::msg::LeftEyeLeds>(
     "effectors/left_eye_leds", 1,
-    [this](const nao_command_msgs::msg::LeftEyeLeds & leftEyeLeds) {
+    [this](const nao_lola_command_msgs::msg::LeftEyeLeds & leftEyeLeds) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setLeftEyeLeds(leftEyeLeds);
     }
     );
 
   right_eye_leds_sub =
-    create_subscription<nao_command_msgs::msg::RightEyeLeds>(
+    create_subscription<nao_lola_command_msgs::msg::RightEyeLeds>(
     "effectors/right_eye_leds", 1,
-    [this](const nao_command_msgs::msg::RightEyeLeds & rightEyeLeds) {
+    [this](const nao_lola_command_msgs::msg::RightEyeLeds & rightEyeLeds) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setRightEyeLeds(rightEyeLeds);
     }
     );
 
   left_foot_led_sub =
-    create_subscription<nao_command_msgs::msg::LeftFootLed>(
+    create_subscription<nao_lola_command_msgs::msg::LeftFootLed>(
     "effectors/left_foot_led", 1,
-    [this](const nao_command_msgs::msg::LeftFootLed & leftFootLed) {
+    [this](const nao_lola_command_msgs::msg::LeftFootLed & leftFootLed) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setLeftFootLed(leftFootLed);
     }
     );
 
   right_foot_led_sub =
-    create_subscription<nao_command_msgs::msg::RightFootLed>(
+    create_subscription<nao_lola_command_msgs::msg::RightFootLed>(
     "effectors/right_foot_led", 1,
-    [this](const nao_command_msgs::msg::RightFootLed & rightFootLed) {
+    [this](const nao_lola_command_msgs::msg::RightFootLed & rightFootLed) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setRightFootLed(rightFootLed);
     }
     );
 
   head_leds_sub =
-    create_subscription<nao_command_msgs::msg::HeadLeds>(
+    create_subscription<nao_lola_command_msgs::msg::HeadLeds>(
     "effectors/head_leds", 1,
-    [this](const nao_command_msgs::msg::HeadLeds & headLeds) {
+    [this](const nao_lola_command_msgs::msg::HeadLeds & headLeds) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setHeadLeds(headLeds);
     }
     );
 
   sonar_usage_sub =
-    create_subscription<nao_command_msgs::msg::SonarUsage>(
+    create_subscription<nao_lola_command_msgs::msg::SonarUsage>(
     "effectors/sonar_usage", 1,
-    [this](const nao_command_msgs::msg::SonarUsage & sonarUsage) {
+    [this](const nao_lola_command_msgs::msg::SonarUsage & sonarUsage) {
       std::lock_guard<std::mutex> guard(packer_mutex);
       packer.setSonarUsage(sonarUsage);
     }
