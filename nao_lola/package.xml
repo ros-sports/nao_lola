@@ -3,7 +3,7 @@
 <package format="3">
   <name>nao_lola</name>
   <version>0.3.1</version>
-  <description>Packages that allow communicating with the NAO’s Lola middle-ware.</description>
+  <description>Packages that allow communicating with the NAO's Lola middle-ware.</description>
   <maintainer email="kenjibrameld@gmail.com">ijnek</maintainer>
   <license>Apache License 2.0</license>
 
@@ -20,5 +20,9 @@
 
   <export>
     <build_type>ament_cmake</build_type>
+    <deprecated>
+      This package has been renamed to nao_lola, and nao_lola will be removed in ROS K-Turtle.
+      Please update your packages to depend on nao_lola instead.
+    </deprecated>
   </export>
 </package>
