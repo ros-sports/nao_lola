@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef NAO_INTERFACES_BRIDGE__NAO_INTERFACES_BRIDGE_HPP_
-#define NAO_INTERFACES_BRIDGE__NAO_INTERFACES_BRIDGE_HPP_
+#ifndef NAO_LOLA_CONVERSION__NAO_LOLA_CONVERSION_HPP_
+#define NAO_LOLA_CONVERSION__NAO_LOLA_CONVERSION_HPP_
 
 #include <memory>
 
@@ -52,4 +52,4 @@ private:
 
 }  // namespace nao_lola_conversion
 
-#endif  // NAO_INTERFACES_BRIDGE__NAO_INTERFACES_BRIDGE_HPP_
+#endif  // NAO_LOLA_CONVERSION__NAO_LOLA_CONVERSION_HPP_

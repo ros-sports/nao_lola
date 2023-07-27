@@ -182,7 +182,9 @@ TEST_F(TestMsgpackParser, TestJointCurrents)
   EXPECT_NEAR(
     jointCurrents.currents.at(nao_lola_sensor_msgs::msg::JointIndexes::HEADYAW), 0.1,
     0.000001);
-  EXPECT_NEAR(jointCurrents.currents.at(nao_lola_sensor_msgs::msg::JointIndexes::RHAND), 0.2, 0.00001);
+  EXPECT_NEAR(
+    jointCurrents.currents.at(
+      nao_lola_sensor_msgs::msg::JointIndexes::RHAND), 0.2, 0.00001);
 }
 
 TEST_F(TestMsgpackParser, TestJointStatuses)
