@@ -1,10 +1,10 @@
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Changelog for package nao_lola_command_msgs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changelog for package nao_lola_sensor_msgs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Forthcoming
 -----------
-* Migrate nao_interfaces/nao_command_msgs across to nao_lola_command_msgs
+* Migrate nao_interfaces/nao_sensor_msgs across to nao_lola_sensor_msgs
 * Contributors: ijnek
 
 0.3.1 (2023-05-20)

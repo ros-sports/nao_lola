@@ -2,6 +2,11 @@
 Changelog for package nao_lola
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Deprecate nao_lola package in favor of nao_lola_client package.
+* Contributors: ijnek
+
 0.3.1 (2023-05-20)
 ------------------
 * Retain state of all effectors
