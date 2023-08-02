@@ -2,8 +2,8 @@
 Changelog for package nao_lola_conversion
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.0 (2023-08-02)
+------------------
 * Migrate nao/nao_interfaces_package to nao_lola_conversion package.
 * Contributors: ijnek
 

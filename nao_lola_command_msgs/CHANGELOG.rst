@@ -2,8 +2,8 @@
 Changelog for package nao_lola_command_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.0 (2023-08-02)
+------------------
 * Migrate nao_interfaces/nao_command_msgs across to nao_lola_command_msgs
 * Contributors: ijnek
 

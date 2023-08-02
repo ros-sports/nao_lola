@@ -2,8 +2,8 @@
 Changelog for package nao_lola
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.0 (2023-08-02)
+------------------
 * Deprecate nao_lola package in favor of nao_lola_client package.
 * Contributors: ijnek
 
