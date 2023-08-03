@@ -2,8 +2,8 @@
 Changelog for package nao_lola_conversion
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.0 (2023-08-03)
+------------------
 * switch nao_lola_conversion to use nao_lola_sensor_msgs
 * Contributors: ijnek
 
