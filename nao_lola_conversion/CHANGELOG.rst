@@ -2,6 +2,11 @@
 Changelog for package nao_lola_conversion
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* switch nao_lola_conversion to use nao_lola_sensor_msgs
+* Contributors: ijnek
+
 1.0.0 (2023-08-02)
 ------------------
 * Migrate nao/nao_interfaces_package to nao_lola_conversion package.

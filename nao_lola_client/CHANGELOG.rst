@@ -2,6 +2,9 @@
 Changelog for package nao_lola_client
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.0 (2023-08-02)
 ------------------
 * Migrate nao_lola across to nao_lola/nao_lola_client
