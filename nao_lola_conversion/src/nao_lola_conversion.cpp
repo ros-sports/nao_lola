@@ -18,8 +18,8 @@
 namespace nao_lola_conversion
 {
 
-using nao_sensor_msgs::msg::Accelerometer;
-using nao_sensor_msgs::msg::Gyroscope;
+using nao_lola_sensor_msgs::msg::Accelerometer;
+using nao_lola_sensor_msgs::msg::Gyroscope;
 using sensor_msgs::msg::Imu;
 
 NaoLolaConversion::NaoLolaConversion(const rclcpp::NodeOptions & options)
