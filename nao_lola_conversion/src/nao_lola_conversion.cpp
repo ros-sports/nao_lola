@@ -47,6 +47,7 @@ void NaoLolaConversion::synchronizerCallback(
 {
   Imu imu;
   imu.header.frame_id = "ImuTorsoAccelerometer_frame";
+  imu.header.stamp = rclcpp::Clock().now();  // Acquiring stamp here may not be accurate enough
 
   // Linear Acceleration
   imu.linear_acceleration.x = accelerometer->x;
