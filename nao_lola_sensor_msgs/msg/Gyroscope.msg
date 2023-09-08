@@ -2,6 +2,8 @@
 # Units are in rad/s
 # Follows conventions here: http://doc.aldebaran.com/2-1/family/robots/inertial_robot.html
 
+std_msgs/Header header
+
 # x is rotating right / left vertically (from robots perspective)
 # - Falling right (from robot's perspective) is positive
 # - Falling left (from robot's perspective) is negative

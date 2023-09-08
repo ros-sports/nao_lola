@@ -30,11 +30,17 @@ NaoLolaClient::NaoLolaClient()
         auto recvData = connection.receive();
         MsgpackParser parsed(recvData.data(), recvData.size());
 
-        accelerometer_pub->publish(parsed.getAccelerometer());
+        auto time = now();
+        auto accelerometer = parsed.getAccelerometer();
+        accelerometer.header.stamp = time;
+        accelerometer_pub->publish(accelerometer);
         angle_pub->publish(parsed.getAngle());
         buttons_pub->publish(parsed.getButtons());
         fsr_pub->publish(parsed.getFSR());
-        gyroscope_pub->publish(parsed.getGyroscope());
+
+        auto gyroscope = parsed.getGyroscope();
+        gyroscope.header.stamp = time;
+        gyroscope_pub->publish(gyroscope);
         joint_positions_pub->publish(parsed.getJointPositions());
         joint_stiffnesses_pub->publish(parsed.getJointStiffnesses());
         joint_temperatures_pub->publish(parsed.getJointTemperatures());
