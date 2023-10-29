@@ -56,6 +56,7 @@ void MsgpackPacker::setJointPositions(
       "Angles and Indexes vector must have the same length. "
       "Angles vector has length %zu, while indexes vector has length %zu",
       jointPositions.positions.size(), jointPositions.indexes.size());
+    return;
   }
 
   for (unsigned i = 0; i < jointPositions.indexes.size(); ++i) {
@@ -76,6 +77,7 @@ void MsgpackPacker::setJointStiffnesses(
       "Stiffnesses and Indexes vector must have the same length. "
       "Stiffnesses vector has length %zu, while indexes vector has length %zu",
       jointStiffnesses.stiffnesses.size(), jointStiffnesses.indexes.size());
+    return;
   }
 
   for (unsigned i = 0; i < jointStiffnesses.indexes.size(); ++i) {
