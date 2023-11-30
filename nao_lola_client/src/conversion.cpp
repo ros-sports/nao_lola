@@ -14,6 +14,9 @@
 
 #include "conversion.hpp"
 
+#include <string>
+#include <vector>
+
 #include "nao_lola_sensor_msgs/msg/joint_indexes.hpp"
 
 namespace conversion
@@ -48,7 +51,7 @@ std::vector<std::string> joint_names = {
 };
 
 sensor_msgs::msg::JointState toJointState(
-  const nao_lola_sensor_msgs::msg::JointPositions& joint_positions)
+  const nao_lola_sensor_msgs::msg::JointPositions & joint_positions)
 {
   sensor_msgs::msg::JointState joint_state;
   joint_state.name = joint_names;

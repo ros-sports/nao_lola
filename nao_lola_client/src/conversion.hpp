@@ -22,7 +22,7 @@ namespace conversion
 {
 
 sensor_msgs::msg::JointState toJointState(
-  const nao_lola_sensor_msgs::msg::JointPositions& joint_positions);
+  const nao_lola_sensor_msgs::msg::JointPositions & joint_positions);
 
 }  // namespace conversion
 
