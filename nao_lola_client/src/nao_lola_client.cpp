@@ -16,6 +16,7 @@
 #include <memory>
 #include "nao_lola_client/nao_lola_client.hpp"
 #include "nao_lola_client/msgpack_parser.hpp"
+#include "conversion.hpp"
 
 NaoLolaClient::NaoLolaClient(const rclcpp::NodeOptions & options)
 : Node("NaoLolaClient", options)
@@ -45,6 +46,9 @@ NaoLolaClient::NaoLolaClient(const rclcpp::NodeOptions & options)
         battery_pub->publish(parsed.getBattery());
         robot_config_pub->publish(parsed.getRobotConfig());
 
+        auto joint_state = conversion::toJointState(parsed.getJointPositions());
+        joint_state.header.stamp = this->now();
+        joint_states_pub->publish(joint_state);
 
         // In mutex, copy packer
         // Do the pack and send outside mutex to avoid retain lock for a long time
@@ -82,6 +86,7 @@ void NaoLolaClient::createPublishers()
   battery_pub = create_publisher<nao_lola_sensor_msgs::msg::Battery>("sensors/battery", 10);
   robot_config_pub =
     create_publisher<nao_lola_sensor_msgs::msg::RobotConfig>("sensors/robot_config", 10);
+  joint_states_pub = create_publisher<sensor_msgs::msg::JointState>("joint_states", 10);
   RCLCPP_DEBUG(get_logger(), "Finished initialising publishers");
 }
 

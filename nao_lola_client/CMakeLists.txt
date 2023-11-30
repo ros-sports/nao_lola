@@ -21,6 +21,7 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(nao_lola_sensor_msgs REQUIRED)
 find_package(nao_lola_command_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(Boost COMPONENTS system program_options filesystem REQUIRED)
 
 set(THIS_PACKAGE_INCLUDE_DEPENDS
@@ -50,8 +51,10 @@ ament_target_dependencies(msgpack_packer_lib
 # build nao_lola_client_node
 add_library(nao_lola_client_node SHARED
   src/nao_lola_client.cpp
-  src/connection.cpp)
+  src/connection.cpp
+  src/conversion.cpp)
 
+ament_target_dependencies(nao_lola_client_node sensor_msgs)
 target_link_libraries(nao_lola_client_node
   msgpack_parser_lib
   msgpack_packer_lib)
