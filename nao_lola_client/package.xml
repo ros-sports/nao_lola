@@ -14,6 +14,7 @@
   <test_depend>ament_cmake_gtest</test_depend>
 
   <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
   <depend>nao_lola_command_msgs</depend>
   <depend>nao_lola_sensor_msgs</depend>
   <depend>boost</depend>
