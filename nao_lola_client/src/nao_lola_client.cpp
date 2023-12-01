@@ -17,8 +17,8 @@
 #include "nao_lola_client/nao_lola_client.hpp"
 #include "nao_lola_client/msgpack_parser.hpp"
 
-NaoLolaClient::NaoLolaClient()
-: Node("NaoLolaClient")
+NaoLolaClient::NaoLolaClient(const rclcpp::NodeOptions & options)
+: Node("NaoLolaClient", options)
 {
   createPublishers();
   createSubscriptions();
@@ -188,3 +188,6 @@ void NaoLolaClient::createSubscriptions()
     );
   RCLCPP_DEBUG(get_logger(), "Finished creating subscriptions");
 }
+
+#include "rclcpp_components/register_node_macro.hpp"
+RCLCPP_COMPONENTS_REGISTER_NODE(NaoLolaClient)

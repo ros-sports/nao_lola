@@ -50,7 +50,7 @@
 class NaoLolaClient : public rclcpp::Node
 {
 public:
-  NaoLolaClient();
+  explicit NaoLolaClient(const rclcpp::NodeOptions & options = rclcpp::NodeOptions{});
   virtual ~NaoLolaClient() {}
 
 private:

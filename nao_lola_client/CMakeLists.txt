@@ -18,9 +18,16 @@ include_directories(
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_components REQUIRED)
 find_package(nao_lola_sensor_msgs REQUIRED)
 find_package(nao_lola_command_msgs REQUIRED)
 find_package(Boost COMPONENTS system program_options filesystem REQUIRED)
+
+set(THIS_PACKAGE_INCLUDE_DEPENDS
+  rclcpp
+  rclcpp_components
+  nao_lola_sensor_msgs
+  nao_lola_command_msgs)
 
 # build msgpack_parser_lib
 add_library(msgpack_parser_lib SHARED
@@ -40,15 +47,21 @@ ament_target_dependencies(msgpack_packer_lib
   nao_lola_command_msgs
   Boost)
 
-# build nao_lola_client
-add_executable(nao_lola_client
-  src/nao_lola_client_node.cpp
+# build nao_lola_client_node
+add_library(nao_lola_client_node SHARED
   src/nao_lola_client.cpp
   src/connection.cpp)
 
-target_link_libraries(nao_lola_client
+target_link_libraries(nao_lola_client_node
   msgpack_parser_lib
   msgpack_packer_lib)
+ament_target_dependencies(nao_lola_client_node rclcpp_components)
+
+rclcpp_components_register_node(nao_lola_client_node
+  PLUGIN "NaoLolaClient"
+  EXECUTABLE nao_lola_client)
+ament_export_targets(export_nao_lola_client HAS_LIBRARY_TARGET)
+ament_export_dependencies(${THIS_PACKAGE_INCLUDE_DEPENDS})
 
 # Install
 install(TARGETS
@@ -60,7 +73,7 @@ install(DIRECTORY include/
 )
 
 install(
-  TARGETS msgpack_parser_lib msgpack_packer_lib
+  TARGETS msgpack_parser_lib msgpack_packer_lib nao_lola_client_node
   EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
