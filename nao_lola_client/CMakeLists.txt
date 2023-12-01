@@ -28,7 +28,8 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
   rclcpp
   rclcpp_components
   nao_lola_sensor_msgs
-  nao_lola_command_msgs)
+  nao_lola_command_msgs
+  sensor_msgs)
 
 # build msgpack_parser_lib
 add_library(msgpack_parser_lib SHARED
@@ -53,12 +54,10 @@ add_library(nao_lola_client_node SHARED
   src/nao_lola_client.cpp
   src/connection.cpp
   src/conversion.cpp)
-
-ament_target_dependencies(nao_lola_client_node sensor_msgs)
 target_link_libraries(nao_lola_client_node
   msgpack_parser_lib
   msgpack_packer_lib)
-ament_target_dependencies(nao_lola_client_node rclcpp_components)
+ament_target_dependencies(nao_lola_client_node sensor_msgs rclcpp_components)
 
 rclcpp_components_register_node(nao_lola_client_node
   PLUGIN "NaoLolaClient"
