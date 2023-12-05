@@ -14,15 +14,17 @@
 
 #include <string>
 #include <memory>
+
 #include "nao_lola_client/nao_lola_client.hpp"
 #include "nao_lola_client/msgpack_parser.hpp"
-#include "conversion.hpp"
-#include "rcl_interfaces/msg/parameter_value.hpp"
+#include "rcl_interfaces/msg/parameter_descriptor.hpp"
+#include "rcl_interfaces/msg/parameter_type.hpp"
 #include "rcl_interfaces/msg/parameter_value.hpp"
 
+#include "conversion.hpp"
+
 NaoLolaClient::NaoLolaClient(const rclcpp::NodeOptions & options)
-: Node("NaoLolaClient", options),
-  stop_thread_(false)
+: Node("NaoLolaClient", options)
 {
   declareParameters();
   createPublishers();
@@ -31,7 +33,7 @@ NaoLolaClient::NaoLolaClient(const rclcpp::NodeOptions & options)
   // Start receive and send loop
   receive_thread_ = std::thread(
     [this]() {
-      while (rclcpp::ok() && !stop_thread_) {
+      while (rclcpp::ok()) {
         RecvData recvData;
         try {
           recvData = connection.receive();
@@ -57,8 +59,7 @@ NaoLolaClient::NaoLolaClient(const rclcpp::NodeOptions & options)
         battery_pub->publish(parsed.getBattery());
         robot_config_pub->publish(parsed.getRobotConfig());
 
-        if (publish_joint_states_)
-        {
+        if (publish_joint_states_) {
           auto joint_state = conversion::toJointState(parsed.getJointPositions());
           joint_state.header.stamp = this->now();
           joint_states_pub->publish(joint_state);
@@ -74,12 +75,6 @@ NaoLolaClient::NaoLolaClient(const rclcpp::NodeOptions & options)
         connection.send(packerCopy.getPacked());
       }
     });
-}
-
-NaoLolaClient::~NaoLolaClient()
-{
-  stop_thread_ = true;
-  receive_thread_.join();
 }
 
 void NaoLolaClient::createPublishers()
