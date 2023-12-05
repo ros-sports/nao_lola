@@ -38,7 +38,7 @@ std::array<char, MSGPACK_READ_LENGTH> Connection::receive()
   std::array<char, MSGPACK_READ_LENGTH> data;
   socket.receive(boost::asio::buffer(data), 0, ec);
   if (ec) {
-    RCLCPP_ERROR(logger, (std::string{"Could not read from LoLA: "} + ec.message()).c_str());
+    throw std::runtime_error(std::string{"Could not read from LoLA: "} + ec.message());
   }
   return data;
 }

@@ -15,6 +15,7 @@
 #ifndef NAO_LOLA_CLIENT__CONNECTION_HPP_
 #define NAO_LOLA_CLIENT__CONNECTION_HPP_
 
+#include <array>
 #include <string>
 #include "boost/asio.hpp"
 #include "rclcpp/logger.hpp"
@@ -22,11 +23,13 @@
 
 #define MSGPACK_READ_LENGTH 896
 
+using RecvData = std::array<char, MSGPACK_READ_LENGTH>;
+
 class Connection
 {
 public:
   Connection();
-  std::array<char, MSGPACK_READ_LENGTH> receive();
+  RecvData receive();
   void send(std::string data);
 
 private:
