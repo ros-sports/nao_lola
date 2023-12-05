@@ -52,11 +52,12 @@ class NaoLolaClient : public rclcpp::Node
 {
 public:
   explicit NaoLolaClient(const rclcpp::NodeOptions & options = rclcpp::NodeOptions{});
-  virtual ~NaoLolaClient() {}
+  ~NaoLolaClient();
 
 private:
   void createPublishers();
   void createSubscriptions();
+  void declareParameters();
 
   rclcpp::Publisher<nao_lola_sensor_msgs::msg::Accelerometer>::SharedPtr accelerometer_pub;
   rclcpp::Publisher<nao_lola_sensor_msgs::msg::Angle>::SharedPtr angle_pub;
@@ -87,11 +88,14 @@ private:
   rclcpp::Subscription<nao_lola_command_msgs::msg::HeadLeds>::SharedPtr head_leds_sub;
   rclcpp::Subscription<nao_lola_command_msgs::msg::SonarUsage>::SharedPtr sonar_usage_sub;
 
+  std::atomic<bool> stop_thread_;
   std::thread receive_thread_;
   Connection connection;
 
   MsgpackPacker packer;
   std::mutex packer_mutex;
+
+  bool publish_joint_states_;
 };
 
 #endif  // NAO_LOLA_CLIENT__NAO_LOLA_CLIENT_HPP_
