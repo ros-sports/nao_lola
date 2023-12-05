@@ -22,7 +22,7 @@
 namespace conversion
 {
 
-std::vector<std::string> joint_names = {
+static const std::vector<std::string> joint_names = {
   "HeadYaw",
   "HeadPitch",
   "LShoulderPitch",

@@ -19,6 +19,7 @@ include_directories(
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
+find_package(rcl_interfaces REQUIRED)
 find_package(nao_lola_sensor_msgs REQUIRED)
 find_package(nao_lola_command_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
@@ -57,7 +58,7 @@ add_library(nao_lola_client_node SHARED
 target_link_libraries(nao_lola_client_node
   msgpack_parser_lib
   msgpack_packer_lib)
-ament_target_dependencies(nao_lola_client_node sensor_msgs rclcpp_components)
+ament_target_dependencies(nao_lola_client_node rcl_interfaces sensor_msgs rclcpp_components)
 
 rclcpp_components_register_node(nao_lola_client_node
   PLUGIN "NaoLolaClient"

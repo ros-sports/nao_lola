@@ -52,7 +52,7 @@ class NaoLolaClient : public rclcpp::Node
 {
 public:
   explicit NaoLolaClient(const rclcpp::NodeOptions & options = rclcpp::NodeOptions{});
-  ~NaoLolaClient();
+  virtual ~NaoLolaClient() {}
 
 private:
   void createPublishers();
@@ -88,7 +88,6 @@ private:
   rclcpp::Subscription<nao_lola_command_msgs::msg::HeadLeds>::SharedPtr head_leds_sub;
   rclcpp::Subscription<nao_lola_command_msgs::msg::SonarUsage>::SharedPtr sonar_usage_sub;
 
-  std::atomic<bool> stop_thread_;
   std::thread receive_thread_;
   Connection connection;
 
