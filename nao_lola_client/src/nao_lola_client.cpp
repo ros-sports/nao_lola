@@ -59,9 +59,17 @@ NaoLolaClient::NaoLolaClient(const rclcpp::NodeOptions & options)
         battery_pub->publish(parsed.getBattery());
         robot_config_pub->publish(parsed.getRobotConfig());
 
+        auto stamp = now();
+
+        if (publish_imu_) {
+          auto imu = conversion::toImu(parsed.getAccelerometer(), parsed.getGyroscope());
+          imu.header.stamp = stamp;
+          imu_pub->publish(imu);
+        }
+
         if (publish_joint_states_) {
           auto joint_state = conversion::toJointState(parsed.getJointPositions());
-          joint_state.header.stamp = this->now();
+          joint_state.header.stamp = stamp;
           joint_states_pub->publish(joint_state);
         }
 
@@ -104,6 +112,10 @@ void NaoLolaClient::createPublishers()
 
   if (publish_joint_states_) {
     joint_states_pub = create_publisher<sensor_msgs::msg::JointState>("joint_states", 10);
+  }
+
+  if (publish_imu_) {
+    imu_pub = create_publisher<sensor_msgs::msg::Imu>("imu", 10);
   }
 
   RCLCPP_DEBUG(get_logger(), "Finished initialising publishers");
@@ -223,6 +235,17 @@ void NaoLolaClient::declareParameters()
     .set__description(
       "Whether to convert nao_lola sensor_msgs/JointPositions to sensor_msgs/JointState and "
       "publish it on topic 'joint_states'")
+    .set__read_only(true)
+  ).get<bool>();
+
+  publish_imu_ = declare_parameter(
+    "publish_imu", rclcpp::ParameterValue(true),
+    rcl_interfaces::msg::ParameterDescriptor()
+    .set__name("publish_imu")
+    .set__type(rcl_interfaces::msg::ParameterType::PARAMETER_BOOL)
+    .set__description(
+      "Whether to convert nao_lola sensor_msgs/JointPositions and nao_lola_sensor_msgs/Gyroscope to"
+      " sensor_msgs/Imu and publish it on topic 'imu'")
     .set__read_only(true)
   ).get<bool>();
 }
