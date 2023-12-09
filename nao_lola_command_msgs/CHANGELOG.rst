@@ -2,6 +2,9 @@
 Changelog for package nao_lola_command_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.1.1 (2023-08-23)
 ------------------
 

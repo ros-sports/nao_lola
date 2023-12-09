@@ -2,6 +2,14 @@
 Changelog for package nao_lola_client
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Publish imu and joint state messages. These features are enabled by default, but can optionally be disabled through the "publish_imu" and "publish_joint_states" parameters.
+* Modify nao_lola_client node to be an rclcpp component to allow composition.
+* Allow socket connection to retry until it connects, to allow nao_lola_client to be launched before the Lola agent itself. This is useful when bringing up simulation (eg. webots) after nao_lola_client.
+* Prevent segmentation faults caused by invalid JointPositions and JointStiffnesses incoming messages.
+* Contributors: Kenji Brameld, ijnek
+
 1.1.1 (2023-08-23)
 ------------------
 * revert msgpack-c commit to match those in the iron branch, because newer version of msgpack-c is crashing LoLA
