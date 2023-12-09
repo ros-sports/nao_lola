@@ -50,6 +50,36 @@ static const std::vector<std::string> joint_names = {
   "RHand",
 };
 
+sensor_msgs::msg::Imu toImu(
+  const nao_lola_sensor_msgs::msg::Accelerometer & accelerometer,
+  const nao_lola_sensor_msgs::msg::Gyroscope & gyroscope)
+{
+  sensor_msgs::msg::Imu imu;
+
+  // Frame id is set to the same as the accelerometer frame id. Technically, there is a very small
+  // difference between the accelerometer and gyroscope frame positions (2mm), but this is
+  // negligible.
+  imu.header.frame_id = "ImuTorsoAccelerometer_frame";
+
+  // Orientation is not available from the robot.
+  // The robot provides an AngleX and AngleY, but there is no easy way to store this in the imu msg.
+  // According to the documentation in sensor_msgs::msg::Imu.msg, if there is no orientation
+  // estimation, the orientation covariance should be set to -1.
+  imu.orientation_covariance[0] = -1;
+
+  // Linear Acceleration
+  imu.linear_acceleration.x = accelerometer.x;
+  imu.linear_acceleration.y = accelerometer.y;
+  imu.linear_acceleration.z = accelerometer.z;
+
+  // Angular Velocity
+  imu.angular_velocity.x = gyroscope.x;
+  imu.angular_velocity.y = gyroscope.y;
+  imu.angular_velocity.z = gyroscope.z;
+
+  return imu;
+}
+
 sensor_msgs::msg::JointState toJointState(
   const nao_lola_sensor_msgs::msg::JointPositions & joint_positions)
 {

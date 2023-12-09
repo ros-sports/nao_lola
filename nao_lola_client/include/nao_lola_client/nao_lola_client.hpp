@@ -46,6 +46,7 @@
 #include "nao_lola_command_msgs/msg/joint_stiffnesses.hpp"
 #include "nao_lola_client/connection.hpp"
 #include "nao_lola_client/msgpack_packer.hpp"
+#include "sensor_msgs/msg/imu.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
 
 class NaoLolaClient : public rclcpp::Node
@@ -73,6 +74,7 @@ private:
   rclcpp::Publisher<nao_lola_sensor_msgs::msg::Touch>::SharedPtr touch_pub;
   rclcpp::Publisher<nao_lola_sensor_msgs::msg::Battery>::SharedPtr battery_pub;
   rclcpp::Publisher<nao_lola_sensor_msgs::msg::RobotConfig>::SharedPtr robot_config_pub;
+  rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub;
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr joint_states_pub;
 
   rclcpp::Subscription<nao_lola_command_msgs::msg::JointPositions>::SharedPtr joint_positions_sub;
@@ -94,6 +96,7 @@ private:
   MsgpackPacker packer;
   std::mutex packer_mutex;
 
+  bool publish_imu_;
   bool publish_joint_states_;
 };
 

@@ -15,11 +15,18 @@
 #ifndef CONVERSION_HPP_
 #define CONVERSION_HPP_
 
+#include "nao_lola_sensor_msgs/msg/accelerometer.hpp"
+#include "nao_lola_sensor_msgs/msg/gyroscope.hpp"
 #include "nao_lola_sensor_msgs/msg/joint_positions.hpp"
+#include "sensor_msgs/msg/imu.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
 
 namespace conversion
 {
+
+sensor_msgs::msg::Imu toImu(
+  const nao_lola_sensor_msgs::msg::Accelerometer & accelerometer,
+  const nao_lola_sensor_msgs::msg::Gyroscope & gyroscope);
 
 sensor_msgs::msg::JointState toJointState(
   const nao_lola_sensor_msgs::msg::JointPositions & joint_positions);
