@@ -2,8 +2,8 @@
 Changelog for package nao_lola
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.2.0 (2023-12-09)
+------------------
 * Don't process JointPositions and JointStiffnesses message if message is invalid. This prevents segmentation faults.
 * Contributors: ijnek
 
