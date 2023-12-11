@@ -18,9 +18,16 @@
 #include <memory>
 #include <vector>
 #include "nao_lola_client/msgpack_packer.hpp"
-#include "msgpack.hpp"
+#include "msgpack/object.hpp"
+#include "msgpack/pack.hpp"
+#include "msgpack/adaptor/bool.hpp"
+#include "msgpack/adaptor/cpp11/array.hpp"
+#include "msgpack/adaptor/float.hpp"
+#include "msgpack/adaptor/map.hpp"
+#include "msgpack/adaptor/string.hpp"
+#include "msgpack/zone.hpp"
 #include "nao_lola_client/command_index_conversion.hpp"
-#include "rclcpp/rclcpp.hpp"
+#include "rclcpp/logging.hpp"
 
 std::string MsgpackPacker::getPacked()
 {

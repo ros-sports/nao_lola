@@ -17,7 +17,14 @@
 #include <vector>
 #include <map>
 #include <memory>
-#include "msgpack.hpp"
+#include "msgpack/object.hpp"
+#include "msgpack/adaptor/bool.hpp"
+#include "msgpack/adaptor/float.hpp"
+#include "msgpack/adaptor/map.hpp"
+#include "msgpack/adaptor/string.hpp"
+#include "msgpack/adaptor/vector.hpp"
+#include "msgpack/adaptor/vector_bool.hpp"
+#include "msgpack/unpack.hpp"
 #include "nao_lola_client/msgpack_packer.hpp"
 #include "nao_lola_command_msgs/msg/joint_positions.hpp"
 #include "nao_lola_command_msgs/msg/joint_stiffnesses.hpp"

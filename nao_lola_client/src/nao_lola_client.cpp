@@ -38,7 +38,7 @@ NaoLolaClient::NaoLolaClient(const rclcpp::NodeOptions & options)
         try {
           recvData = connection.receive();
         } catch (const std::runtime_error & e) {
-          RCLCPP_ERROR_SKIPFIRST_THROTTLE(get_logger(), *get_clock(), 1000, e.what());
+          RCLCPP_ERROR_STREAM_SKIPFIRST_THROTTLE(get_logger(), *get_clock(), 1000, e.what());
           continue;
         }
 

@@ -18,7 +18,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "msgpack.hpp"
+#include "msgpack/object.hpp"
 #include "nao_lola_sensor_msgs/msg/joint_currents.hpp"
 #include "nao_lola_sensor_msgs/msg/joint_positions.hpp"
 #include "nao_lola_sensor_msgs/msg/joint_stiffnesses.hpp"
