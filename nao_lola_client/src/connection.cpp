@@ -14,6 +14,9 @@
 
 #include <string>
 #include "nao_lola_client/connection.hpp"
+#include "rclcpp/clock.hpp"
+#include "rclcpp/logging.hpp"
+#include "rclcpp/utilities.hpp"
 
 #define ENDPOINT "/tmp/robocup"
 
@@ -25,9 +28,9 @@ Connection::Connection()
   do {
     socket.connect(ENDPOINT, ec);
     if (ec) {
-      RCLCPP_WARN_SKIPFIRST_THROTTLE(
+      RCLCPP_WARN_STREAM_SKIPFIRST_THROTTLE(
         logger, clock, 1000,
-        (std::string{"Could not connect to LoLA, retrying: "} + ec.message()).c_str());
+        "Could not connect to LoLA, retrying: " << ec.message());
     }
   } while (ec && rclcpp::ok());
 }

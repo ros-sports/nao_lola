@@ -15,6 +15,12 @@
 #include <vector>
 #include <map>
 #include <string>
+#include "msgpack/object.hpp"
+#include "msgpack/adaptor/float.hpp"
+#include "msgpack/adaptor/map.hpp"
+#include "msgpack/adaptor/string.hpp"
+#include "msgpack/adaptor/vector.hpp"
+#include "msgpack/unpack.hpp"
 #include "nao_lola_client/msgpack_parser.hpp"
 #include "nao_lola_client/lola_enums.hpp"
 #include "nao_lola_client/sensor_index_conversion.hpp"

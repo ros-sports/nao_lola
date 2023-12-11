@@ -19,7 +19,6 @@
 #include <string>
 #include "boost/asio.hpp"
 #include "rclcpp/logger.hpp"
-#include "rclcpp/rclcpp.hpp"
 
 #define MSGPACK_READ_LENGTH 896
 

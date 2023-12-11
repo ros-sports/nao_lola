@@ -17,6 +17,14 @@
 #include <map>
 #include <string>
 #include <memory>
+#include "msgpack/object.hpp"
+#include "msgpack/adaptor/float.hpp"
+#include "msgpack/adaptor/int.hpp"
+#include "msgpack/adaptor/vector.hpp"
+#include "msgpack/adaptor/map.hpp"
+#include "msgpack/adaptor/string.hpp"
+#include "msgpack/pack.hpp"
+#include "msgpack/zone.hpp"
 #include "nao_lola_client/msgpack_parser.hpp"
 #include "nao_lola_sensor_msgs/msg/joint_indexes.hpp"
 

@@ -18,7 +18,9 @@
 #include <thread>
 #include <memory>
 #include <mutex>
-#include "rclcpp/rclcpp.hpp"
+#include "rclcpp/node.hpp"
+#include "rclcpp/publisher.hpp"
+#include "rclcpp/subscription.hpp"
 #include "nao_lola_sensor_msgs/msg/joint_positions.hpp"
 #include "nao_lola_sensor_msgs/msg/joint_stiffnesses.hpp"
 #include "nao_lola_sensor_msgs/msg/joint_temperatures.hpp"
