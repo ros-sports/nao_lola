@@ -52,7 +52,7 @@ enum class Joint
   NUM_JOINTS
 };
 
-enum class Battery {Charge, Current, Status, Temperature};
+enum class Battery {Charge, Status, Current, Temperature};
 
 enum class Accelerometer {X, Y, Z};
 
